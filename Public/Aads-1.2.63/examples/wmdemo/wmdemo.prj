@@ -1,0 +1,31 @@
+; ----------------------------------------------------------
+; 		   Create WMDemo.Prg
+; ----------------------------------------------------------
+; 	FunShip - 1995 Falcon30, FRANCE
+;
+; ----------------------------------------------------------
+;
+; ----------------------------------------------------------
+
+WMDemo.prg							; name of executable program
+
+.C [-B-S-M]							; Processor 68000
+.L [-v]
+
+=								; list of modules follows...
+
+PCSTART.O							; startup code
+
+;	List of modules
+
+WMDemo.C (WMDemo_F.h)							; Main Program
+
+;	some pure library
+
+PCSTDLIB.LIB							; standard library
+PCEXTLIB.LIB							; extended library
+PCTOSLIB.LIB							; TOS library
+
+;	The Gem library AADS
+
+STAads.lib

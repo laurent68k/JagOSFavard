@@ -1,0 +1,381 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Laurent FAVARD">
+   <meta name="GENERATOR" content="Mozilla/4.7 [fr] (WinNT; I) [Netscape]">
+   <meta name="Description" content="Description de l'installation du kit.">
+   <title>Jaginstall</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="99%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER NOSAVE>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>&nbsp;</td>
+
+<td>
+<center><img SRC="jaguar/jagtitle.jpg" NOSAVE height=106 width=255>
+<br>
+<hr WIDTH="100%">
+<p><b><i><u><font color="#3366FF"><font size=+2>How to install the Jaguar
+Kit</font></font></u></i></b>
+<p><font color="#FF0000">Updated/Mise &agrave; jour , May 25,&nbsp; 2000</font></center>
+
+<p><b><u><font color="#3366FF">Introduction</font></u></b>
+<p><font color="#FF6600">This description is the same for BJL kit. So if
+you have already installed this one, you just need to change</font>
+<br><font color="#FF6600">the BJL Eprom to our JagOS Eprom, and look if
+you are happy with it. BJL is the kit of <a href="mailto:b.schick@enea.de">Bastian
+Shick</a>.</font><a href="http://rgpc72.gp.fht-esslingen.de/students/elw5basc/"></a>
+<p><font color="#FF6600">Bastian Schick&nbsp; </font><a href="http://rgpc72.gp.fht-esslingen.de/students/elw5basc/">http://rgpc72.gp.fht-esslingen.de/students/elw5basc/</a>
+<br><a href="http://rgpc72.gp.fht-esslingen.de/students/elw5basc/"></a>&nbsp;<a href="http://rgpc72.gp.fht-esslingen.de/students/elw5basc/"></a>
+<p><font color="#FF6600">Cette description est la m&ecirc;me que pour l'installation
+du Kit BJL. Si vous avez d&eacute;j&agrave; installl&egrave; ce kit, vous</font>
+<br><font color="#FF6600">pouvez alors simplement remplacer l'Eprom par
+celle de JagOS, et regarder si cela vous plait.</font>
+<p><b><u><font color="#3333FF">Copyright</font></u></b>
+<br>&nbsp;
+<p><font color="#FF6600">All pictures of Jaguar are property of Mattias
+Domin,&nbsp; <a href="mailto: Matthias.Domin@t-online.de">Matthias.Domin@t-online.de</a>,
+which allow me to use</font>
+<br><font color="#FF6600">them on this page. Thank you again Mattias !</font>
+<p><font color="#FF6600">Atari Lynx page: <a href="http://home.t-online.de/home/Matthias.Domin/lynx_eng.htm">http://home.t-online.de/home/Matthias.Domin/lynx_eng.htm</a></font>
+<br><font color="#FF6600">Atari Jaguar page: <a href="http://home.t-online.de/home/Matthias.Domin/jag_eng.htm">http://home.t-online.de/home/Matthias.Domin/jag_eng.htm</a></font>
+<p>
+<hr WIDTH="100%">
+<center>
+<p><b><u><font color="#3333FF">First part: JagOS Eprom installation</font></u></b></center>
+
+<p><b>This is on your own risk ! Don't blame me if anything goes wrong!</b>
+<br><b>If you're not experienced in soldering, stop here!</b>
+<p>You need:
+<ul>
+<li>
+an EPROM type 27c010 or 27c1001 (this is 128K x 8) / Une Eprom de 64 Ko
+minium ou 128 Ko</li>
+
+<li>
+a 32 pin DIL socket/ Un support DIL ou tulipes 32 broches</li>
+
+<li>
+a switch with 2 positions ( 3 contacts, 1 common and 2 others )/ Un interrupteur
+(commutateur) a deux positions (Un commun et 2 autres)</li>
+
+<li>
+&nbsp;two 4k7 resistors 1/4W/ Deux r&eacute;sistances 1/4 watts de 4700
+Ohms</li>
+
+<li>
+some wire/Un peu de fils pour r&eacute;aliser des connexions.</li>
+</ul>
+
+<p><br>
+<hr WIDTH="100%">
+<p>1)&nbsp;
+<br>Open your Jaguar console and remove the shield. Localize the Boot-ROM,
+it's near the power-plugin:
+<p>Ouvrez la console Jaguar , enlever le blindage metallique puis localisez
+l'emplacement de la ROM, proche
+<br>du connecteur d'limentation.
+<center>
+<p><img SRC="jaguar/install/start.jpg" NOSAVE height=288 width=352></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>2)
+<br>Cut /CE (pin 22) as close as possible to the PCB and bend it up:
+<br>Coupez soignement la broche du CI 22 (Signal /CE) , pres du circuit
+imprim&eacute; et relever la patte vers le CI.
+<center>
+<p><img SRC="jaguar/install/pin22up.jpg" NOSAVE height=288 width=352></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>3)&nbsp;
+<br>Solder a resistor at this pin and at pin 32 (Vcc), this pulls /CE up:
+<br>Souder une resistance entre la broche 22 du CI et l'alimentation Vcc
+en broche 32.
+<center>
+<p><img SRC="jaguar/install/resist1.jpg" NOSAVE height=288 width=352></center>
+
+<p>4)&nbsp;
+<br>Bend up the socket's pin 22:
+<br>Coupez au maximum la patte 22 du support, en laissant le point mettalique
+uniquement. Il s'agit d'isoler
+<br>cette patte de celle correspondante au CI.
+<center>
+<p><img SRC="jaguar/install/socket22.jpg" NOSAVE height=288 width=352></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>5)&nbsp;
+<br>Solder the socket onto the original ROM:
+<br>Poser le support sur la ROM Atari, et souder chaque patte sur celle
+de la ROM juste en face, sauf la 22
+<br>qui est dissoci&eacute;e du support.
+<br>Conseils: Pour &eacute;viter de chauffer la ROM, souder une broche
+puis une autre &eacute;loign&eacute;e de la premi&egrave;re et
+<br>ainsi de suite. cela &eacute;vitera de faire chauffer le quasi m&ecirc;me
+endroit de la ROM.
+<center>
+<p><img SRC="jaguar/install/socketon.jpg" NOSAVE height=288 width=352></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>6)&nbsp;
+<br>Solder the second resistor at pin 22 of the socket and at pin 32 of
+the ROM:
+<br>Souder une nouvelle r&eacute;sistance entre la broche 22 du support
+et la broche 32 de la ROM. Ensuite souder
+<br>un fils sur le reste de la broche 22 qui est le Circuit Imprim&eacute;.
+Faite attention a ne pas faire un pont de soudre
+<br>avec les deux pattes a cot&eacute; ou la broche 22 de la ROM.
+<center>
+<p><img SRC="jaguar/install/resist2.jpg" NOSAVE height=288 width=352></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>7)&nbsp;
+<br>Solder 3 wires to the switch, the main (which is switched) to the /CE
+on the PCB (don't make a short cut !) and the other two either to pin 22
+of the ROM and the socket.
+<p>Soudez&nbsp; le fils pr&eacute;c&eacute;dent sur la broche centrale
+du l'interrupteur &agrave; deux positions (commutateur). Ensuite soudez
+<br>deux nouveaux fils sur les deux autres broches de l'interrupteur, puis
+soudez leur extr&eacute;mint&eacute; sur la broche
+<br>22 de la ROM pour l'un, la broche 22 du support pour l'autre.
+<br>&nbsp;
+<p>8) Switch you Jaguar ON to test. In one position nothing should happen,
+in the other, it should boot normally.
+<p>Allumez la Jaguar pour faire un premier test. Dans une position de l'interrupteur
+rien ne se passera (Ecran noir),
+<br>l'autre position devrait alors la faire d&eacute;marrer normallement.
+<p>Normal boot-screen:
+<center><img SRC="jaguar/install/bootnorm.jpg" NOSAVE height=240 width=320></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>9)&nbsp;
+<br>If nothing happens, check all steps and check for short-cuts.
+<br>Si rien ne se passe vous avez peut &ecirc;tre provioquer un court-circuit.
+V&eacute;rifier toutes les &eacute;tapes
+<br>p&eacute;c&eacute;dentes et si il n'y a pas de pont de soudre entre
+des pattes du support ou de la ROM.
+<br>&nbsp;
+<p>10)&nbsp;
+<br>Burn the image JagOS.img at the very beginning of the ROM.
+<br>Si tout c'est bien pass&eacute;, faite programmer&nbsp; votre EPROM
+avec le fichier JagOS.img (Comme avec BJL),
+<br>&agrave; partir du tout d&eacute;but de l'Eprom.
+<p>11)&nbsp;
+<br>Insert your EPROM and switch your Jaguar on.
+<br>Ins&eacute;rez l'Eprom JaOS.img dans le support et tourner l'interrupteur
+pour le mettre en position ou vous aviez
+<br>l'&eacute;cran noir.
+<br>&nbsp;
+<p>12)&nbsp;
+<br>Everything is fine, if this screen appears.
+<br>Si tout est correct, vous devriez obtenir l'image suivante...
+<center>
+<p><img SRC="jaguar/jagdesk103.gif" NOSAVE height=235 width=344></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>13)&nbsp;
+<br>To be able to fix the switch you have now to cut a rectangle out of
+the metall-cage cover near the power plug:
+<br>Pour fixer l'interupteur, vous alez avoir besoin de d&eacute;couper
+un petit morceau du blindahe afin de lib&eacute;rer un espace.
+<center>
+<p><img SRC="jaguar/install/cagecut.jpg" NOSAVE height=288 width=352></center>
+
+<p>14)&nbsp;
+<br>Now drill a hole for the switch into the console cover near to the
+power plug. Here is a picture of a Jaguar with an additional reset key
+(the red one):
+<br>Mainteant percez la boitier afin de fixer l'interrupteur comme sur
+l'image. On peut voir &agrave; cot&eacute;, un poussoir RESET
+<br>suppl&eacute;mentaire...Bien utile !
+<center>
+<p><img SRC="jaguar/install/switches.jpg" NOSAVE height=288 width=352></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>15)&nbsp;
+<br>Prepare the cable and enjoy hacking the Jaguar. Here's a diagram of
+the cable connections (looking at the&nbsp;
+<br>soldering side):
+<br>Pr&eacute;parez pour finir le cable de connection, comme sur le sch&eacute;ma
+indiqu&eacute;. Les vues sont cot&eacute; soudre.
+<br>Il s'agit du m&ecirc;me cable que pour le Kit BJL.
+<center>
+<p><img SRC="jaguar/install/bjl_wire.gif" NOSAVE height=317 width=414>
+<p><font color="#FF0000">THAT'S ALL</font>
+<br><font color="#FF0000">C'EST TOUT</font></center>
+
+<p>
+<hr WIDTH="100%">
+<br><b><u><font color="#3333FF">First part: Reset button installation</font></u></b>
+<p><font color="#FF6600">This modification can be VERY usefull for reboot
+easily your Jaguar Console, instead of to switch it off and on.</font>
+<br>&nbsp;
+<p>
+<hr WIDTH="100%">
+<br><b><u><font color="#3333FF">Third part: Display rate 50/60 Hz switch</font></u></b>
+<p><font color="#FF6600">This modification is REQUIRED to get a correct
+dispaly with JagOS. In addition, if you want to play with somes games which
+want 60 Hz, like 'Dragon's lair', this button will be very usefull. I extract
+this follow from a classic FAQ Jaguar.</font>
+<p><font color="#FF6600">"The 50Hz/60Hz frame rate is set by soldering
+pads on the bottom of the&nbsp; Jaguar PCB.&nbsp; On an NTSC Jaguar, they're
+located on the bottom of&nbsp;</font>
+<br><font color="#FF6600">the PCB near the controller ports.&nbsp; The
+set labelled "R140" determines between 50Hz and 60Hz.&nbsp; Connect the
+two points for 50Hz, or leave</font>
+<br><font color="#FF6600">them disconnected for 60Hz, as follows: "</font>
+<p><font color="#FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<tt>60Hz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50Hz</tt></font>
+<br><tt><font color="#FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; o--o&nbsp;&nbsp;
+R135&nbsp;&nbsp;&nbsp; o--o</font></tt>
+<br><tt><font color="#FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; o&nbsp; o&nbsp;&nbsp;
+R136&nbsp;&nbsp;&nbsp; o&nbsp; o&nbsp;</font></tt>
+<br><tt><font color="#FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; o&nbsp; o&nbsp;&nbsp;
+R137&nbsp;&nbsp;&nbsp; o&nbsp; o&nbsp;</font></tt>
+<br><tt><font color="#FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; o&nbsp; o&nbsp;&nbsp;
+R140&nbsp;&nbsp;&nbsp; o--o</font></tt>
+<p><font color="#FF6600">"PAL Jaguars sold in Europe have the R140 pads
+connected with a zero ohm SMD resistor, which can be removed with a soldering
+iron.&nbsp; It is</font>
+<br><font color="#FF6600">possible to wire a switch to the points, allowing
+the Jaguar to be toggled between 50Hz/60Hz.&nbsp; This is mainly useful
+for PAL Jaguars to play&nbsp;</font>
+<br><font color="#FF6600">games at the original speed and screen resolution
+of the NTSC version."</font>
+<p>
+<hr SIZE=2>
+<br>&nbsp;
+<p><b><u><font color="#3333FF">Contact</font></u></b>
+<p><font color="#FF6600">Please contact us at <a href="mailto: atari@linux.utc.fr">atari@linux.utc.fr</a>
+for more informations.</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+</body>
+</html>

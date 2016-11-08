@@ -1,0 +1,64 @@
+JToolBox: Jaguar ToolBox programming.
+=====================================
+
+This a C Library foin order to use the jaguar inside 
+any program.
+
+
+Version 28/10/1998
+------------------
+
+Semaphore calls are now used anywhere in each procedures.
+I didn't test these with many programs or threads.
+
+Version 13/04/2000
+------------------
+
+Impl‚mentation de la liaison Centronics vers la Jaguar.
+A cette occasion, les m‚thodes GetPack, SendPack, GetFrame
+et SendFrame ont ete re‚crite en langage C.
+Elles semblent fonctionn‚es, puisque l'appel … Inquire
+vers la Jaguar a fonctionn‚.
+
+Le but un portage vers des machines Linux 68k, x86, etc...
+
+Version 25/04/2000
+------------------
+
+GetBinaries and SendBinaries are now in C language.
+Many important buggs are now fixed and the source C
+is more easily readable.
+
+Version 26/04/2000
+------------------
+
+Use JTB_xxx error code anywhere in the source code
+instead of TRUE or FALSE values. 
+Change a lot of signed long to signed int value.
+
+Version 4 May 2000
+==================
+
+Bug corrig‚ dans la r‚ception de donn‚es en provenance de la
+Jaguar. On ne pouvait telecharger plus de 448 Octets (!) a 
+cause du timeout qui annulait le transfert en erreur.
+
+Les trames commandes sont toujours limit‚es a un block de donn‚es
+de 1024 octets, tandis que les trames data, ont un block desormais
+de 32767 octets (tout comme JagOS evidement).
+
+Nouvelle fonction a tester JTB_StatusDev() qui retourne
+une info. si la Jaguar tente un echange de sa propre intiative.
+
+
+
+================================================
+FAVARD Laurent
+you can contact me at:
+
+laurent.favard@libertysurf.fr
+atari@linux.utc.fr
+http://perso.libertysurf.fr/lfavard/
+http://wwwlinux.utc.fr/~atari
+================================================
+

@@ -1,0 +1,37 @@
+This document describe how to run the Jaguar Kit from Favard.
+=============================================================
+
+1-Connect your cable beetween your Jaguar Joypad port #2 and 
+the Atari computer centronics port.
+
+2-Start your Atari computer.
+
+3-Start JagStudio. This one tell you that you can now turn
+ON your Jaguar. Do it.
+
+4-Start your Jaguar. if all is ok, you can use now your Jaguar.
+move the cursor with the joypad 1 direction button to check.
+
+5-You can press the Ok button of the dialog box.
+To check if all is ok, try to perform a "Ping JagOS" from
+the menu 'Jaguar' or press CTRL-P.
+
+if your Jaguar respond correctly, you should get a window
+with OS version and date, like:
+
+103			for JagOS V1.03
+12052000	for May 12, 2000
+
+Or press the Jaguar joypad 'B' button and you should get
+a string display into the window console and the Jaguar Status
+activated a little of time.
+
+That'all !
+
+NOTE:
+
+You can start your Atari and your Jaguar just after, before to start
+JagStudio, but it seems that sometines the Jaguar hang up...
+Perhaps a buggs !
+
+Laurent Favard

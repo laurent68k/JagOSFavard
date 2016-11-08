@@ -1,0 +1,24 @@
+JToolBox.Lib
+============
+
+This a C Library for use the jaguar inside your program.
+
+
+How to install and use it:
+==========================
+
+Copy Jtoolbox.h into your PureC include folder.
+
+Copy Jtoolbox.lib into your PureC lib folder.
+
+Copy Jtoolbox.hyp into your ST-Guide help folder.
+
+
+For all others C compilers you are allowed to re-compile it
+whitout ANY restrictions, just don't change functions name
+and parameters to keep compatible with a next release.
+
+
+FAVARD Laurent-30/09/1998
+l.favard@france2.fr
+

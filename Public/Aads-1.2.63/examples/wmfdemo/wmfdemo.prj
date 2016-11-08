@@ -1,0 +1,30 @@
+; ----------------------------------------------------------
+; 		   Create WMFDemo.Prg
+; ----------------------------------------------------------
+; 	FunShip - 1995 Falcon30, FRANCE
+;
+; ----------------------------------------------------------
+;		Window Menu Form Demo
+; ----------------------------------------------------------
+
+WMFDemo.prg							; name of executable program
+
+.C [-B-S-M]							; Processor 68000
+.L [-v]
+
+=								; list of modules follows...
+
+PCSTART.O							; startup code
+
+;	List of modules
+
+WMFDemo.C (WMFDemoF.h)							; Main Program
+
+;	some pure library
+
+PCSTDLIB.LIB							; standard library
+PCTOSLIB.LIB							; TOS library
+
+;	The Gem library AADS
+
+STAads.lib

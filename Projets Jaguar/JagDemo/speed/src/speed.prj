@@ -1,0 +1,32 @@
+; ----------------------------------------------------------
+; 		   Create Speed.Prg
+; ----------------------------------------------------------
+; 	FunShip - 1998 Falcon30, FRANCE
+;
+; ----------------------------------------------------------
+
+..\Speed.prg									; name of executable program
+
+.C [-B-S-M]									; Processor 68000
+.L [-v]
+
+=											; list of modules follows...
+
+PCSTART.O									; startup code
+
+;	List of modules
+
+Speed.C (Speed__F.h)						; Main Program
+Code.c	(Speed__F.h)						; Jag calls 
+
+;	some pure library
+
+PCSTDLIB.LIB								; standard library
+PCEXTLIB.LIB								; extended library
+PCTOSLIB.LIB								; TOS library
+PCFLTLIB.LIB
+
+;	The Gem library AADS
+
+STAads.lib
+JToolBox.lib

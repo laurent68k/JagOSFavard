@@ -1,0 +1,1485 @@
+##ACE-STGPAR 4 0348 
+@database "JagOS"
+@author "FAVARD Laurent"
+@$VER: JAGOS.HYP (@:"__DATE__")
+@subject "Documentation"
+@options "+z-s-j-d12"
+
+@node main "Contents"
+@symbol r Contents
+@{B}@{"Contents" ignore} @{0}
+@line 1 75 0 0 7
+
+
+	Foreword
+	Chapter 1:  Introduction to JagOS
+	Chapter 2:  Programming JagOS
+		Section 1.1 - Processors and Chips used
+		Section 1.2 - Trap system and reserved
+		Section 1.3 - Memory organization
+		Section 1.4 - Jaguar program structure
+	Chapter 3:  Operating System calls
+		Alphabetic order
+	Chapter 4:  Exceptions
+	Appendix A: Function by opcode
+	Appendix B: Examples
+	Appendix C: CCI format
+	Appendix D: Object list description
+	Appendix E: Frame informations
+	Bibliography
+	Contact
+
+
+@{B}Copyright FRANCE (c) 1996-1998 - FAVARD Laurent@{0}
+
+@endnode
+
+@node "Foreword"
+@{B}@{"Foreword" ignore} @{0}
+@line 1 75 0 0 7
+
+	Eighteen months have passed since i begun to design JagOS. When i
+started to write it, i didn't know enough about Jaguar and i can say 
+i though never finish it.
+
+
+	Today, JagOS is a reality and i think bring to you a good little work; 
+it is inevitable that a very young product like JagOS keep somes errors, or
+even don't have all what's you want, but i hope to develop it in the future
+and with your help and ideas to grow it.
+
+
+I want thanks Bastian Shick (German author of BJL), S‚bastien Favard for
+its good job about the extended Jaguar baard and my fiancee Laurence, 
+which provide me moral support and help me to don't let down.
+
+Thank to you, Atari friends users and developers, who made this work possible
+and i'm sure we continues it.
+
+
+										Favard Laurent, July 1998.
+
+@endnode
+
+@node "Chapter 1:"
+@{B}@{"Chapter 1 - Introduction JagOS98 For 64 bit Jaguar System" ignore} @{0}
+@line 1 75 0 0 7
+
+
+	@{U}Overview@{0}
+
+	
+	JagOS is a very small kernel which replace the original Atari boot ROM.
+Because the extended hardware now plug into your Jaguar, allow you to 
+upload any programs, you need a way to communicate with it from your 
+JagStudio or your own TOS program.
+
+
+	The new kernel allows especialy that. A set of system calls are able to
+etablish any transfers between the host computer TOS and the Jaguar, from
+a request of a TOS program or JagOS program.
+
+	JagOS hanles all communications problems, in the same time the Jaguar 
+ToolBox for the TOS side handles them too.
+	
+	
+	@{U}Features@{0}
+	
+	The mains features of JagOS are:
+	
+	- Communications capabilities (Memory transfer, commands, etc...)
+	
+	- Handles 68000 exceptions triggered by the Jaguar programs.
+	
+	- Set of functions to get part of memory, serial EEPROM.
+	
+	- Supplementary JagOS systems calls. 
+	
+	
+@endnode
+
+@node "Chapter 2:"
+@{B}@{"Chapter 2: Programming JagOS - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	JagOS isn't realy an operating system because it doesn't support 
+enough functions to permit you to write any programs easily. 
+In fact, JagOS is a small kernel which can provide mainly services
+for tha communication between the Jaguar and a Atari host computer.
+
+
+The description which follows show possible applications with JagOS:
+
+
+	- Programs which perform essentialy somes calculates like JPEG routines, 
+	Mathematicals calculates, etc...
+
+
+	- Programs which perform a lot of datas exchange with the host like 
+	an image viewer, a ramdisk, etc...
+
+
+	Otherwise, it is always possible to realize Games and other applications 
+with interface but under somes conditions.
+
+
+	In fact all applications could run under JagOS if somes rules are follows. 
+These rules are just to keep attention of memory use. Because JagOS isn't 
+able to protect its own memory and because it does exist somes games, 
+in somes cases, previous Jaguar programs will run but it will impossible to 
+use somes part or all JagOS at all.(They can scratch the kernel's 
+datas structures)
+
+@endnode
+
+@node "Section 1.1"
+@{B}@{"Processors and Chips used - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{U}JagOS use only the following devices:@{0}
+
+	-	The 68000 processor.
+
+	-	The Object processor to display the objects list.
+
+	- 	The Vertical Blank interrupt, to fit its objects list at a 
+	periodical 	speed rate. (Vector 100.w)
+
+	You could change it, but note this handler compute some internals counters 
+	and update periodicaly the Reference objects list required by the OP at 
+	each VBL. 	
+
+	-	The 68000 trap number 0 which contains all systems calls. 
+	
+	Trap 1 up to 2 are @{B}reserved@{0}.
+
+
+@endnode
+
+
+@node "Section 1.2"
+@{B}@{"Trap system and reserved - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	
+	- Trap #0 named @{B}SYSTEM@{0} contains all systems calls.
+
+	- Trap #1 is reserved.
+
+	- Trap #2 is reserved.
+
+	- Trap #3 is reserved.
+
+	- Trap #4 up to 15 are @{B}free@{0} for programmers.
+
+@endnode
+
+@node "Section 1.3"
+@{B}@{"Memory organization - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	The very important thing to know is the memory map used by JagOS. If you're 
+agree with it, any programs you'll design, could perform JagOS system call 
+during execution.
+
+	The first 20Kb of memory under the $5000 and the 256Kb of memory after 
+$1C000 are reservedby JagOS. 
+
+	The first location contains all variables and internal datas structures, 
+the second contains the displayables bitmaps and supervisor stack system. 
+The stack size is 64Kb.
+
+So all memory between @{B}$5000 up to $1C000@{0} is absolutly free.
+
+	JagOS always run in supervisor mode and never use the user stack pointer.
+
+@endnode
+	
+
+@node "Section 1.4"
+@{B}@{"Jaguar program structure - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+
+	There is no rules to write a Jaguar program. You can assemble your 
+source as a normal .PRG or as .JAG like with the Roine Steinberg solution. 
+You can even convert it in .IMG format, or in fact in any format you want, 
+because JagStudio recognize JAGR, JAGL and when it doesn't know it will ask
+to you the required informations to perform a correct download.
+
+
+	Currently i suggest you to use the JAGR number 3 (word) format even 
+if the code number won't be used anyway. 
+
+Example:	A simple program under JagOS
+
+		
+			include		"sysapi.inc"
+
+		
+			OUTPUT		User-1.Jag
+
+			OPT	D-						;	No debugging
+
+			dc.b		'JAGR'			;	Magic to skip Devpac Header.
+			dc.w		3				;	JagOS 3 - Receive & Run ==> @{B}Not used by JagStudio@{0}
+			dc.l		$5000			;	Upload adress.
+			dc.l		C_END-C_Start	;	Lenght of Jaguar Code.
+			dc.l		$5000			;	Start address code
+	
+	
+			TEXT
+			Org			$5000
+			
+C_Start:	
+			; Here your code
+			...
+
+			; Quit and return to JagOS
+			move.w		#PTERM,-(sp)
+			trap		#SYSTEM
+			
+
+			DATA
+			EVEN 			
+
+			...
+
+C_END:		
+			End
+
+
+@endnode
+
+@node "Chapter 3:"
+@{B}@{"Chapter 3: Operating System calls - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{U}SYSTEM function calling procedure@{0}
+
+	@{B}SYSTEM@{0} functions are called via the trap #0 exception. Function 
+arguments are pushed onto the supervisor stack only in reverse order 
+folowed by the function opcode. 
+The calling application is responsible for resetting the stack pointer after 
+the call.
+
+	The @{B}SYSTEM@{0} may utilize all registers and their contents are saved
+and restored. 
+Only d0 is never saved because it could contains a return value (Depending 
+of system call).
+
+
+	The following example for @{B}DBMSG@{0} illustrates calling the @{B}SYSTEM@{0} 
+from assembly language:
+
+			...
+			pea.l		String(pc)		
+			move.w		#DBMSG,-(sp)
+			trap		#SYSTEM
+			addq.l		#6,sp
+
+			DATA
+			EVEN 			
+
+String:		dc.b		"Hi, an example of DBMSG",0
+
+
+	@{U}Calling the SYSTEM from an interrupt@{0}
+
+System calls are re-entrants with only the stack as real limit. Therefore, it 
+could be possible to use these calls in any part of your code. The exception
+is for the communication calls because you cannot interrupt these calls when
+they accesses to extended board.
+
+@endnode
+
+@node "Alphabetic"
+@{B}@{"List of Operating System calls - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+		List of system functions by alphabetic order.
+
+		DBMSG
+		DISABLE_IMAGE
+		ENABLE_IMAGE
+		EX_CARTRIDGE
+		GET_JOYPAD
+		GETDATA
+		GETVERSION
+		HOSTCONNECTED
+		INITOP
+		UNPACK
+		MAKEOBJLIST
+		MEMSIZE
+		MOVE_OBJECT
+		OSRESET
+		PTERM
+		READEPROM
+		RESETEPROM
+		SENDDATA
+		SETICONPRG
+		SETPOINTER
+		USER1MSG
+		VIDEORATE
+		WAITSYNC
+		WINDGET
+		WRITEEPROM
+
+@endnode
+
+@node "DBMSG"
+@{B}@{"DBMSG() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}long	DBMSG( char *Message )@{0}
+
+
+				DBMSG send a string to the host computer. The string must be terminated with a '\0' 
+			characters and don't exceeds the command frame datas lenght.
+
+@{B}OPCODE@{0}		0x00
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	Message is a pointer to a string of characters.
+
+@{B}BINDINGS@{0}	pea.l		String(pc)		
+			move.w		#DBMSG,-(sp)
+			trap		#SYSTEM
+			addq.l		#6,sp
+			...
+
+			DATA
+			
+			String:		dc.b		"A string send with DBMSG to the host",0
+
+@{B}RETURN@{0}	Return no value and d0 is scratched.
+
+@{B}SEE ALSO@{0}	USER1MSG, Appendix E about Frame
+
+@endnode
+
+
+@node "DISABLE_IMAGE"
+@{B}@{"DISABLE_IMAGE() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}long	DISABLE_IMAGE( void *Object )@{0}
+
+
+				DISABLE_IMAGE modify the bitmap address stored into any object. It will add
+			an offset of 2048 bytes	to the current bitmap address stored into an object. 
+
+@{B}OPCODE@{0}		0x04
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	Address of the object.
+
+@{B}BINDINGS@{0}	move.l		AdrObject,-(sp)
+			move.w		#DISABLE_IMAGE,-(sp)
+			trap		#SYSTEM
+			addq.l		#6,sp
+			...
+
+
+@{B}RETURN@{0}	Return always True (1).
+
+@{B}COMMENT@{0}		Under IagOS it is possible to use bitmaps of 32x64 pixels 
+			which contains two images. 
+			The first could display a state called 'enable' and the second 'disable'. In the
+			object list, the object processor will display the first if the object has been define
+			with a height of 32 and width of 32. This function, will change the start image address
+			to show simply the second.
+
+@{B}SEE ALSO@{0}	ENABLE_IMAGE()
+
+@endnode
+
+@node "ENABLE_IMAGE"
+@{B}@{"ENABLE_IMAGE() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}long	ENABLE_IMAGE( void *Object )@{0}
+
+
+				ENABLE_IMAGE modify the bitmap address stored into any object. It will substract 
+			an offset of 2048 bytes to the current bitmap address stored into an object. 
+
+@{B}OPCODE@{0}		0x00
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	Address of the object.
+
+@{B}BINDINGS@{0}	move.l		AdrObject,-(sp)
+			move.w		#ENABLE_IMAGE,-(sp)
+			trap		#SYSTEM
+			addq.l		#6,sp
+			...
+
+
+@{B}RETURN@{0}	Return always @{B}TRUE (1)@{0}.
+
+@{B}COMMENT@{0}		Under IagOS it is possible to use bitmaps of 32x64 pixels which contains two images. 
+			The first could display a state called 'enable' and the second 'disable'. if the
+			object processor currently display the second, so this function, will change the 
+			start image address to show thye first.
+
+@{B}SEE ALSO@{0}	DISABLE_IMAGE()
+
+@endnode
+
+@node "EX_CARTRIDGE"
+@{B}@{"EX_CARTRIDGE() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}long	EX_CARTRIDGE( void )@{0}
+
+
+				EX_CARTRIDGE will start the program stored into the cartridge. After
+			this call no JagOS return is possible unlike a hardware reset.
+
+@{B}OPCODE@{0}		0x00
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	Address of the object.
+
+@{B}BINDINGS@{0}	move.w		#EX_CARTRIDGE,-(sp)
+			trap		#SYSTEM						; never return
+			illegal
+			...
+
+
+@{B}RETURN@{0}	None.
+
+@{B}SEE ALSO@{0}	OSRESET()
+
+@endnode
+
+@node "GET_JOYPAD"
+@{B}@{"GET_JOYPAD() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long GET_JOYPAD( long JoyPadEdge[2], long JoyPadState[2] )@{0}
+
+
+				GET_JOYPAD will return the status and if any change was occured between
+			the previous state the new state (Edge) for the Joypad 1 & 2.
+			It will fit two smalls arrays of each two longs.
+
+@{B}OPCODE@{0}		0x06
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}JoyPadEdge[2]@{0}	Positive edge buttons.
+					@{I}JoyPadState[2]@{0}	Status buttons
+
+@{B}BINDINGS@{0}	move.l		#JoyPad1State,-(sp)
+			move.l		#JoyPad1Edge,-(sp)							
+			move.w		#GET_JOYPAD,-(sp)
+			trap		#SYSTEM
+			add.l		#10,sp
+			...
+
+			BSS
+			EVEN
+	
+			JoyPad1Edge:	ds.l	1				; Joypad 1 buttons's edges
+			JoyPad2Edge:	ds.l	1				; Joypad 2 buttons's edges
+			JoyPad1State:	ds.l	1				; Joypad 1 buttons's status						
+			JoyPad2State:	ds.l	1				; Joypad 2 buttons's status
+
+
+@{B}RETURN@{0}	Always return @{B}TRUE (1)@{0}.
+
+@endnode
+
+@node "GETDATA"
+@{B}@{"GETDATA() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long GETDATA( long TPID, void *Buffer, unsigned long Count )@{0}
+
+
+				GETDATA will ask to the host to send a memory block to the
+			Jaguar. The host can accept or deny this transfer.
+
+BUGGY in July version ->> never return true or false.
+BUGGY a DBMSG is always present into the code.
+
+@{B}OPCODE@{0}		0x01
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}Count@{0} is the number of bytes to get from the host.
+			@{I}Buffer@{0} is the address of a buffer to store the datas.
+			@{I}TPID@{0} is the host process which will send the datas. Currently
+			it must be TOOLBOX_PID ($48484848).
+
+@{B}BINDINGS@{0}	move.l		#Count,-(sp)
+			move.l		#Buffer,-(sp)
+			move.l		#TOOLBOX_PID,-(sp)
+			move.w		#GETDATA,-(sp)
+			trap		#SYSTEM
+			add.l		#14,sp
+
+			...
+
+			BSS
+			EVEN
+	
+			Buffer:		ds.l	512
+
+
+@{B}RETURN@{0}	return @{B}TRUE (1)@{0} if the host has accept and send datas, @{B}FALSE (0)@{0}
+			otherwise.
+
+@{B}SEE ALSO@{0}	GETDATA()
+
+
+@endnode
+
+@node "GETVERSION"
+@{B}@{"GETVERSION() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long GETVERSION( void )@{0}
+
+
+				GETVERSION will return the address of the OS header which contains somes
+			informations.
+
+@{B}OPCODE@{0}		0x11
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#GETVERSION,-(sp)
+			trap		#SYSTEM
+			add.l		#2,sp
+
+			
+@{B}RETURN@{0}	d0 will contains the address of OS header informations.
+			The header is defined as follow:
+
+			dc.b		"_JAG"				;	OS header mark
+			dc.w		_SystemVersion
+			dc.w		_HardwareVersion
+			dc.l        _SystemDate
+     		dc.l        _HardwareDate
+
+@endnode
+
+@node "HOSTCONNECTED"
+@{B}@{"HOSTCONNECTED() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long HOSTCONNECTED( void )@{0}
+
+
+				HOSTCONNECTED will check if the host computer is connected via the extended board.
+
+@{B}OPCODE@{0}		0x10
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#HOSTCONNECTED,-(sp)
+			trap		#SYSTEM
+			add.l		#2,sp
+
+			
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} is connected @{B}FALSE (0)@{0} otherwise.
+
+@endnode
+
+@node "INITOP"
+@{B}@{"INITOP() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long INITOP( void *DisplayableList_Ptr, void *ReferenceList_Ptr )@{0}
+
+
+				INITOP initialize the displayable object list, the Object Processor,
+			VI register and install the system VBLANK routine.
+
+@{B}OPCODE@{0}		0x08
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}ReferenceList_Ptr@{0} is the pointer where it stored the reference object list
+			made with MAKEOBJLIST().
+					@{I}DisplayableList_Ptr@{0} is the pointer where will be copied the ReferenceList_Ptr
+			to fit the Object Processor.
+
+@{B}BINDINGS@{0}	move.l		ReferenceList_Ptr,-(sp)
+			move.l		DisplayableList_Ptr,-(sp)
+			move.w		#INITOP,-(sp)
+			trap		#SYSTEM
+			add.l		#10,sp
+
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	This call perform many initializations as, copied the reference object list to the
+			displayable object list, intialize the VI registers for the VBLANK interrupt and set the
+			VBLANK interrupt vector.	
+
+@{B}CAVEATS@{0}	This call cannot be used by the programmer currently and is reserved.
+
+@endnode
+
+@node "SENDDATA"
+@{B}@{"SENDDATA() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long SENDDATA( long TPID, void *Buffer, unsigned long Count )@{0}
+
+
+				SENDDATA will ask to the host to send a memory block to the
+			Jaguar. The host can accept or deny this transfer.
+
+BUGGY in July version ->> never return true or false.
+
+@{B}OPCODE@{0}		0x02
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}Count@{0} is the number of bytes to send to the host.
+			@{I}Buffer@{0} is the address of the buffer to send.
+			@{I}TPID@{0} is the host process which will get the datas. Currently
+			it must be TOOLBOX_PID ($48484848).
+
+@{B}BINDINGS@{0}	move.l		#Count,-(sp)
+			move.l		#Buffer,-(sp)
+			move.l		#TOOLBOX_PID,-(sp)
+			move.w		#SENDDATA,-(sp)
+			trap		#SYSTEM
+			add.l		#14,sp
+
+			...
+
+			DATA
+			EVEN
+	
+			Buffer:		dc.b	"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+
+@{B}RETURN@{0}	return TRUE if the host has accept and take datas, False otherwise.
+
+@{B}SEE ALSO@{0}	SENDDATA()
+
+@endnode
+
+@node "UNPACK"
+@{B}@{"UNPACK() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long UNPACK( void *AddressUnpack, unsigned long Count, void *AddressPack )@{0}
+
+
+				UNPACK unpack a datas block compressed in .CCI format.
+
+@{B}OPCODE@{0}		0x03
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}AddressPack@{0} is the pointer to a packed datas block.
+			@{I}Count@{0} is the packed block's lenght.
+			@{I}AddressUnpack@{0} where will be unpacked the block.
+
+@{B}BINDINGS@{0}	move.l		#AddressPack,-(sp)			; Source packed bitmap
+			move.l		#Count,-(sp)				; packed datas's size
+			move.l		#AddressUnpack,-(sp)		; Target to unpack
+			move.w		#UNPACK,-(sp)
+			trap		#SYSTEM
+			add.l		#14,sp
+
+	
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	CCI format is a very simple compressed format understand by JagOS. This call
+			provide a very esay way to use and provide to the Kernel any pictures.
+			UNPACK() have a very quick execution, because work with a simple loop whitout
+			heavy calculates.
+			
+@{B}SEE ALSO@{0}	MAKEOBJLIST, SETICONPRG, SETPOINTER, CCI format()
+
+@endnode
+
+MAKEOBJLIST
+@node "MAKEOBJLIST"
+@{B}@{"MAKEOBJLIST() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long MAKEOBJLIST( void *DisplayableList_Ptr, void *ReferenceList_Ptr, void *ObjListSource )@{0}
+
+
+				MAKEOBJLIST build an object list for the Object Processor.
+
+@{B}OPCODE@{0}		0x03
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}ObjListSource@{0} is the pointer to the object list source description.
+			@{I}ReferenceList_Ptr@{0} is the pointer to the reference list.
+			@{I}DisplayableList_Ptr@{0} is the pointer to the displayable list which fit the OP.
+
+@{B}BINDINGS@{0}	move.l		#ObjListSource,-(sp)
+			move.l		ReferenceList_Ptr,-(sp)
+			move.l		DisplayableList_Ptr,-(sp)
+			move.w		#MAKEOBJLIST,-(sp)
+			trap		#SYSTEM
+			add.l		#14,sp
+
+
+	
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	This call will parse the @{I}object list source description@{0} and build two
+			reals object lists, one as reference and other one as ready to use displayable.
+			The source description use a way to describe each objects as it is show at Appendix D.
+			
+@{B}CAVEATS@{0}		All objects aren't supported in this version, only the @{B}Bitmaps@{0}, @{B}Scaled bitmaps@{0}
+			and @{B}Stop@{0} objects are processed. GPU and Branch Objects will be in a next realease perhaps.
+
+@{B}SEE ALSO@{0}	INITOP, UNPACK, CCI format()
+
+@endnode
+
+@node "MEMSIZE"
+@{B}@{"MEMSIZE() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}long MEMSIZE( void )@{0}
+
+
+				MEMSIZE will check the size of memory into the Jaguar.
+
+@{B}OPCODE@{0}		0x0F
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#HOSTCONNECTED,-(sp)
+			trap		#SYSTEM
+			add.l		#2,sp
+
+			
+@{B}RETURN@{0}	Return @{B}RAM_2MB (2)@{0} or @{B}RAM_4MB (4)@{0}.
+
+@{B}COMMENT@{0}	Currently Jaguar system can handle 2 or 4 Mb of RAM memory but Jaguar
+			contains 2 Mb generally.
+		
+
+@endnode
+
+@node "MOVE_OBJECT"
+@{B}@{"MOVE_OBJECT() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void MOVE_OBJECT( signed long X_Offset, signed long Y_Offset, void *Object )@{0}
+
+
+				MOVE_OBJECT will affect the position of any object.
+
+@{B}OPCODE@{0}		0x05
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}Object@{0} is the object'address to affect.
+			@{I}Y_Offset@{0} is Y horizontal position offset to add.
+			@{I}X_Offset@{0} is X vertical position offset to add.
+
+
+@{B}BINDINGS@{0}	move.l		Object,-(sp)
+			move.l		#Y_Offset,-(sp)
+			move.l		#X_Offset,-(sp)
+			move.w		#MOVE_OBJECT,-(sp)
+			trap		#SYSTEM
+			add.l		#14,sp
+
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	MOVE_OBJECT will add the X and Y offset paramters to the current 
+			X and Y object's position.
+		
+
+@endnode
+
+@node "OSRESET"
+@{B}@{"OSRESET() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void OSRESET( void )@{0}
+
+
+				OSRESET will reset the kernel and re-start it.
+
+@{B}OPCODE@{0}		0x17
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#OSRESET,-(sp)
+			trap		#SYSTEM
+			add.l		#2,sp
+
+			
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} is connected @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	This will reset the Video Processor, OP, size of memory, kernel datas,
+			extended board and all exceptions vectors.
+
+@{B}CAVEATS@{0}	The free memory available for the programmer isn't fill with any value
+			and keep all datas which could be presents before you do OSRESET().
+
+@endnode
+
+@node "PTERM"
+@{B}@{"PTERM() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void PTERM( void )@{0}
+
+
+				PTERM will terminate the current process running and return under JagOS control.
+
+@{B}OPCODE@{0}		0x17
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#PTERM,-(sp)
+			trap		#SYSTEM				; never return
+
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	This will terminate your current program and go back to JagOS.
+
+@{B}CAVEATS@{0}	PTERM don't perform only a simple termination but restore VI register, 
+			system object list and VBLANK interrupt vector. Thus, all registers are restored
+			includes stack pointers.
+
+@endnode
+
+@node "READEPROM"
+@{B}@{"READEPROM() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void READEPROM( void *Buffer, int AdrEprom, int Count )@{0}
+
+
+				READEPROM will get the contain of the cartridge's serial EEPROM.
+
+@{B}OPCODE@{0}		0x0C
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#Count,-(sp)			; Bytes number to read
+				move.w		#AdrEprom,-(sp)		; Start address EEPROM							
+				move.l		Buffer,-(sp)			; Address to store the bytes							
+				move.w		#READEPROM,-(sp)
+				trap		#SYSTEM
+				add.l		#10,sp
+
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	This will read Count bytes from the start Eprom address AdrEprom and
+			store them into the Buffer.
+
+@{B}CAVEATS@{0}	@{B}Count@{0} must be always less or equal to 128, because the serial Eeprom have
+			a capacity of 128 bytes. Therefore, @{B}AdrEprom@{0} must be always between 0 to 128.
+
+@{B}SEE ALSO@{0}	WRITEEPROM(), RESETEPROM()
+
+@endnode
+
+
+@node "WRITEEPROM"
+@{B}@{"WRITEEPROM() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void WRITEEPROM( void *Buffer, int AdrEprom, int Count )@{0}
+
+
+				WRITEEPROM will write into the cartridge's serial EEPROM.
+
+@{B}OPCODE@{0}		0x0C
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#Count,-(sp)			; Bytes number to write
+				move.w		#AdrEprom,-(sp)			; Start address EEPROM							
+				move.l		Buffer,-(sp)			; Address of the bytes to write
+				move.w		#WRITEEPROM,-(sp)
+				trap		#SYSTEM
+				add.l		#10,sp
+
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	This will write @{I}Count@{0} bytes from the start Eprom address @{I}AdrEprom@{0} 
+			from the Buffer contain.
+
+@{B}CAVEATS@{0}	@{I}Count@{0} must be always less or equal to 128, because the serial Eeprom have
+			a capacity of 128 bytes. Therefore, @{I}AdrEprom@{0} must be always between 0 to 128.
+
+@{B}SEE ALSO@{0}	READEPROM(), RESETEPROM()
+
+@endnode
+
+@node "RESETEPROM"
+@{B}@{"RESETEPROM() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void RESETEPROM( void )@{0}
+
+
+				RESETEPROM will reset the cartridge serial EEPROM.
+
+@{B}OPCODE@{0}		0x0C
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#RESETEPROM,-(sp)
+				trap		#SYSTEM
+				add.l		#10,sp
+
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}SEE ALSO@{0}	READEPROM(), WRITEEPROM()
+
+@endnode
+
+@node "SETPOINTER"
+@{B}@{"SETPOINTER() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void SETPOINTER( int Index, void *Address, int Lenght )@{0}
+
+
+				SETPOINTER will change the current pointer.
+
+@{B}OPCODE@{0}		0x0A
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}Lenght@{0} is the bitmap's lenght packed in CCI format.
+			@{I}Address@{0} is the bitmap's address to display.
+			@{I}Index@{0} is the cursor index.
+
+			@{B}Index@{0}	@{B}value@{0}	@{B}Meaning@{0}
+
+			ARROW			0				Arrow bitmap
+			BUSY			1				Busey bee bitmap
+			USER_MOUSE		255				User define bitmap
+
+
+@{B}BINDINGS@{0}	move.w		#Lenght,-(sp)				; Lenght of packed datas
+			move.l		#Address,-(sp)						; Address of packed CCI bitmap
+			move.w		#Index,-(sp)						; Command to say it is an user cursor
+			move.w		#SETPOINTER,-(sp)
+			trap		#SYSTEM
+			add.l		#10,sp
+
+		
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}		When you use the @{B}USER_MOUSE@{0} definition, you should provide a packed bitmap
+			of 24x24 pixels in 16 bits mode.
+
+@{B}CAVEAT@{0}		You must always provide a bitmap of 24x24 pixels in 16 bits, because the cursor object
+			is in CRY mode 16 Bits with a such height and width.
+
+@{B}SEE ALSO@{0}	UNPACK(), SETICONPRG(), CCI format
+
+@endnode
+
+@node "SETICONPRG"
+@{B}@{"SETICONPRG() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void SETICONPRG( void *Address, int Lenght )@{0}
+
+
+				SETICONPRG will change program icon currently displaying at the left top of
+			screen.
+
+@{B}OPCODE@{0}		0x12
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}Lenght@{0} is the bitmap's lenght packed in CCI format.
+			@{I}Address@{0} is the bitmap's address to display.
+
+
+@{B}BINDINGS@{0}	move.w		#Lenght,-(sp)							
+			move.l		#Address,-(sp)							
+			move.w		#SETICONPRG,-(sp)
+			trap		#SYSTEM
+			addq.l		#8,sp
+
+		
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}		To show that your program is running, you can display a particular icon. You need
+			to pass a bitmap in 16 bits CRY mode packed in CCI format of 32x32 pixels.
+
+@{B}CAVEAT@{0}		You must always provide a bitmap of 32x32 pixels in 16 bits, because the icon program
+			object is in CRY mode 16 Bits with a such height and width.
+
+@{B}SEE ALSO@{0}	UNPACK(), SETPOINTER(), CCI format
+
+@endnode
+
+@node "USER1MSG"
+@{B}@{"USER1MSG() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void USER1MSG( void *Buffer, int Lenght )@{0}
+
+
+				USER1MSG send a free command to the host with a data block parameter.
+
+@{B}OPCODE@{0}		0x12
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{I}Lenght@{0} is the bitmap's lenght packed in CCI format.
+			@{I}Buffer@{0} is buffer which contains .
+
+
+@{B}BINDINGS@{0}				move.w		#Lenght,-(sp)
+			pea.l		Buffer(pc)	
+			move.l		#TOOLBOX_PID,-(sp)	
+			move.w		#USER1MSG,-(sp)
+			trap		#SYSTEM
+			add.l		#12,sp
+
+
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}		Permit you to send a command to the host which ignore it.
+			A data block can be attached to transmit any informations you want. The block size 
+			must don't exceeds the command frame datas lenght.
+
+@{B}CAVEAT@{0}		JToolbox will ignore this frame and don't perform anything. This command is
+			given to your application to process your personnal job.
+
+@{B}SEE ALSO@{0}	DBMSG(), Appendix E about Frame
+
+@endnode
+
+@node "VIDEORATE"
+@{B}@{"VIDEORATE() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void OSRESET( void )@{0}
+
+
+				VIDEORATE will return the current video rate.
+
+@{B}OPCODE@{0}		0x0E
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#VIDEORATE,-(sp)
+			trap		#SYSTEM
+			add.l		#2,sp
+
+			
+@{B}RETURN@{0}	Return @{B}VIDEO_PAL@{0} for PAL @{B}VIDEO_NTSC@{0} for NTSC.
+
+			@{B}Index@{0}	@{B}value@{0}	@{B}Meaning@{0}
+
+			VIDEO_PAL		50				50 Hz monitor
+			VIDEO_NTSC		60				60 Hz monitor
+
+@{B}COMMENT@{0}	The video rate is destected at the start up of th Jaguar. any
+			change will came after cannot be handle.
+
+@endnode
+
+@node "WAITSYNC"
+@{B}@{"WAITSYNC() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void WAITSYNC( void )@{0}
+
+
+				WAITSYNC will wait the next Vertical blank and return after.
+
+@{B}OPCODE@{0}		0x0E
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#WAITSYNC,-(sp)
+			trap		#SYSTEM
+			add.l		#2,sp
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	This function permit you to synchronize to the vertical interrupt.
+
+@endnode
+
+@node "WINDGET"
+@{B}@{"WINDGET() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void WAITSYNC( int Windhandle, int Command, int *x, int *y, int *w, int *h )@{0}
+
+
+				WINDGET will wait the next Vertical blank and return after.
+
+@{B}OPCODE@{0}		0x15
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	@{B}Command@{0} specify what's operation to perform.
+
+			@{B}Command@{0}	@{B}value@{0}	@{B}Meaning@{0}
+
+			W_WORKXYWH		1				Get current work area positions and size
+			W_CURRXYWH		2				Get current window positions and size
+			W_WORKBUFF		3				Get start address of window bitmap
+			W_CURRBUFF		4				Get start address of work area bitmap
+			W_ADROBJ		5				Get window object's address into the object list
+
+
+			@{B}Windhandle@{0} is the window handle and must be @{B}W_CONSOLE (1)@{0}
+
+@{B}BINDINGS@{0}	move.w		#Command,-(sp)					; Ask to get the address object window
+			move.w		#W_CONSOLE,-(sp)				; Handle window ALWAYS this value !
+			move.w		#WINDGET,-(sp)					; System call number
+			trap		#SYSTEM
+			addq.l		#6,sp		
+
+
+			
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	This function permit you to get somes informations depending of the command. This window
+			does exist to allow you to display any informations, bitmaps into its work area. in this manner,
+			we get a proper way to display anything whitout to draw directly on the screen and to modify
+			or install a new object list.
+			
+
+@endnode
+
+@node "SETDRIVER"
+@{B}@{"SETDRIVER() - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+    @{B}void SETDRIVER( void )@{0}
+
+
+				SETDRIVER set the current communication port. For instnace,
+				you can select Enhanced Board, Lynx or Joypad port.
+
+@{B}OPCODE@{0}		0x19
+
+@{B}AVAIBILITY@{0}	All JagOS versions.
+
+@{B}PARAMETERS@{0}	None.
+
+@{B}BINDINGS@{0}	move.w		#devnum,-(sp)
+			move.w		#SETDRIVER,-(sp)
+			trap		#SYSTEM
+			add.l		#2,sp
+
+			
+@{B}RETURN@{0}	None
+
+			@{B}Index@{0}	@{B}value@{0}	@{B}Meaning@{0}
+
+			D_BOARD		0				Enhanced board.
+			D_LYNX		1				Serial lynx port.
+			D_CENTR		2				Joypad and Centronics wire
+
+@endnode
+
+@node "Chapter 4:"
+@{B}@{"Chapter 4: Exceptions 68000 - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+@endnode
+
+@node "Appendix A"
+@{B}@{"Appendix A: Function by opcode - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+
+	The names used are the JagAPI names. These functions are call with
+the TRAP SYSTEM.
+
+@{B}Opcode			Name			Description@{0}
+
+0x00			DBMSG...........Send a Debug String
+0x01			GETDATA.........Receive datas from the host
+0x02			SENDDATA........Send datas to the host
+0x03			UNPACK..........Unpack datas (CCI format)
+0x04			DISABLE_IMAGE...Display the second 32x32 bitmap
+0x05			MOVE_OBJECT.....Move an object with two offsets
+0x06			GET_JOYPAD......Get the current state of JoyPad 1 & 2
+0x07			MAKEOBJLIST.....Build a new objects list
+0x08			INITOP..........Initialize and start the Object Processor
+0x09			WAITSYNC........Wait the next VBL interrupt
+0x0A			SETPOINTER......Change the bitmap pointer
+0x0B			WRITEEPROM......Write 128 bytes into the serial Eeprom
+0x0C			READEPROM.......Read 128 bytes from the serial Eeprom
+0x0D			RESETEPROM......Clear the Eeprom
+0x0E			VIDEORATE.......Get the current video rate 
+0x0F			MEMSIZE.........Get the memory size
+0x10			HOSTCONNECTED...Check if a host computer is connected
+0x11			GETVERSION......Get the OS version
+0x12			SETICONPRG......Set a new icon program
+0x13			PTERM...........Terminate a program
+0x14			USER1MSG........Send an User-1 message to the host
+0x15			WINDGET.........Get informations about the execution window
+0x16			ENABLE_IMAGE....Display the first 32x32 bitmap
+0x17			OSRESET.........Reset the JagOS.
+0x18			EX_CARTRIDGE....Start the cartridge program.
+0x19			SETDRIVER.......Set current communication port.
+
+@endnode
+
+@node "Appendix B"
+@{B}@{"Appendix B: Examples - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+@endnode
+
+@node "Appendix C"
+@{B}@{"Appendix C: CCI format - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}What is CCI format@{0}
+
+	CCI format, ie @{B}Cry Compressed Image@{0}, is a very simple way to compress 
+especially the CRY images. Because images can take enough of memory, i didn't want
+to use directly the CRY format but an intermiediary format with in the same time 
+a relative quick unpack code.
+
+	@{B}Encoding@{0}
+
+	The CCI format just keep the number of time of a same 16 bits data is repeated. 
+So to encode the line <$FE,$FE,$FE> we just need to write <3,$FE>.
+Thus, it is easy, fast but not very efficient.
+
+
+	@{B}Example@{0}	
+
+	This is CRY image of  24x24 Pixels converted into CCI. it will show the exact 
+file that could be generate by the option @{B}Convert CRY to CCI@{0} of @{B}JagStudio@{0}.
+
+	;	------------------------------------------------------------------------------
+	;	24 x 24
+	;	Cry Compressed Image APPLE.CRY
+	
+				DATA
+				EVEN
+	
+	APPLEHeader:dc.b	"_CCI"		; compression type
+				dc.w	$0010		; version number
+	APPLEBegin:
+				dc.w	110,$0000,1,$F07F,22,$0000,1,$F07F,1,$7FF8,1,$F07F,20,$0000,1,$F07F,1,$7FF8,1,$F07F,18,$0000
+				dc.w	8,$F07F,15,$0000,1,$F07F,3,$F0FF,2,$F0BF,3,$F0FF,1,$F07F,13,$0000,1,$F07F,1,$F0BF,1,$D3FF
+				dc.w	1,$77EF,1,$D3FF,5,$F0FF,1,$F0DF,1,$F07F,12,$0000,1,$F07F,1,$F0FF,1,$D3FF,1,$B5FF,7,$F0FF
+				dc.w	1,$F07F,12,$0000,1,$F07F,8,$F0FF,1,$F0DF,1,$F0FF,1,$F07F,12,$0000,1,$F07F,8,$F0FF,2,$F0BF
+				dc.w	1,$F07F,12,$0000,1,$F07F,8,$F0FF,1,$F09F,1,$F0FF,1,$F07F,12,$0000,1,$F07F,1,$F0DF,6,$F0FF
+				dc.w	1,$F09F,1,$F0BF,1,$F0FF,1,$F07F,13,$0000,1,$F07F,5,$F0FF,2,$F0DF,1,$F0FF,1,$F07F,14,$0000
+				dc.w	2,$F07F,1,$F0FF,3,$F07F,1,$F09F,1,$F0FF,2,$F07F,15,$0000,3,$F07F,2,$0000,3,$F07F
+	APPLEEnd:	dc.w	151,$0000
+	;	------------------------------------------------------------------------------
+
+	Usually to use a such file with the kernel call, we have just need 
+to something like that:
+
+		move.l		#APPLEBegin,-(sp)				; Source packed bitmap
+		move.l		#APPLEEnd-APPLEBegin,-(sp)		; Lenght of packed datas
+		move.l		#Buuffer,-(sp)					; Where to store
+		move.w		#UNPACK,-(sp)
+		trap		#SYSTEM
+		add.l		#14,sp
+
+
+@endnode
+
+
+@node "Appendix D"
+@{B}@{"Appendix D: Object list description - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+This follows show how to describe each object to build the source object list.
+
+BitmapDraw 		is the address of a CCI bitamp.
+DISPLAY_BUFFER	is the buffer address which will be display. 
+
+@{U}BITMAP Structure object: (32 bytes)@{0}
+
+			; For the phrase 1/2
+			dc.w	BITMAP_OBJECT	0
+			dc.l	DISPLAY_BUFFER	+2
+			dc.l	BitmapDraw		+6
+			dc.w	SizeDraw		+10
+			dc.w	HEIGHT			+12
+			dc.w	YPOS			+14
+
+			; For the phrase 2/2
+			dc.w	1stpix			+16
+			dc.w	flags			+18
+			dc.w	idx				+20
+			dc.w	IWIDTH			+22
+			dc.w	DWIDTH			+24
+			dc.w	PITCH			+26
+			dc.w	DEPTH			+28
+			dc.w	XPOS			+30
+
+@{U}SCALED BITMAP Structure object: (38 bytes)@{0}
+
+			; For the phrase 1/3
+			dc.w	SCALED_OBJECT	0
+			dc.l	DISPLAY_BUFFER	+2
+			dc.l	BitmapDraw		+6
+			dc.w	SizeDraw		+10
+			dc.w	HEIGHT			+12
+			dc.w	YPOS			+14
+
+			; For the phrase 2/3
+			dc.w	1STPIX			+16
+			dc.w	FLAGS			+18
+			dc.w	IDX				+20
+			dc.w	IWIDTH			+22
+			dc.w	DWIDTH			+24
+			dc.w	PITCH			+26
+			dc.w	DEPTH			+28
+			dc.w	XPOS			+30
+
+			; For the phrase 3/3
+			dc.w	REMAIN			+32
+			dc.w	VSCALE			+34
+			dc.w	HSCALE			+36
+
+@{U}STOP structure object:  (2 bytes)@{0}
+
+			; For the only ONE phrase
+			dc.w	STOP_OBJECT
+
+;	------------------------------------------------------------------------------
+
+
+@endnode
+
+@node "Appendix E"
+@{B}@{"Appendix E: Frame informations - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This topic list somes usefull informations about the JagOS frame mechanism.
+
+
+@{U}FRAME structure@{0}
+
+	<SPID><TPID><CODE><LEN>CHECKSUM><DATA>
+	  4     4     2     2     2       n	
+
+SPID:		Source PID process which send a frame (long)
+TPID:		Target PID process which will receive the sent frame (long)
+CODE:		A Code Frame as follow in the next table (int)
+LEN:		Lenght of datas following (int)
+CHECKSUM:	Checksum of datas block, currently not used in JagOS.
+DATA:		Bytes block attached into the frame
+
+@{U}List of used code frame@{0}
+
+@{B}Code Frame@{0}				@{B}Value@{0}			@{B}Meaning@{0}
+	
+FRAME_INQUIRE			$0001			H->J:	Ask the JagOS identification
+FRAME_PRGSEND			$0002			H->J:	Send a program to the JagOS
+FRAME_MEMSEND			$0003			H<->J:	Send a memory block 
+FRAME_MEMGET			$0004			H<->J:	Get a memory block
+FRAME_DBMSG				$0005			H<-J:	JagOS send a string to the host
+FRAME_PRGRUN			$0006			H->J:	Start a program
+FRAME_EEPROMGET			$0007			H->J:	Read serial EEPROM
+FRAME_EEPROMSET			$0008			H->J:	Read serial EEPROM
+FRAME_EXCEPTION			$0009			H<-J:	An exception is occured
+FRAME_USER1				$000A			H<-J:	JagOS send an user message
+FRAME_ACK				'A'				H<->J:	ACK, positive response
+FRAME_DATA				'D'				H<->J:	Data frame
+FRAME_NACK				'N'				H<->J:	NACK, negative response
+
+
+@{U}Internals JagOS definitions@{0}
+
+@{B}Code Frame@{0}				@{B}Value@{0}			@{B}Meaning@{0}
+
+MAX_LEN_DATAFRAME		1024			Maximal datas size send with a frame
+MAX_CMD_DATAFRAME		1024 			Maximal datas size with a command frame
+
+	JagOS internal stack must always have enough place to get @{B}MAX_CMD_DATAFRAME@{0},
+that it can be send with a frame comand.
+
+
+@endnode
+
+@node "Bibliography"
+@{B}@{"Bibliography - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{U}Jagdox@{0}
+	
+	An underground documentation from Nat! and Klaus which can be found with Internet.
+	
+	@{U}Atari documentations@{0}
+	
+	From Atari Corporation (c).
+	
+	
+@endnode
+
+@node "Contact"
+@{B}@{"Contact - JagOS98" ignore} @{0}
+@line 1 75 0 0 7
+
+	you can contact me at the following e-mail address:
+
+	@{B}l.favard@france2.fr@{0}
+	
+	For My address
+	
+	Mr FAVARD Laurent
+	45 Avenue de la r‚sistance
+	77500 Chelles
+	FRANCE
+
+	
+@endnode

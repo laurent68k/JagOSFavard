@@ -1,0 +1,66 @@
+
+
+				-----------------------
+				  Buggs report fixed:
+				-----------------------
+				
+
+	* 6/10/95:	
+	----------
+	
+	Bug fixed in PcXMenu, the main menu was unable to operate with AES previous 
+	the 3.3 version, for example with a ST TOS 1.2. and sended an "illegal function" 
+	message.
+	In fact, a call to istart() function was the reason. Only the AES 3.4 and above
+	can execute this call. Now, an AES version test is performed.
+	
+	* 6/10/95:
+	----------
+	
+	Bug fixed in PcXMenu, the main with AES 3.3 and previous always send another
+	message "PcXMenu Warning". This error occured after the user has clicked any
+	Menu Option. 
+	This is due, because i always compared the Menu address with the address returned
+	by the AES message's buffer, BUT the old AES don't return this information...
+	
+	* 7/10/95:
+	----------
+	
+	Bug fixed about text editable. Now, you can mix any object type into the
+	same tree level with text editable, without serious trouble.
+	
+	This error was due, PcXForm considered that all object's brothers for a
+	text editable, was ALWAYS text editable !
+	So, PcXForm attempted to set the text cursor for all objects...
+
+	* 24/10/95
+	----------
+	
+	The popups menus couldn't be correctly displaying, when the attach button wasn't
+	the direct child of the root object. The popup was drawing at the sum of both 
+	x,y position of the root object and the x,y position of the button.
+	Well, it is now the sum of all objects beetwen the root object until the button.
+	
+	* 30/12/95
+	----------
+	
+	A bug was already present into the cursor management about the editable field.(!)
+	When a dialog box contained only one editable field into one tree level, the Up 
+	and Down arrow don't work and serious trouble in the application happened.
+	
+
+	* 01/01/96
+	----------
+	
+	The deskyop's color icon wasn't fully understand by the PcXDesk's code. 
+	For example, When a color icon was selected and you clicked somewhere onto the 
+	desktop, it wasn't unselected.
+	
+	*	17/07/97
+	-----------
+
+	-	Increase auto top window when the current top window is modal type into PCxWind.
+
+	-	Call the close procedure before the dialog box is really cleared into PCxForm.
+
+

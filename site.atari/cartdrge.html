@@ -1,0 +1,490 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Sebastien FAVARD">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en] (X11; I; Linux 2.0.35 i586) [Netscape]">
+   <TITLE>Actuallites</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;
+<CENTER><TABLE BORDER=0 COLS=1 WIDTH="100%" >
+<TR>
+<TD ALIGN=CENTER WIDTH="100%"><IMG SRC="st-mag/stmagb.gif" NOSAVE HEIGHT=264 WIDTH=300 ALIGN=ABSCENTER>
+<CENTER><B><U><FONT COLOR="#000000"><FONT SIZE=+3>Hardware</FONT></FONT></U></B></CENTER>
+
+<P><B><FONT COLOR="#000000"><FONT SIZE=+1>&nbsp;&nbsp;&nbsp; </FONT><U><FONT SIZE=+2>Le
+port cartouche ATARI</FONT></U></FONT></B>
+<P><FONT COLOR="#FF6600"><U>Auteur:</U> S&eacute;bastien FAVARD</FONT>
+<BR>&nbsp;</TD>
+</TR>
+</TABLE></CENTER>
+
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 COLS=2 WIDTH="100%" >
+<TR VALIGN=TOP>
+<TD ALIGN=LEFT><B><U><FONT COLOR="#FF6600"><FONT SIZE=+2>I</FONT><FONT SIZE=-1>NTRODUCTION</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><I><FONT COLOR="#FF6600"><FONT SIZE=-1>Dans des moments aussi froids,
+o&ugrave; la neige tombe jour et nuit sous une temp&ecirc;te sib&eacute;rienne
+et que seul reste allum&eacute; votre Atari pour vous r&eacute;chauffer,
+je vais vous narrer quelques contes autour du port cartouche... sujet fort
+int&eacute;ressant, et en m&ecirc;me temps assez vieux, puisque beaucoup
+de personnes en ont d&eacute;j&agrave; parl&eacute;. Cependant, quelques
+explications rapides seront n&eacute;cessaires avant d'attaquer le vif
+du sujet, c'est-&agrave;-dire la r&eacute;alisation d'une petite carte
+se connectant dessus, facilitant son utilisation. De ce fait, les bidouilleurs
+pourront plus rapidement, facilement et pour un co&ucirc;t moins &eacute;lev&eacute;,
+cr&eacute;er des cartes d'extensions.....&nbsp;</FONT></FONT></I>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Le port cartouche est assez
+sp&eacute;cial, puisqu'il n'a pas &eacute;t&eacute; con&ccedil;u &agrave;
+la base pour ajouter d'autres cartes d'extensions, mais plut&ocirc;t comme
+la philosophie Atari XL, d'origine console de jeux, afin de connecter des
+cartouches (il porte finalement assez bien son nom :-D ), et notamment
+la fameuse cartouche de diagnostic. Cependant, certains p&eacute;riph&eacute;riques
+ont r&eacute;ussi &agrave; utiliser ce port, comme par exemple ST Replay,
+et profite pleinement de cet acc&egrave;s direct au bus du processeur.&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; Or, &eacute;tant donn&eacute;
+que c'est un port cartouche, l'acc&egrave;s est uniquement accessible en
+mode lecture, puisqu'il est destin&eacute; &agrave; connecter des m&eacute;moires
+mortes principalement. Reste &agrave; savoir, que ceci est tr&egrave;s
+facilement d&eacute;tournable, et peut permettre de connecter diverses
+cartes d'entr&eacute;es/sorties comme : analyseur&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>logique, carte cible, interface
+de communication...</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>PRESENTATION DU PORT</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp; Le connecteur Atari permet
+d'enficher des circuits imprim&eacute;s encartables, c'est-&agrave;-dire
+des cartes poss&eacute;dant une sorte de rang&eacute; de grosses pistes,
+afin de se glisser dans cet &eacute;trange connecteur. Il suffit de voir
+par exemple les cartouches de la Jaguar, ou ceux des XL, pour comprendre
+tout de suite la nature physique de ces cartes. Cependant, les concepteurs
+de chez Atari ont choisi un connecteur tr&egrave;s rare, puisqu'il ne correspond
+pas aux diff&eacute;rents standards actuels de pas de 2,54 mm ou 3,96 mm
+(s&eacute;ries 8607, 928, 908, 901...). De ce fait, il est assez difficile
+de cr&eacute;er une rallonge pour ce port cartouche (cf. ST Mag 121). Voil&agrave;
+donc pour la&nbsp;&nbsp;&nbsp;&nbsp; pr&eacute;sentation, passons aux choses
+s&eacute;rieuses... Le port cartouche est un connecteur encartable de 40
+contacts, offrant une large gamme de signaux :&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - un bus de donn&eacute;es
+sur 16 bits ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - un bus d'adresses
+sur 16 bits (en comptant LDS/ et UDS/) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - deux CS/ (Chip
+Select) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - deux alimentations
++5V ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - trois masses.&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><IMG SRC="articles/cartdrge/cartdrge.gif" NOSAVE HEIGHT=55 WIDTH=160></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><FONT SIZE=-1><FONT COLOR="#FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><I><FONT COLOR="#000000">
+Port cartouche de l'Atari vue de face.</FONT></I></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Voyons rapidement le brochage de ce port d'extension : (le 1er chiffre
+correspond au num&eacute;ro de broche)</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<B>dessus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dessous</B></FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1 : +5V&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 :
++5V</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3 : D14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 :
+D15&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5 : D12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 :
+D13&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+7 : D10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8 :
+D11&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+9 : D8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 :
+D9&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+11 : D6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12
+: D7</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+13 : D4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14
+: D5</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+15 : D2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16
+: D3</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+17 : D0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18
+: D1</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19 : A13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 : A15</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+21 : A8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22 : A14</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+23 : A7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24 : A9</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+25 : A6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 26 : A10</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+27 : A5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 28 : A12</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+29 : A11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30 : A4</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+31 : ROM3/&nbsp; 32 : A3</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+33 : ROM4/&nbsp; 34 : A2</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+35 : UDS/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 36 : A1</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+37 : LDS/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 38 : GND</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+39 : GND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 40 : GND</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>Tout d'abord, pour les apprentis,
+je tiens &agrave; signaler que les signaux LDS/ (Low Data Strobe), et UDS/
+(Upper Data Strobe) permettent de valider le type de donn&eacute;es &eacute;chang&eacute;
+sur le bus de donn&eacute;es : 16 bits / 8 bits de poids faible (D7-D0)
+ou de poids fort (D15-D8). La barre "/" permet de souligner que le signal
+est actif au niveau bas (0 logique). Les deux CS/ sont en fait deux sorties
+de d&eacute;codage (64 Ko d'espace chacun) permettant d'attaquer directement
+les entr&eacute;es CE/ (Chip Enable) de ROM/EPROM... ROM3/ &eacute;tant
+pour les adresses $FBXXXX et</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>ROM4/ pour $FAXXXX. Voil&agrave;,
+donc si vous avez suivi, une large part du travail a &eacute;t&eacute;
+faite, et donc il ne reste plus qu'&agrave; &eacute;tudier ces diff&eacute;rents</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>signaux...</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>PRINCIPES D'UTILISATION</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp; Puisque deux Chip Select
+sont g&eacute;n&eacute;r&eacute;s, et que seul un acc&egrave;s en lecture
+est possible, sous peine de voir une magnifique erreur de bus survenir
+(oh ! quelles jolies bombes), il suffit d'utiliser une des deux sorties
+de d&eacute;codage comme signal de validation de lecture, et l'autre comme
+signal pour l'&eacute;criture. De ce fait, vous aurez "une" zone adressable
+en lecture/&eacute;criture. Bien entendu, cela ne r&eacute;sout pas le
+probl&egrave;me d'erreur de bus, mais alors il suffit d'utiliser les 8
+bits de poids faibles du bus d'adresses comme bus de donn&eacute;es pour
+l'&eacute;criture et le tour est</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>jou&eacute; ! Voyons un peu plus
+en d&eacute;tail ce principe tr&egrave;s connu du monde atariste.&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; Imaginons que
+vous d&eacute;sirez envoyer une donn&eacute;e DATA &agrave; un circuit
+situ&eacute; sur votre carte connect&eacute; au port cartouche, il suffit
+de s&eacute;lectionner le circuit (CS/ plus &eacute;ventuellement un d&eacute;codage
+partiel des fils d'adresses A15-A8), puis de connecter&nbsp; les 8 fils
+d'adresses faibles &agrave; ce circuit, et d'offsetter (pas tr&egrave;s
+fran&ccedil;ais &ccedil;&agrave;....) l'adresse du circuit suivant la donn&eacute;e
+DATA &agrave; transmettre, soit :</FONT></FONT>
+<BR><FONT SIZE=-1><FONT COLOR="#330033">@CIRCUIT + DATA = @</FONT><FONT COLOR="#FF6600">
+sur le bus !&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>exemple en ASM (plus explicite qu'en
+langage &eacute;volu&eacute;) :&nbsp;</FONT></FONT>
+<P><FONT SIZE=-1><FONT COLOR="#FF6600">&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR="#330033">
+d0.b contient la donn&eacute;e &agrave; &eacute;crire avec l'octet haut
+de d0.w &agrave; 0.&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#330033"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; a0.l contient
+l'adresse du circuit d&eacute;finie par A23-A16 (a0.w &agrave; 0),&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#330033"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; soit un CS/
+(celui r&eacute;serv&eacute; pour l'&eacute;criture).&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#330033"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; move.b (a0,d0),
+d1 (adressage indirecte index&eacute; avec d&eacute;placement)&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; Cette instruction
+effectue donc une lecture (donc aucune erreur de bus) &agrave; l'adresse
+repr&eacute;sentant le circuit, mais surtout en utilisant a0, soit l'adresse
+identifiant une pseudo &eacute;criture. De ce fait, d0 est plac&eacute;
+sur les 8 bits de poids faible du bus d'adresses, puisque son octet fort
+(de d0.w) est nul. La donn&eacute;e peut donc ensuite &ecirc;tre trait&eacute;e
+par ce circuit. Bien entendu, d1 ne sert &agrave; rien, et contiendra une
+valeur absolument inutile puisque ne correspondant &agrave; "rien", c'est
+pour cela que j'appellerai ce registre dummy. Cependant, j'en vois d'ici
+ouvrir de grands yeux, et se dire que cela doit poser un probl&egrave;me
+puisque le fil A0 du bus d'adresses de votre CPU pr&eacute;f&eacute;r&eacute;
+n'existe pas.... Que neni, il suffit simplement de prendre en compte UDS/
+et LDS/, finalement tout simplement en utilisant UDS/ comme fil A0 !!!
+En effet, si vous acc&eacute;dez &agrave; une adresse paire, UDS/ = 0 et
+si vous acc&eacute;dez &agrave; une adresse impaire, UDS/ = 1... donc ceci
+est parfaitement compatible avec A0 ! Par contre, tout acc&egrave;s 16
+bits ne pourra parfaitement remplir la t&acirc;che d&eacute;sir&eacute;e,
+car UDS/ = 0 et LDS/ = 0, ce qui obligera physiquement votre donn&eacute;e
+DATA &agrave; poss&eacute;der le bit 0 &agrave; 0 !!!! m&ecirc;me si vous
+&eacute;crivez 15 par exemple ! De toute fa&ccedil;on, cela serait stupide,&nbsp;
+puisque votre donn&eacute;e est sur le bus d'adresses, qui se fiche pertinemment
+de conna&icirc;tre la taille utilis&eacute;e du bus de donn&eacute;es (qui
+dans ce cas n'est pas utilis&eacute; sauf pour remplir</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>dummy) !!! De part ce principe,
+il semble donc normal d'utiliser un mode 8 bits en &eacute;criture, je
+rappel, m&ecirc;me si vous d&eacute;sirez utiliser les 16 bits du bus d'adresses
+pour v&eacute;hiculer la donn&eacute;e (mais alors, vous aurez un CS/ d&eacute;di&eacute;
+&agrave; une seule adresse de circuit...).&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; Pour les plus
+astucieux d'entre vous, je me permet de souligner que lorsque vous acc&eacute;der
+en &eacute;criture au port cartouche, un acc&egrave;s en lecture est en
+m&ecirc;me temps effectu&eacute;, ce qui peut vous permettre certaines
+astuces hardware, et surtout peut parfois vous faire gagner un temps pr&eacute;cieux
+! Par exemple, le kit de d&eacute;veloppement pour Jaguar de Roine Stenberg
+utilise un registre d'&eacute;mission et un en r&eacute;ception, afin de
+permettre aux deux entit&eacute;s de communiquer. D'autre part lorsque
+l'on d&eacute;sire &eacute;crire ou lire une donn&eacute;e, l'on peut s'informer
+de l'&eacute;tat du registre en question &agrave; l'aide d'un unique registre
+d'&eacute;tat. Il aurait &eacute;t&eacute; fort int&eacute;ressant de pouvoir,
+lorsque l'on &eacute;crit une donn&eacute;e dans le registre d'&eacute;mission,</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>de
+r&eacute;cup&eacute;rer le registre d'&eacute;tat dans "dummy" afin que
+celui-ci puisse &eacute;ventuellement avertir d'une donn&eacute;e re&ccedil;ue,
+ou lue... (un acc&egrave;s m&eacute;moire&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>morte de gagn&eacute;). Enfin,
+ceci n'est qu'un exemple, mais aurait certainement pu augmenter le d&eacute;bit
+de la communication entre le fauve et le micro.</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>D'ailleurs pour terminer sur cet
+apartheid, Roine n'a pas fait attention &agrave; l'astuce du "fil A0",
+et a utilis&eacute; le bus A8->1 comme bus de donn&eacute;es</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>d'&eacute;criture
+! Vous vous rendez bien compte que cela alourdi consid&eacute;rablement
+le programme puisque l'on doit formater la donn&eacute;e, c'est-&agrave;-dire</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>effectuer
+un d&eacute;calage &agrave; gauche de d0.w avant de pouvoir faire le move
+! Enfin je vais arr&ecirc;ter ici mes commentaires &agrave; son sujet,
+car je trouve</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>son travail
+pour la Jaguar formidable : encore bravo pour ce kit de d&eacute;veloppement
+peu co&ucirc;teux (par rapport au kit officiel d'Atari) et rapide</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>(acc&egrave;s
+ROM) !&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>LA CARTE I/O 8 BITS</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>En fait, elle ne fait pratiquement
+rien, mais permet de plus facilement connecter des cartes &agrave; votre
+Atari, puisqu'elle exerce une sortie sur</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>DB25.
+Le principe &eacute;tant pos&eacute;, vous pouvez m&ecirc;me cr&eacute;er
+d'autres cartes, en par exemple, utilisant le bus 16 bits en lecture, ajouter
+d'autres fils</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>d'adresses...<IMG SRC="articles/cartdrge/link.gif" NOSAVE HEIGHT=400 WIDTH=600></FONT></FONT>
+<I><FONT SIZE=-1>Sch&eacute;ma de principe de la liaison.</FONT></I></CENTER>
+
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P>&nbsp;</TD>
+
+<TD><FONT COLOR="#FF6600"><FONT SIZE=-1>Voyons la liste du mat&eacute;riel
+n&eacute;cessaire :&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - petite perceuse
+;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - fer &agrave;
+souder + &eacute;tain ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - cutter (travail
+&eacute;ventuel du capot) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - petite scie
+&agrave; m&eacute;taux (d&eacute;coupe de la carte) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - un multim&egrave;tre
+&eacute;ventuel pour les tests.&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>Voil&agrave;, maintenant, il ne
+reste plus qu'&agrave; pr&eacute;senter la carte.&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><IMG SRC="articles/cartdrge/schema.gif" NOSAVE HEIGHT=750 WIDTH=540>
+<BR><I><FONT SIZE=-1>Sch&eacute;ma de la carte d'entr&eacute;es/sorties.</FONT></I></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<BR>
+<BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Celle-ci poss&egrave;de un bus de
+donn&eacute;es d'entr&eacute;e/sortie sur 8 bits, deux fils d'adresses
+et deux signaux de validation de lecture / &eacute;criture (cf. les CS/
+du port cartouche). D'autre part, une tension d'alimentation +5V est pr&eacute;tir&eacute;
+et des masses sont propos&eacute;es un peu partout... En effet, cela permet
+de poss&eacute;der une meilleure isolation entre les signaux, si vous d&eacute;cidez,
+par exemple, de mettre un c&acirc;ble d'1m80 entre votre ordinateur et
+votre carte &eacute;lectronique ! Ne rigolez pas, mais le kit de Roine
+par exemple ne permet pas ce genre de distance, et cela pose d'&eacute;normes</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>probl&egrave;mes, notamment si
+votre moineau est en tour !!! Afin de mettre en analogie avec la description
+pr&eacute;c&eacute;dente autour du port cartouche, ici il est impossible
+d'effectuer un acc&egrave;s lecture/&eacute;criture simultan&eacute; puisque
+le bus de donn&eacute;es sera utilis&eacute; par DATA et que les sorties
+du buffer de lecture seront en haute imp&eacute;dance (signal ROM3/ = &eacute;criture
+inactive). Cependant, cela n'est pas r&eacute;ellement une grande contrainte...&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>SPECIFICATIONS FONCTIONELLES</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><IMG SRC="articles/cartdrge/db25.gif" NOSAVE HEIGHT=100 WIDTH=200>
+<BR><FONT COLOR="#330033"><FONT SIZE=-1>Brochage du connecteur DB25.</FONT></FONT></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; Remarquons tout
+de suite que les signaux Read/ et Write/ ne sont finalement que les signaux
+ROM3/ et ROM4/ (merci Atari !) et que les signaux d'adresses A1->0 ne sont
+que les adresses A15->14. Cette fa&ccedil;on de renommer les signaux &agrave;
+ce niveau l&agrave; est important du point de vue conception, puisqu'&agrave;
+ce moment pr&eacute;cis, vous ne vous souciez plus des signaux du port
+cartouche, mais portez votre attention sur ces nouveaux signaux qui permettent
+de concevoir facilement une liaison avec une&nbsp; autre carte : bus de
+donn&eacute;es 8 bits, 2 signaux de contr&ocirc;le et 2 d'adresses. That's
+all !&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; Pour terminer
+sur les caract&eacute;ristiques de la carte, le bus de donn&eacute;es &eacute;tant
+bufferis&eacute;, la sortance est &eacute;lev&eacute;e, ce qui permet de
+connecter de</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>nombreux
+circuits d'une carte d'extension &agrave; ce bus de donn&eacute;es. D'autre
+part, puisque 2 fils d'adresses sont propos&eacute;s, vous pouvez avoir
+4</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>adresses en lecture,
+et 4 autres en &eacute;criture, ce qui n'est pas si mal que &ccedil;&agrave;
+mais peut sembler juste pour certaines applications sp&eacute;cifiques.
+Il</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>suffira alors, de
+couper un lien entre une patte du DB25 &agrave; la masse et d'y ramener
+un autre fil d'adresse du port cartouche parmi A13-A8.</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>Pour terminer, cette carte, en
+respect avec toutes les cartes &agrave; base de 68000, utilise le poids
+faible du bus de donn&eacute;es du processeur, et donc</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>oblige
+les adresses des circuits de la carte &eacute;lectronique (en lecture uniquement)
+&agrave; &ecirc;tre aux adresses impaires ! Je rappel, qu'en acc&egrave;s
+"&eacute;criture",</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>vous
+utilisez la partie basse du bus d'adresse pour &eacute;crire, ce qui implique
+que votre acc&egrave;s peut alors &ecirc;tre &agrave; une adresse paire
+o&ugrave; impaire en</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>fonction du bit 0 de votre donn&eacute;e.
+D'autre part, aucune protection particuli&egrave;re n'a &eacute;t&eacute;
+ajout&eacute; par rapport au connecteur encartable de l'Atari,</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>ceci
+&agrave; cause du manque de place, car j'ai voulu pr&eacute;voir la carte
+pour que celle-ci puisse se loger dans des capots pour c&acirc;bles (les
+plus</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>courants et les
+moins chers), ce qui fait que ceux qui d&eacute;sirent cr&eacute;er une
+autre carte, plus importante, peuvent ajouter ce que bon leur semble</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>comme diode zener contre &eacute;cr&ecirc;tage
+de la tension d'alimentation, pont de diodes &eacute;ventuel, capacit&eacute;s
+de couplage, terminaisons parall&egrave;les etc.&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>CIRCUIT IMPRIME</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><IMG SRC="articles/cartdrge/capots.gif" NOSAVE HEIGHT=150 WIDTH=350>
+<BR><I><FONT SIZE=-1>Diff&eacute;rents types de capots.</FONT></I></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Maintenant terminons sur la liste
+des composants n&eacute;cessaires pour r&eacute;aliser le montage :&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - un DB25 non
+coud&eacute; (fiche m&acirc;le conseill&eacute; pour laisser la fiche femelle
+&agrave; la carte d'extension) (15 Frs) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - deux 74 (ou
+54)xxx245 (3 Frs pi&egrave;ce) compatible TTL (ex: 74HCT245, 74ALS245,
+54HCT245...) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - deux capacit&eacute;s
+de 100 nF (nano farad) environ (0.10 Frs pi&egrave;ce) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; - un capot plastique
+pour Sub-D (25 contacts) : DB25 - DB25 (le mieux) ou DB25 - c&acirc;ble
+(15 Frs).&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Soit un co&ucirc;t global de 40
+Frs, sans compter le tirage de la carte. Essayez de le faire sur un petit
+morceau d'&eacute;poxy (plaque), car si vous utilisez une carte format
+simple Europe par exemple (l'on peut mettre 6 cartes I/O dessus !), le
+co&ucirc;t sera d'environ 60 Frs, donc d'un rapport de 10 Frs par carte...
+si vous &ecirc;tes en groupe ;-). Lorsque vous placerez la carte &agrave;
+l'int&eacute;rieur du capot, faites suffisamment ressortir la partie connectique
+encartable afin que vous puissiez bien l'enficher dans le connecteur port
+cartouche ! Sinon, lorsque vous essaierez de fixer cette "clef" sur votre
+port d'extension, si vous ne sentez pas beaucoup de r&eacute;sistance lorsque
+vous l'enficher, mettez de la soudure sur la partie connectique de la carte
+afin que celle-ci soit "&eacute;cras&eacute;e" (pas trop tout de m&ecirc;me)
+&agrave; l'int&eacute;rieur du connecteur Atari. Ceci &eacute;vitera une
+&eacute;ventuelle mobilit&eacute; accidentelle de la carte et donc de causer
+un d&eacute;faut durant son utilisation voire m&ecirc;me une erreur de
+bus. En fait, cela d&eacute;pend toujours du type de plaque que vous utiliserez
+pour votre tirage, puisque les &eacute;paisseurs sont variables.&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><IMG SRC="articles/cartdrge/implant.gif" NOSAVE HEIGHT=340 WIDTH=370>
+<BR><I><FONT COLOR="#330033"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Implantations des composants.</FONT></FONT></I></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Pour en revenir au circuit imprim&eacute;,
+afin de ne pas se tromper de sens pour les circuits int&eacute;gr&eacute;s,
+il suffit de les souder de fa&ccedil;on &agrave; ce que leur patte 1 (haut
+&agrave; gauche des circuits) soit sur la pastille en forme carr&eacute;
+! Pour ce qui est du DB25, enfichez la carte I/O entre les broches du connecteur,
+puis souder les. Si la taille de la carte est un peu juste, vous pouvez
+mettre des fils afin d'augmenter la distance. De plus, deux vias (perc&eacute;es)
+proche de U2 devront &ecirc;tre perc&eacute;es comme pour les pastilles
+des composants. Alors, il vous faudra mettre un morceau de patte de condensateurs
+de votre carte, afin de faire la liaison entre les deux faces (exactement
+le m&ecirc;me principe que pour les composants, sauf que vous devez mettre
+une patte d'un circuit virtuel en fait). D'une f&agrave;&ccedil;on similaire,
+mettez un strap (patte de r&eacute;sistance ou condensateur) entre la patte
+1 du buffer de droite (U1) et le via juste en dessous pr&egrave;s du connecteur
+cartouche. Bien entendu, vous serez obliger de souder l'extr&eacute;mit&eacute;
+du strap sur la patte de votre circuit. Pour terminer, &agrave; gauche,
+pr&egrave;s du connecteur DB25, se situent 10 autres vias n&eacute;cessaires
+pour relier les masses entre elles, donc utilisez de m&ecirc;me 10 autres
+morceaux de pattes de condensateurs, r&eacute;sistances (ou autres)...
+Ceci vous &eacute;vite de placer des fils entre les broches reli&eacute;es
+&agrave; la masse et permet d'&eacute;ventuelles modifications comme ajout
+de fils d'adresses...&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>
+<CENTER>
+<P><IMG SRC="articles/cartdrge/layer.gif" NOSAVE HEIGHT=340 WIDTH=740>
+<BR><FONT COLOR="#330033"><FONT SIZE=-1>Les deux faces du circuit imprim&eacute;
+(Face A pour cot&eacute; composant : dessus de la carte).</FONT></FONT></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Attention, cette image n'est forc&eacute;ment
+pas &agrave; l'&eacute;chelle r&eacute;elle, ce qui vous oblige soit &agrave;
+refaire le routag( solution p&eacute;nible), ou alors utilisez un bon logiciel
+de dessin, afin de remettre cette image &agrave; la taille r&eacute;elle
+(pour l'impression). Il suffit de consid&eacute;rer comme point de rep&egrave;re
+des pastilles en rang&eacute;es verticalles. Alors, d&eacute;brouillez
+vous pour que la distance entre deux centres de pastilles verticales soit
+de 2.54mm ! Les pastilles, sur le dessin sont r&eacute;alis&eacute;es par
+des "carr&eacute;s" de 3*3 pixels noirs, ce qui vous facilitera la t&acirc;che...&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; D'autre part,
+vous pouvez toujours m'&eacute;crire afin que je vous envoye une photocopie
+du routage,&nbsp; favard@linux.utc.fr, ou vous pouvez toujours downloader
+les fichiers data base d'Orcad (sous PC) et d'imprimer donc la carte &agrave;
+l'aide de ces fichiers report :&nbsp; <A HREF="ARTICLES/CARTDRGE/BOARD.ZIP">BOARD.ZIP</A>
+.&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp;&nbsp; Pour terminer,
+il vous faudra utiliser un calque afin de copier les typons (vous savez,
+vous le faisiez souvent en maternelle de recopier des dessins...) avec
+un rotring par exemple. Vous pourrez donc &eacute;ventuellement modifier
+cette carte si vous d&eacute;sirez enlever/ajouter des choses pas trop
+grosse quand m&ecirc;me :-). Finalement, il ne restera plus qu'&agrave;
+voir avec un magasin d'&eacute;lectronique pour le tirage de la carte &agrave;
+partir de ces typons. Surtout, N'INVERSEZ PAS LES FACES si vous devez faire
+un montage &agrave; partir d'une plaque !!!&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Pour toutes questions, vous pouvez
+me contacter &agrave; mon</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>adresse
+e-mail, <A HREF="mailto: favard@linux.utc.fr">favard@linux.utc.fr</A></FONT></FONT>
+<BR>&nbsp;</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

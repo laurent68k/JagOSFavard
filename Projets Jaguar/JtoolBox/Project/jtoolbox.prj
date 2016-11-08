@@ -1,0 +1,62 @@
+; ----------------------------------------------------------
+;	JAGUAR TOOLBOX LIBRARY
+;	FAVARD LAURENT (c) 1997 - 2000
+; ----------------------------------------------------------
+; 	History:- 24/11/1998 Very first release
+;			- 26/03/1999 Centronics support added
+;			- 26/03/1999 Revisited code (Asm to C )
+;			- 05/05/2000 Centronics code tested
+;			- 10/05/2000 Code Asm to C and Semaphore changed
+; ----------------------------------------------------------
+;	This program is free software; you can redistribute it and/or modify
+;	it under the terms of the GNU General Public License as published by
+;	the Free Software Foundation; either version 2 of the License, or
+;	(at your option) any later version.
+;
+;	This program is distributed in the hope that it will be useful,
+;	but WITHOUT ANY WARRANTY; without even the implied warranty of
+;	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;	GNU General Public License for more details.
+;
+;	You should have received a copy of the GNU General Public License
+;	along with this program; if not, write to the Free Software
+;	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+; ----------------------------------------------------------
+
+d:\dev\pure_c.v11\lib\JToolBox.lib		; Name of output library file
+;..\lib\JToolBox.lib		; Name of output library file
+
+.C [-a-t-b-p-s]
+.L [-j-v]
+.S [-s-b-v]
+
+=				; modules list
+
+;	C modules
+
+..\Sources\JToolbox.c		(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+..\Sources\HookJag.c		(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+..\Sources\DiskJag.c		(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+..\Sources\ExeJag.c			(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+..\Sources\Eprom.c			(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+
+;	Tools
+
+..\Sources\JPacker.c		(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+
+;	Protocoles
+
+..\Sources\Pack.c			(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+..\Sources\Binaries.c		(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+
+;	Low level "drivers"
+
+..\Sources\Cntrncs.c		(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+..\Sources\serial.c			(..\include\JToolbox.h, ..\sources\Toolsdef.h)
+..\Sources\parallel.s
+
+;	Somes Pure Library
+
+pctoslib.lib
+pcstdlib.lib
+pcfltlib.lib

@@ -1,0 +1,178 @@
+;	------------------------------------------------------------------------------
+;	SOURCE OBJECT LIST FOR JAGOS
+
+ObjListROM:					
+
+;	------------------------------------------------------------------------------
+;	Jaguar TOOLBAR ( 64 x 64 )
+
+							dc.w	BITMAP_OBJECT
+							dc.l	DISPBUF2						; DISPLAY buffer
+							dc.l	ToolsbarBegin					; DRAW source bitmap
+							dc.w	ToolsbarEnd-ToolsbarBegin		; O_SIZE
+							dc.w	64								; O_HEIGHT
+							dc.w	50								; O_YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	64/4							; IWIDTH
+							dc.w	64/4							; DWIDTH
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	380								; XPOS	
+
+;	------------------------------------------------------------------------------
+;	Window( 128 x 64 )
+
+							dc.w	BITMAP_OBJECT
+							dc.l	DISPBUF3						; DISPLAY buffer
+							dc.l	WindowBegin						; DRAW source bitmap
+							dc.w	WindowEnd-WindowBegin			; O_SIZE
+							dc.w	64								; O_HEIGHT
+							dc.w	200								; O_YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	128/4							; IWIDTH
+							dc.w	128/4							; DWIDTH
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	160								; XPOS							
+;	------------------------------------------------------------------------------
+;	JaguarOS style logo ( 160x60 )
+
+							dc.w	SCALED_OBJECT
+							dc.l	DISPBUF1						; DISPLAY buffer
+							dc.l	JagOSBegin						; DRAW source bitmap
+							dc.w	JagOSEnd-JagOSBegin 			; SIZE
+							dc.w	57								; HEIGHT in pixels
+							dc.w	220								; YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	160/4							; IWIDTH	(Pixels Width / 4)
+							dc.w	160/4							; DWIDTH	(Pixels Width / 4)
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	208								; XPOS
+
+							dc.w	$10
+							dc.w	$00
+							dc.w	$00					
+;	------------------------------------------------------------------------------
+;	XTENSION ISA S‚bastien board ( 2 images of 32*32)
+
+							dc.w	BITMAP_OBJECT
+							dc.l	DISPBUF4						; DISPLAY buffer
+							dc.l	XtensionBegin					; DRAW source bitmap
+							dc.w	XtensionEnd-XtensionBegin		; O_SIZE
+							dc.w	32								; O_HEIGHT
+							dc.w	410								; O_YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	32/4							; IWIDTH
+							dc.w	32/4							; DWIDTH
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	10								; XPOS							
+;	------------------------------------------------------------------------------
+;	JagCD Rom Extension ( 2 images of 32*32 )
+
+							dc.w	BITMAP_OBJECT
+							dc.l	DISPBUF5						; DISPLAY buffer
+							dc.l	CDRomBegin						; DRAW source bitmap
+							dc.w	CDRomEnd-CDRomBegin				; O_SIZE
+							dc.w	32								; O_HEIGHT
+							dc.w	410								; O_YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	32/4							; IWIDTH
+							dc.w	32/4							; DWIDTH
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	52								; XPOS							
+;	------------------------------------------------------------------------------
+;	Joystick Bitmap ( 2 images of 32 x 32)
+
+							dc.w	BITMAP_OBJECT
+							dc.l	DISPBUF6						; DISPLAY buffer
+							dc.l	JoystickBegin					; DRAW source bitmap
+							dc.w	JoystickEnd-JoystickBegin		; O_SIZE
+							dc.w	32								; O_HEIGHT
+							dc.w	410								; O_YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	32/4							; IWIDTH
+							dc.w	32/4							; DWIDTH
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	94								; XPOS							
+;	------------------------------------------------------------------------------
+;	ICON program when running ou not running bitmap ( 32 x 32 )
+
+							dc.w	BITMAP_OBJECT
+							dc.l	DISPBUF7						; DISPLAY buffer
+							dc.l	NoPrgBegin						; DRAW source bitmap
+							dc.w	NoPrgEnd-NoPrgBegin				; O_SIZE
+							dc.w	32								; O_HEIGHT
+							dc.w	410								; O_YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	32/4							; IWIDTH
+							dc.w	32/4							; DWIDTH
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	136								; XPOS							
+;	------------------------------------------------------------------------------
+;	ARROW Mouse cursor default ( 24 x 24 pixels )
+
+							dc.w	BITMAP_OBJECT
+							dc.l	DISPBUF8						; DISPLAY buffer
+							dc.l	ArrowBegin						; DRAW source bitmap
+							dc.w	ArrowEnd-ArrowBegin				; O_SIZE
+							dc.w	24								; O_HEIGHT
+							dc.w	220								; O_YPOS
+
+							dc.w	0								; 1STPIX
+							dc.w	4								; FLAGS
+							dc.w	0								; IDX
+							dc.w	24/4							; IWIDTH
+							dc.w	24/4							; DWIDTH
+							dc.w	1								; PITCH
+							dc.w	4								; DEPTH
+							dc.w	255								; XPOS	
+;	------------------------------------------------------------------------------
+;	STOP object
+							dc.w	STOP_OBJECT
+
+;	------------------------------------------------------------------------------
+;	Bitmaps sources for tha objects list at startup (Compressed Cry Image format .CCI)
+							
+							include	".\images\toolsbar.cci"	
+							include	".\images\jagos.cci"			; JagOS style logo
+							include	".\images\window.cci"			; Window execution
+
+							include	".\images\Xtension.cci"
+							include	".\images\CDRom.cci"
+							include	".\images\Joystick.cci"
+							include	".\images\noprg.cci"
+
+							include	".\images\arrow.cci"
+
+;	------------------------------------------------------------------------------
+;	Supplementary Bitmaps sources during execution
+
+							include	".\images\busy.cci"				; Busy bee mouse cursor
+							include	".\images\running.cci"			; Default icon PRG when running
+

@@ -1,0 +1,254 @@
+
+				---------------------------------
+				News features of AADS Version 1.2
+				---------------------------------
+
+	Year 1995: News calls
+	=====================
+
+	* 01/05/95 (PcXForm)
+	--------------------
+	
+	A new C define called SCROLL_LISTBOX allow the users to use the list box
+	object instead of the Popup-Menu. The list box is a Popup with a vertical 
+	slider.(Avaible only with AES 4.1 and above)
+	
+	* 12/10/95 (PcXWind)
+	--------------------
+	
+	Window iconify are now fully understanding by PcXWind, with help of two new
+	part of Type_Window_Parameter structure.
+	
+		int	treename
+		int	isiconify
+		
+	The first is the Tree objects name that it will be display when a window is
+	iconify.
+	The second, is a boolean that allows to open a windows as a icon window
+	directly or not when you make a W_Open() call.
+	
+	* 12/10/95 (PcXForm)
+	--------------------
+	
+	In order to support new iconify features, PcXForm get two news calls as:
+
+	Type_Formular_Parameter	*F_GetParameter(void)
+	int			F_Xopen(Type_Formular_Parameter *Parameter)
+	
+	
+	The first call, give a pointer to a new structure used to open a formular with
+	the F_XOpen() new call, that replace the old call F_Open().
+	
+	Type_Formular_Parameter Is
+	Begin
+		int	TreeName		/* same parameters as F_Open() */
+		char	*Title
+		int	Mode
+		int	FirstEdit
+		
+		int	FormIcon		Name of formular icon
+		int	Closer			Boolean: Closer Yes/No
+		int	Smaller			Boolean: Smaller Yes/No
+	End
+	
+	
+	The F_Open is already exist and do the same effects as with previous version, 
+	but the F_Xopen() is more efficient, because allows to use the icon window.
+	
+	* 13/10/95 (PcXForm)
+	--------------------
+	
+	When user try to open a formular already opening, this window is set as
+	top window.
+	
+	* 13/10/95 (PcXWind)
+	--------------------
+	
+	Global Iconify and uniconify all windows are now fully understanding.
+	All windows open will be hidden and a global icon window will be 
+	displaying to show this situation.
+	Well, to install a Global Icon Application, you must use the new call:
+	
+	void	W_SetIconApp(int TreeName)
+	
+	Where TreeName is the formular that contains the icon to display when the
+	Smaller gadget is double-clicked with the CONTROL key pressed.
+	
+	In this case, all windows are closed and previous windows iconify are 
+	closed to.
+	
+	* 10/12/95
+	----------
+	
+	A very important improvement is now avaible, with the window-menu. With a new
+	extension of PcXWind, named PcXWMenu, you can now create menus directly into 
+	any window. For this effect, PcXWind.h was be growed in order to contains some 
+	news calls and types definitions.
+	
+	Well, two new calls are now existing:
+	-------------------------------------
+	
+		* int	W_MenuOpen(int WindowHandle,int MenuTreeName ,Type_Window_Menu_List Menu)
+		=================================================================================
+		
+		
+	This call create and open a new menu into a target window.
+	
+	
+	where:	WindowHandle is the handle of the targert window recived the menu.
+	------	MenuTreeName is the menu's name
+		Menu is the event's list where are defined each <Item,Initial State,Procedure>
+		(See PcXMenu, cause is the same working)
+		
+		For this, the list is making with several elements of type:
+		
+typedef	struct	{
+		  int	Item;					/* Menu item */
+		  int	State;					/* Initial State displaying */
+		  void	(*Procedure)(int WindowHandle);		/* Item's Method  */
+		}Type_Window_Menu_List;
+
+
+
+		* int	W_MenuClose(WHandle1)
+		=============================
+	
+			
+	This call remove a menu from a window.
+	
+	
+	Where:	WindowHandle is the window handle from which the menu will be removed.
+	
+	
+	When a procedure is called when an item is selected, the window's handle is passed
+	by value in parameter to the function and three variables are assigned:
+	
+	
+		int	W_MenuItem;					/* Item selected */
+		int	W_MenuName;					/* Menu Tree Name */
+		OBJECT	*W_MenuAddress;					/* Menu Tree Address */
+	
+		
+		* int W_MenuExist(int WindowHandle)
+		===================================
+		
+	
+	This call allows you to know if a window of handle WindowHandle contains a menu.
+	Return True if yes or False.
+	
+	
+	* 12/10/95
+	----------
+	
+	A new call into the PcXApp sub-library allows the programmer to set the application's
+	mouse shape.
+	
+	
+		* int A_SetMouse(int Mouse,MFORM *MouseForm)	
+		============================================
+		
+	Where:	Mouse and MouseForm are the same parameters like the AES call graf_mouse.
+		
+		
+	* 12/10/95
+	----------
+		
+	Because it will be more interesting to have several mouse form for each
+	formulars and windows, two new part of structure are now existing in
+	Type_Formular_Parameter and Type_Window_Parameter:
+	
+		
+		int		Mouse;
+		MFORM		*MouseForm;
+	
+		
+	These parts are used with the same way that in AES call graf_mouse.
+		
+	With that, when the mouse is on a window, AADS change the current mouse
+	cursor to window's cursor defined and if is on the desktop change to 
+	the application's mouse cursor.
+		
+			
+		
+	* 13/10/95
+	----------
+	
+	A new call allow the user to altear in run time the window's mouse cursor shape.
+	This function work with window naturally but with the formular's window too.
+	
+		* int W_NewMouse(int WindowHandle,int Mouse, MFORM *MouseForm)
+		==============================================================
+		
+	Where:	WindowHandle is the handle of the target window
+		Mouse is the mouse cursor shape (like in graf_mouse())
+		MouseForm is a pointer to an user defined shape (like in graf_mouse())
+
+	(see PcXWind.h)		
+
+			
+			------------------------------------------------
+			
+			
+	Year 1996 news calls
+	====================
+		
+		
+	* 01/01/1996
+	------------
+	
+	This function compute and return the usable work area. It substract from the real height
+	the built-in menu's height if this window have got a menu bar.
+	
+		* int W_WorkXYWH(int WindowHandle,int *Area_X,int *Area_Y,int *Area_W,int *Area_H)
+		==================================================================================
+		
+	
+	Where:	WindowHandle is the window's handle that you want to check.	
+		The Area_xx parameters contains the position and size 
+		of the real usable work area.
+
+	(see PcXWind.h)		
+	
+	
+	* 05/01/96
+	----------
+	
+	This call allows your application to top automatically the window under the 
+	mouse's position. 
+	
+		* W_AutoTop(Type_AutoTop *AutoTop)
+		==================================
+		
+	With Type_AutoTop is:	
+
+	typedef	struct	{
+			  int	AutoEnable;			/* {True,False} = Mode On/Off */
+			  int	OnlyWorkArea;			/* If mouse into work area */
+			  int	NoMouseMovement;		/* Don't top if mouse-mouvement */
+			} Type_AutoTop;
+
+
+	AutoEnable parameter:	Allows you to switch On or Off this running mode.
+				True  => Mode enable
+				False => Mode disable
+				
+	OnlyWorkArea parameter:	Allows you to top a window only if the mouse cursor is
+				on the window's work area.
+				True  => Only on work area
+				False => on window complete
+				
+	NoMouseMovement:	Permit you to allows or not the window topping at 
+				mouse-movement.
+				True  => Don't top at mouse-movement
+				False => Top with mouse-movement
+
+	* 06/01/96
+	----------
+	
+	Turn On or Off the visual clue. these graphical effect are the standard GEM Growbox and shrinkbox at the open or close window and
+	dialog box in window.
+
+		* void W_VisualClue(int OnOff)
+		==============================
+		
+	Where:	OnOff is a boolean that switch On or Off this feature.

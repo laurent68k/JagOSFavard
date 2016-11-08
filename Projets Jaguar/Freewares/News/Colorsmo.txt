@@ -1,0 +1,141 @@
+Greetings!
+
+The COLORSMO.JAG program is the same as the COLORS.JAG, but instead
+of using the joypad in port 1 it uses the mouse in port 2!
+
+To detect the directions i am using the following table 
+(have a look at the enclosed gif) :
+
+     XA (YA) 0  1  1  0  0  1  -->  0 +2 +2  0  0 +2
+     XB (YB) 0  0  1  1  0  0  -->  0  0 -1 -1  0  0
+                                   ------------------
+                                    0  2  1 -1  0  2 --> positive
+
+     XA (YA) 0  0  1  1  0  0  -->  0  0 +2 +2  0  0
+     XB (YB) 0  1  1  0  0  1  -->  0 -1 -1  0  0 -1
+                                   ------------------
+                                    0 -1  1  2  0 -1 --> negative
+
+
+Here is the 68k code to read the mouse signals from port 2 and convert
+them to the the familiar variables joycur and joyedge.
+
+The readmouse-function should be called more than 1000 times per second 
+to get good results. After the readmouse()-call the RLDU-results should 
+be evaluated immediatedly, the mouse-buttons (redirected to FireA and 
+Pause) should be evaluated the normal 50/60 times per second.
+  
+;*****************************************************************
+readmouse:  
+;scan for player 2
+          move.l    #$0ffffff3,d1       ; d1 = Joypad data mask
+          moveq.l   #-1,d2              ; d2 = Cumulative joypad reading
+
+          move.w    #$817f,JOYSTICK
+          move.l    JOYSTICK,d0         ; Read joypad,pause button,A button
+          or.l      d1,d0               ; Mask off unused bits
+          rol.b     #2,d0               ; note the size of rol
+          ror.l     #8,d0
+          and.l     d0,d2               ; d2 = xxAPxxxx RLDUxxxx xxxxxxxx xxxxxxxx
+
+          moveq.l   #-1,d1
+          eor.l     d2,d1               ; d1 = xxAPxxBx RLDU741* xxCxxxOx 2580369# <== now inputs active high
+	 
+	move.l	d1,d2
+	and.l	#$30000000,d2	; only the button states can be used directly
+
+	moveq.w	#0,d4
+	move.w	mouseY_last,d3
+
+	btst.l	#KEY_R,d1	; durch Unwissen bei der Verdrahtung sind
+	beq.s	m_l		; die Joyporteing„nge R+L fr YA+YB zust„ndig!!!!
+	add.w	#2,d4		; YA = 1
+m_l:	btst.l	#KEY_L,d1
+	beq.s	m_rl
+	sub.w	#1,d4		; YB = 1
+m_rl:	cmp.w	d3,d4	; do not handle it, if old value = new value
+	beq.s	m_u
+
+	swap	d3
+	move.w	d4,d3	;d3 = #OldValue<<16+NewValue
+	cmp.l	#$00020001,d3  ; is NewValue = 1 and was OldValue = 2 ?
+	beq.s	m_rl_pos	   ; if yes, the sample is ok and it direction is positive
+	cmp.l	#$0001ffff,d3
+	beq.s	m_rl_pos	
+	cmp.l	#$ffff0000,d3
+	beq.s	m_rl_pos	
+	cmp.l	#$00000002,d3
+	beq.s	m_rl_pos	
+	bra.s	m_rl_neg
+m_rl_pos:
+	bset.l	#KEY_D,d2
+	bra.s	m_u
+m_rl_neg:
+	cmp.l	#$ffff0001,d3
+	beq.s	m_rl_neg2
+	cmp.l	#$00010002,d3
+	beq.s	m_rl_neg2
+	cmp.l	#$00020000,d3
+	beq.s	m_rl_neg2
+	cmp.l	#$0000ffff,d3
+	bne.s	m_u	
+m_rl_neg2:
+	bset.l	#KEY_U,d2
+	bra.s	m_u
+
+
+m_u:	moveq.w	#0,d6
+	move.w	mouseX_last,d5	; durch Unwissen bei der Verdrahtung sind
+				; die Joyporteing„nge U+D fr XA+XB zust„ndig!
+	btst.l	#KEY_D,d1
+	beq.s	m_d
+	add.w	#2,d6		; XA = 1
+m_d:	btst.l	#KEY_U,d1
+	beq.s	m_ud
+	sub.w	#1,d6		; XB = 1
+m_ud:	cmp.w	d5,d6	; wenn neuer Wert = alter Wert, dann weiter
+	beq.s	m_end
+	swap	d5
+	move.w	d6,d5	;#AlterWert,NeuerWert
+	cmp.l	#$00020001,d5
+	beq.s	m_ud_pos	
+	cmp.l	#$0001ffff,d5
+	beq.s	m_ud_pos	
+	cmp.l	#$ffff0000,d5
+	beq.s	m_ud_pos	
+	cmp.l	#$00000002,d5
+	beq.s	m_ud_pos	
+	bra.s	m_ud_neg
+m_ud_pos:
+	bset.l	#KEY_R,d2
+	bra.s	m_end
+m_ud_neg:
+	cmp.l	#$ffff0001,d5
+	beq.s	m_ud_neg2
+	cmp.l	#$00010002,d5
+	beq.s	m_ud_neg2
+	cmp.l	#$00020000,d5
+	beq.s	m_ud_neg2
+	cmp.l	#$0000ffff,d5
+	bne.s	m_end	
+m_ud_neg2:
+	bset.l	#KEY_L,d2
+	bra.s	m_end
+
+m_end:	move.w	d4,mouseY_last
+	move.w	d6,mouseX_last
+	move.l	d2,d1
+          move.l    joycur,d0         ; old joycur needed for determining the new joyedge
+          move.l    d1,joycur         ; Current joypad reading stored into joycur
+          eor.l     d1,d0
+          and.l     d1,d0
+          move.l    d0,joyedge        ;joypad,buttons,keys that were just pressed
+
+          rts       
+;*****************************
+   EVEN
+mouseX_last:   ds.w  1
+mouseY_last:   ds.w  1
+
+
+

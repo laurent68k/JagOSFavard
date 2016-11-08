@@ -1,0 +1,31 @@
+; ----------------------------------------------------------
+; 		   Create JagRom.App
+; ----------------------------------------------------------
+; 	FunShip - 1997-98 Falcon30, FRANCE
+;
+; ----------------------------------------------------------
+
+JagRom.App									; name of executable program
+
+.C [-B-S-M]									; Processor 68000
+.L [-v]
+
+=											; list of modules follows...
+
+PCSTART.O									; startup code
+
+;	List of modules
+
+JagRom.C	(Jagrom_F.h)					; Main Program
+RAM.C		(Jagrom_F.h)					; RAM access
+
+;	some pure library
+
+PCSTDLIB.LIB								; standard library
+PCEXTLIB.LIB								; extended library
+PCTOSLIB.LIB								; TOS library
+PCFLTLIB.LIB
+
+;	The Gem library AADS
+
+STAads.lib

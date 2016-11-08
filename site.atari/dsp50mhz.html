@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Sebastien FAVARD">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en] (X11; I; Linux 2.0.35 i586) [Netscape]">
+   <TITLE>Actuallites</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;
+<CENTER><TABLE BORDER=0 COLS=1 WIDTH="100%" >
+<TR>
+<TD ALIGN=CENTER WIDTH="100%"><IMG SRC="st-mag/stmagb.gif" NOSAVE HEIGHT=264 WIDTH=300 ALIGN=ABSCENTER>
+<CENTER><B><U><FONT COLOR="#000000"><FONT SIZE=+3>Hardware</FONT></FONT></U></B></CENTER>
+
+<P><B><FONT COLOR="#000000"><FONT SIZE=+1>&nbsp;&nbsp;&nbsp; </FONT><U><FONT SIZE=+2>Le
+DSP 56001 du Falcon &agrave; 50 Mhz</FONT></U></FONT></B>
+<P><FONT COLOR="#FF6600"><U>Auteur:</U> S&eacute;bastien FAVARD</FONT>
+<BR>&nbsp;</TD>
+</TR>
+</TABLE></CENTER>
+
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 COLS=2 WIDTH="100%" >
+<TR VALIGN=TOP>
+<TD ALIGN=LEFT><B><U><FONT COLOR="#FF6600"><FONT SIZE=+2>I</FONT><FONT SIZE=-1>NTRODUCTION</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Bien que bon nombre de cartes
+acc&eacute;l&eacute;ratrices boostent votre Falcon &agrave; des fr&eacute;quences
+de plus en plus impressionnantes, beaucoup d'entre nous ne peuvent se permettre
+de tels investissements... Je vais vous pr&eacute;senter une petite modification,
+fort simple, de votre moineau, pour que son tr&egrave;s sympathique DSP</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>puisse
+s'envoler vers des fr&eacute;quences jusqu'alors jamais atteinte pour un
+prix approximatif de moins de</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>100
+Frs...&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>En effet, votre DSP peut &ecirc;tre
+boost&eacute; au del&agrave; des 32 MHz, tout au moins &agrave; 50 MHz
+! (voir par exemple les CENTurbo...). Les performances sont alors accrues
+en cons&eacute;quence, puisque par exemple l'utilisation du petit programme
+Frac! de Brainstorm, d&eacute;montre que celui-ci effectue (en 16 couleurs)
+500 it&eacute;rations d'une Mandelbrot en 36 secondes, au lieu de 54. Le
+gain du circuit de traitement du signal est de 56,25% (25 Mips au lieu
+de 16 Mips) !!! Au niveau de l'intervention &agrave; effectuer, celle-ci
+est extr&ecirc;mement simple et ne n&eacute;cessite que 3 soudures sur
+la carte m&egrave;re ! Les possesseurs de cartes acc&eacute;l&eacute;ratrices
+de type Afterburner seront ravis de d&eacute;couvrir, que pour une somme
+modique, ils peuvent encore acc&eacute;l&eacute;rer leur machine, afin
+d'am&eacute;liorer leurs performances cot&eacute; DSP, et d'arriver &agrave;
+des puissances de calculs hallucinantes !&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Tout d'abord, je tiens &agrave;
+pr&eacute;ciser que bien que l'op&eacute;ration soit extr&ecirc;mement
+simple, je ne peut &ecirc;tre tenu responsable d'un quelconque</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>dysfonctionnement post&eacute;rieur
+&agrave; l'intervention. Cette modification doit normalement &ecirc;tre
+compatible, entre autre, avec les cartes de r&eacute;visions</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>B/C/D/L/G, mais v&eacute;rifiez
+tout de m&ecirc;me bien la conformit&eacute; de ces informations avec votre
+carte, afin de ne pas risquer de d&eacute;t&eacute;riorer votre</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>ordinateur !&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>MATERIELS NECESSAIRES POUR
+L'OPERATION</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - un fer &agrave; souder
+avec un peu d'&eacute;tain (de la soudure) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - une pince &agrave;
+d&eacute;nuder ; - un voltm&egrave;tre (facultatif) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - du ruban adh&eacute;sif
+;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - 2 picots (sortes
+de "pattes" d'un support de circuit int&eacute;gr&eacute;) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - un fil &eacute;lectrique
+(environ 8 cm) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - un support 14 broches
+pour circuit int&eacute;gr&eacute; (DIP 14) ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - un oscillateur &agrave;
+quartz d'une fr&eacute;quence de 50MHz pour support DIP 14 ;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - &eacute;ventuellement
+un dissipateur thermique (radiateur) ainsi qu'un peu de&nbsp;&nbsp;&nbsp;&nbsp;
+colle thermoconducteur (et aucune autre !!!)</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>Co&ucirc;t global de l'intervention</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Le principal achat est l'oscillateur,
+qui co&ucirc;te de l'ordre de 50 Frs. Cependant, si vous installez un dissipateur
+thermique, vous devrez compter</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>environ 20 Frs de plus. Quant aux
+supports, picots, colle, ruban... j'esp&egrave;re que vous pourrez vous
+d&eacute;brouiller pour ne pas les acheter, ou tout au moins les avoirs
+&agrave; des prix tr&egrave;s modestes (quelques francs). Personnellement,
+je n'ai achet&eacute; que l'oscillateur et le dissipateur thermique, et
+le co&ucirc;t global a &eacute;t&eacute; de 65 Frs !&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>CONFIGURATION CARTE MERE -
+OSCILLATEUR</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Tout d'abord, rep&eacute;rez l'emplacement
+de l'oscillateur &agrave; quartz not&eacute; U37. Il se situe &agrave;
+droite du ventilateur, entre deux trous assez gros. Vous pouvez facilement
+le trouver, car il est m&eacute;tallis&eacute; et se trouve &agrave; cot&eacute;
+d'un imposant circuit, not&eacute; par U36 (le DMA). L'oscillateur permet
+de g&eacute;n&eacute;rer un signal d'horloge d'une fr&eacute;quence de
+32MHz attaquant les circuits DMA (U36) et DSP (U38) du Falcon. Voyons tout
+d'abord les significations des pattes de votre oscillateur &agrave; 50MHz.</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P>.&nbsp;<A HREF="/usr/laurent/Site.Atari/articles/dsp50mhz/dip14.gif"><IMG SRC="articles/dsp50mhz/ocilator.gif" NOSAVE HEIGHT=200 WIDTH=200></A>
+<BR><I><FONT SIZE=-1>Brochage de l'oscillateur &agrave; quartz.</FONT></I></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Quelques remarques sur le brochage,
+pour les non initi&eacute;s. Le brochage est not&eacute; suivant le support
+de 14 broches (DIP 14) bien que l'oscillateur ne comporte physiquement
+que 4 pattes. L'alimentation du circuit est effectu&eacute;e gr&acirc;ce
+aux pattes 7 et 14. En ce qui concerne la broche 1, il n'est pas n&eacute;cessaire
+de la connecter. Finalement, le signal g&eacute;n&eacute;r&eacute;, de
+50MHz se trouve sur la patte 8. Pour ce qui est du "point" &agrave; gauche
+de l'oscillateur, il n'est pas sur tous les circuits, puisque ce rep&egrave;re
+est redondant par rapport &agrave; l'angle droit du support (toujours &agrave;
+gauche) permettant d'identifier la patte 1 de l'oscillateur.</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><IMG SRC="articles/dsp50mhz/carte.gif" NOSAVE HEIGHT=150 WIDTH=250></CENTER>
+
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Passons maintenant &agrave; l'emplacement
+U37 qui contient un oscillateur sur sa partie haute. Tout d'abord, pr&eacute;sentons
+le brochage de cet emplacement de taille compatible avec le support 14
+broches que vous allez utiliser...&nbsp;</FONT></FONT>
+<CENTER><A HREF="/usr/laurent/Site.Atari/articles/dsp50mhz/dip14.gif"><IMG SRC="articles/dsp50mhz/u37.gif" NOSAVE HEIGHT=114 WIDTH=170></A>
+<BR><I><FONT SIZE=-1>Emplacement physique U37 contenant l'oscillateur 32MHz
+aux emplacements 1,4,11 &amp; 14.</FONT></I></CENTER>
+
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>En ce qui concerne l'alimentation
+de l'oscillateur, les emplacements 4 et 7 sont reli&eacute;s &agrave; la
+masse et le 14 au potentiel +5V. Nous voyons facilement, que la carte m&egrave;re
+de notre b&eacute;b&eacute; peut supporter des oscillateurs de tailles
+pour support de 8 ou 14 broches (dans les deux cas, le</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>potentiel +5V alimente l'oscillateur,
+et la masse (patte 4 ou 7) est connect&eacute; &agrave; la masse de l'oscillateur).
+D'une mani&egrave;re totalement identique, le signal g&eacute;n&eacute;r&eacute;
+par l'oscillateur peut se situer soit &agrave; l'emplacement 8 ou en 11.
+Il a donc suffit aux concepteurs de relier ces deux pattes (ceci est effectu&eacute;
+sur la face cot&eacute; soudure de la carte m&egrave;re). A partir de ce
+sch&eacute;ma, les signaux d'horloges des circuits DSP et DMA , sont tir&eacute;s
+des emplacements 8 et 11 respectivement. Nous allons donc mettre &agrave;
+profit ces deux points distincts de la carte, afin de modifier la fr&eacute;quence
+du DSP sans pour autant changer celle du circuit DMA du Falcon qui n&eacute;cessite
+absolument une fr&eacute;quence de 32MHz !</FONT></FONT>
+<BR>&nbsp;
+<P>&nbsp;</TD>
+
+<TD><FONT COLOR="#000000"><FONT SIZE=+1>&nbsp;</FONT></FONT><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>INETRVENTIONS</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Commen&ccedil;ons la manipulation,
+en coupant la connexion (cot&eacute; soudure : pas celle ou se situe l'oscillateur
+U37 !) entre les emplacements 8 et 11 en faisant attention de ne pas couper
+profond&eacute;ment la carte m&egrave;re, car celle-ci comporte plusieurs
+couches internes. Pour ceux qui n'arrivent pas identifier la piste, vous
+pouvez trouver les pattes de votre oscillateur entre deux trous de la carte
+m&egrave;re, et proche de la r&eacute;sistance R176. N'oubliez surtout
+pas, que puisque vous &ecirc;tes sur l'autre face, les emplacements sont
+invers&eacute;s !!! Donc ne coupez pas une autre piste par m&eacute;garde
+! Mais rassurez-vous, car du point de vue oscillateur U37, seul les pattes
+11 et 8 sont reli&eacute;es, donc d&egrave;s que vous avez trouv&eacute;
+l'emplacement, vous ne pouvez plus vous tromper. A pr&eacute;sent, votre
+DSP ne poss&egrave;de plus de fr&eacute;quence d'horloge. Maintenant, revenons
+au cot&eacute; composants, o&ugrave; les derni&egrave;res op&eacute;rations
+vont &ecirc;tre effectu&eacute;es. Tout d'abord, prenez votre support DIP
+de 14 broches, en coupant toutes les pattes sauf les deux correspondantes
+aux emplacements des deux picots, c'est &agrave; dire les pattes 7 et 8.
+Puis, enfoncez les deux picots dans ces deux emplacements en faisant attention
+&agrave; la hauteur de ceux-ci afin d'obtenir le r&eacute;sultat pr&eacute;sent&eacute;
+sur le sch&eacute;ma ci-dessous. Apr&egrave;s avoir trouv&eacute; la bonne
+hauteur, c'est &agrave; dire en reposant compl&egrave;tement le support
+DIP sur l'oscillateur 32MHz (U37) et sur les deux picots, soudez les picots
+de chaque cot&eacute; de la carte m&egrave;re afin d'assurer une meilleur
+rigidit&eacute;. De plus, faites bien attention aux soudures, pour que
+celles-ci ne soient pas en contact avec d'autres pistes &agrave; proximit&eacute;s
+! A partir de maintenant, vous venez de r&eacute;cup&eacute;rer le signal
+du DSP et la masse n&eacute;cessaire &agrave; l'alimentation de votre second
+oscillateur, ce qui fait qu'il ne manque plus qu'&agrave; r&eacute;cup&eacute;rer
+un potentiel +5V pour terminer l'op&eacute;ration (la patte 1 de l'oscillateur
+n'est pas utilis&eacute;e).&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><IMG SRC="articles/dsp50mhz/fixation.gif" NOSAVE HEIGHT=150 WIDTH=180></CENTER>
+
+<P><FONT SIZE=-1><FONT COLOR="#FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><I><FONT COLOR="#000000">
+Principe de fixation du nouvel oscillateur.</FONT></I></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Maintenant, la modification touche
+&agrave; sa fin, prenez votre fil et d&eacute;nudez l'une des deux extr&eacute;mit&eacute;s.
+Apr&egrave;s avoir &eacute;tam&eacute; votre fil, soudez le &agrave; la
+patte 14 (quasi coup&eacute;e) de votre support DIP (c'est &agrave; dire
+correspondant &agrave; l'alimentation +5V). Placez le support sur les deux
+picots, puis</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>mesurez la distance jusqu'au signal
+not&eacute; + de l'inductance L72 qui se trouve juste &agrave; droite du
+DSP, pr&egrave;s du bord de la carte m&egrave;re (la patte + &eacute;tant
+en bas).&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Retirez votre support, et pr&eacute;parez
+l'autre extr&eacute;mit&eacute; de votre fil destin&eacute; &agrave; r&eacute;cup&eacute;rer
+le potentiel +5V de L72. Puis finalement, placez de nouveau votre support
+et soudez votre fil ! Voil&agrave;, il ne reste plus qu'&agrave; fixer
+du ruban adh&eacute;sif entre le support et l'oscillateur 32MHz. Il ne
+reste plus qu'&agrave; allumer votre moineau afin de tester le bon fonctionnement
+de votre montage.&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>En ce qui concerne l'&eacute;chauffement
+de votre DSP, puisque celui-ci tourne plus vite, il peut &ecirc;tre n&eacute;cessaire
+de fixer un dissipateur thermique. Si vous obtenez un &eacute;chauffement
+important, achetez un dissipateur thermique ainsi qu'un peu de colle thermoconducteur
+(et pas une autre !) pour pouvoir le fixer sur votre DSP. Je ne peux qu'encourager
+une telle intervention, qui bien que augmente sensiblement le co&ucirc;t
+de l'op&eacute;ration, vous assure que le DSP ne surchauffera pas et donc
+que celui-ci ne risquera pas d'&ecirc;tre d&eacute;t&eacute;rior&eacute;
+! Bien entendu, certains retorqueront, par</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>exemple, que la CENTurbo I acc&eacute;l&egrave;re
+le DSP &agrave; 50MHz sans pour autant ajouter de radiateur, mais mieux
+vaut pr&eacute;voir que gu&eacute;rir, non ?&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Normalement, cette intervention
+&eacute;tant relativement mineure, aucun probl&egrave;me ne doit survenir.
+Cependant, soyez m&eacute;thodique, et &agrave; chaque &eacute;tape de
+votre manipulation, v&eacute;rifiez bien les connexions afin de ne pas
+provoquer de courts-circuits. D'autre part, faites attention lorsque vous
+couperez la connexion entre les deux horloges, afin de ne pas d&eacute;t&eacute;riorer
+d'autres couches de votre carte m&egrave;re. Si vous &ecirc;tes attentif
+et soigneux, aucun probl&egrave;me ne doit survenir. Au cas ou votre Falcon
+refuserait de fonctionner, retirez votre oscillateur du support et placez
+cot&eacute; soudure de la carte m&egrave;re, un fil, ou mieux, une patte
+d'une r&eacute;sistance entre les emplacements 8 et 11, afin de relier
+de nouveau les deux horloges ! Si votre Falcon persiste toujours &agrave;
+ne pas d&eacute;coler, c'est que vous avez du d&eacute;t&eacute;riorer
+un autre &eacute;l&eacute;ment, alors v&eacute;rifiez bien toutes vos soudures...&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>RAPPEL SUR L'UTILISATION DES
+APPAREILS</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - Le voltm&egrave;tre
+: celui-ci doit &ecirc;tre utilis&eacute; en test de continuit&eacute;
+(avec un "beep"), ou en ohmm&egrave;tre, qui s'il affiche une r&eacute;sistance
+proche de 0 Ohm, indique que les deux points sont reli&eacute;s. Il faut
+l'utiliser pour v&eacute;rifier que les connexions entre les points destin&eacute;s
+aux horloges des DMA et DSP soient bien d&eacute;connect&eacute;es. De
+plus, vous pouvez l'utiliser pour v&eacute;rifier que toutes vos soudures
+ne font pas contact avec d'autres pistes !&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - Le fer &agrave; souder
+: celui-ci est indispensable pour souder le fil et donc &eacute;tamer les
+extr&eacute;mit&eacute;s (fa&icirc;tes une fine couche de soudure sur celles-ci)
+ainsi que pour souder les deux picots. A chaque fois que vous souder, prenez
+peu de soudure, et chauffez bien le fil ou les pattes en faisant couler
+l'&eacute;tain. Ici aucun montage de test, il suffit de brancher une manette
+Jaguar sur une</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>des prises
+&eacute;tendues de votre Falcon ou STE. La programmation de ces manettes
+va</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>etre un peu plus compliqu&eacute;e
+que la m&eacute;thode pr&eacute;c&eacute;dente, mais comme vous le verrez,</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>cela
+reste raisonnable. En effet, pour lire des valeurs quelconques il faut
+proc&eacute;der comme suit:</FONT></FONT>
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>SUBSTITUTION DE MATERIELS</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - La pince &agrave;
+d&eacute;nuder : vous pouvez utiliser un ciseau et couper superficiellement
+la gaine du fil &eacute;lectrique, puis retirer cette partie.&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;&nbsp; - Le voltm&egrave;tre
+: soyez rigoureux et prenez votre temps pour souder et couper la piste.
+De ce fait, vous ne risquez quasiment aucun faux contact, ou court-circuit.
+Finalement, un moyen naturel, est l'utilisation de bons yeux pour v&eacute;rifier
+que la piste est coup&eacute;e !&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp; - Les 2 picots : prenez un
+autre support DIP (par exemple, un 8 broches) que vous couperez afin de
+r&eacute;cup&eacute;rer deux picots.</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Pour toutes questions, vous pouvez
+me contacter &agrave; mon</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>adresse
+e-mail, <A HREF="mailto: favard@linux.utc.fr">favard@linux.utc.fr</A></FONT></FONT>
+<BR>&nbsp;</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

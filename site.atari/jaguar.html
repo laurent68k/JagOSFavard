@@ -1,0 +1,356 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Laurent FAVARD">
+   <meta name="GENERATOR" content="Mozilla/4.7 [fr] (X11; I; Linux 2.2.14-15mdk i586) [Netscape]">
+   <meta name="Description" content="Description générale du kit Jaguar.">
+   <title>Jaguar</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="99%" >
+<tr VALIGN=TOP>
+<td ALIGN=CENTER>
+<center><a href="http://www.milan-computer.com/"><img SRC="milan/milan2board.gif" NOSAVE height=193 width=128></a>
+<br><font color="#3366FF"><a href="http://www.milan-computer.com/">Milan
+motherboard</a></font></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>&nbsp;</td>
+
+<td>
+<center><img SRC="jaguar/jagtitle.jpg" NOSAVE height=106 width=255>
+<br><a href="jaguar.html"><img SRC="images/fr.gif" NOSAVE height=31 width=60></a><a href="jaguar_e.html"><img SRC="images/gb.gif" NOSAVE height=35 width=59></a>
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<p><b><i><u><font color="#3366FF"><font size=+2>Projet de kit de d&eacute;veloppement
+Jaguar</font></font></u></i></b>
+<p><font color="#FF0000">Mise &agrave; jour le 25 Mai 2000</font></center>
+
+<p><b><u><font color="#3366FF">Souvenez-vous...</font></u></b>
+<p><font color="#FF6600">Au dernier salon Atari de d&eacute;cembre 1997
+&agrave; Bercy, fut pr&eacute;sent&eacute; une d&eacute;monstration d'un
+BOOTROM, capable de&nbsp;</font>
+<br><font color="#FF6600">d&eacute;marrer la console ainsi qu'un carte
+ins&eacute;r&eacute;e dans la Jaguar connect&eacute; vers un ST...Il s'agissait
+de montrer ce &agrave; quoi</font>
+<br><font color="#FF6600">nous travaillons.</font>
+<center>
+<p><img SRC="jaguar/smallfav.gif" NOSAVE height=236 width=350>
+<br><font color="#000000"><font size=-1>Forum Atari 1997, pr&eacute;sentation
+d'un BOOTROM s'ex&eacute;cutant sur&nbsp; Jaguar</font></font></center>
+
+<p><font color="#FF6600">Depuis le temps s'est &eacute;coul&eacute; et
+une premi&egrave;re solution op&eacute;rationnelle est enfin disponible.</font>
+<p><b><u><font color="#3366FF">Objectifs</font></u></b>
+<p><font color="#FF6600">Le but de ce projet est de proposer une solution
+logicielle et mat&eacute;rielle permettant le t&eacute;l&eacute;chargement
+de</font>
+<br><font color="#FF6600">programmes con&ccedil;ues pour la Jaguar et de
+les ex&eacute;cuter. Pour cela, le kit est compos&eacute; d'un petit "syst&egrave;me</font>
+<br><font color="#FF6600">d'exploitation" qui remplace la ROM standard
+Jaguar et d'un logiciel tournant sur Atari.</font>
+<br><font color="#FF6600">Actuellement, la liaison s'effectue par le port
+Joystick Jaguar 2 et le port Centronics de l'Atari.</font>
+<p><font color="#FF6600">Plus tard, une carte ISA sera propos&eacute;e
+comme support principal de communication entre l'ordinateur et la</font>
+<br><font color="#FF6600">Jaguar afin de permettre des transferts plus
+&eacute;lev&eacute;s.</font>
+<p><font color="#FF6600">Enfin, il a &eacute;t&eacute; tenu compte de l'existance
+d'autres kit Jaguar, c'est pourquoi des programmes mis au point</font>
+<br><font color="#FF6600">avec le <b>Jaguar Server</b> ou le <b>kit BJL</b>
+devraient fonctionner sans probl&egrave;mes, tant qu'aucune sp&eacute;cificit&eacute;s</font>
+<br><font color="#FF6600">d'un Kit particulier est utilis&eacute;.</font>
+<p><b><u><font color="#3366FF">JagOS</font></u></b>
+<br>&nbsp;
+<p><font color="#FF6600">La ROM Atari est court-circuit&eacute;e par notre
+EPROM, qui contient <b>JagOS</b>, notre propre moniteur d'exploitation.</font>
+<br><font color="#FF6600">Celui-ci d&eacute;marre la console et affiche
+un "bureau" Jaguar &agrave; l'&eacute;cran, en se mettant en attente de
+commandes</font>
+<br><font color="#FF6600">venant de l'ordinateur. Il permet principalement
+de recevoir un programme, puis de l'ex&eacute;cuter.</font>
+<p><font color="#FF6600">A cot&eacute; de cela, il offre des appels syst&egrave;mes,
+comme le TOS par exemple, pour permettre aux programmes</font>
+<br><font color="#FF6600">Jaguar de demander des services particuliers.</font>
+<center>
+<p><img SRC="jaguar/jagdesk103.gif" NOSAVE height=235 width=344>
+<br><font color="#000000"><font size=-1>Capture d'&eacute;cran du bureau
+Jaguar</font></font></center>
+
+<p><b><u><font color="#3366FF">JagStudio</font></u></b>
+<p><font color="#FF6600">JagStudio est un logiciel fonctionnant sous GEM,
+qui permet de dialoguer avec la Jaguar. Sa</font>
+<br><font color="#FF6600">tache principale est de transf&eacute;rer un
+programme vers la console puis de lancer son ex&eacute;cution.</font>
+<br><font color="#FF6600">Accessoirement, celui-ci permet de dumper le
+contenur de l'Eprom embarqu&eacute;e sur les cartouches</font>
+<br><font color="#FF6600">de jeux, de dumper la m&eacute;moire Jaguar,
+de recevoir des messages de la console...</font>
+<p><font color="#FF6600">Actuellement, celui-ci est d&eacute;clin&eacute;
+en deux versions, une fonctionnant sous <b>MagiC 5</b> et une autre</font>
+<br><font color="#FF6600">sous <b>TOS</b>.</font>
+<p><b><font color="#FF6600">Fonctionnalit&eacute;s:&nbsp;</font></b>
+<ul>
+<li>
+<font color="#FF6600">G&eacute;n&eacute;ration automatique de code sources
+assembleur.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Transfert de programmes vers la Jaguar et lancement
+de l'ex&eacute;cutable.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Transfert de donn&eacute;es binaires quelconque en
+m&eacute;moire Jaguar.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Transfert de donn&eacute;es de la m&eacute;moire
+Jaguar vers un fichier sur l'ordinateur h&ocirc;te.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Lecture et &eacute;criture de la m&eacute;moire Eprom
+des cartouches de jeux.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Prise en charge des exceptions 68000 de la Jaguar.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Reconnaissances automatiques des demandes de transferts
+de la part de la Jaguar.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Compression des images .CRY en .CCI (format propre
+&agrave; JagOS, tr&egrave;s simple).&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Fen&ecirc;tre console de r&eacute;ception de messages
+des programmes Jaguar. (Aide au debuguage)</font></li>
+
+<li>
+<font color="#FF6600">Appels d'un &eacute;diteur externe de texte et d'un
+assembleur (Devpac).&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Bulles d'aides et aide en ligne.&nbsp;</font></li>
+</ul>
+<b><font color="#FF6600">Caract&eacute;ristiques techniques:&nbsp;</font></b>
+<ul>
+<li>
+<font color="#FF6600">N&eacute;cessite le syst&egrave;me d'exploitation
+<b>MagiC
+5 </b>pour la version MagiC</font></li>
+
+<li>
+<font color="#FF6600">N&eacute;cessite le syst&egrave;me d'exploitation
+<b>TOS
+1.02</b> ou plus pour la version TOS</font></li>
+
+<li>
+<font color="#FF6600">Ecrit en langage C</font></li>
+
+<li>
+<font color="#FF6600">Interface graphique &eacute;volu&eacute;e (Fen&ecirc;tres
+modales, non modales, menus contextuels)&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Bureau adapt&eacute; &agrave; l'application et personnalisable.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Langues Anglaises.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Noms de fichiers longs (Sous version MagiC, ou sous
+MiNT, N.AES avec la version TOS).&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Support du protocole <b>VA_START</b>.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Support du message <b>AV_STARTPROG&nbsp;</b></font></li>
+
+<li>
+<font color="#FF6600">Support de BubbleGEM, avec bulles d&eacute;sactivables.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Support de ST-Guide pour l'aide sur le logiciel en
+Anglais.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Gestion du fichier de configuration de l'application
+.INF &eacute;volu&eacute;e.&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Protocole de communications avec la Jaguar &eacute;volutif.&nbsp;</font></li>
+
+<br><font color="#FF6600">Acc&egrave;s aux aides au format ST-Guide de
+JagOS et JToolBox.&nbsp;</font></ul>
+<b><u><font color="#3366FF">JToolbox</font></u></b>
+<p><font color="#FF6600">Pour &eacute;crire JagStudio, le plus simple etait
+de s'appuyer sur une boite &agrave; outils, afin de s&eacute;parer les
+programmes</font>
+<br><font color="#FF6600">li&eacute;s &agrave; la Jaguar d'un application
+purement utilisatrice. L'autre int&eacute;ret, et d'offrir l'acc&egrave;s
+&agrave; cette boite &agrave; outils,</font>
+<br><font color="#FF6600">afin qu'un programme quelconque puisse utiliser
+la Jaguara. C'est le r&ocirc;le de <b>JToolbox</b>, une simple boite</font>
+<br><font color="#FF6600">&agrave; outils qui contient tous les programmes
+qui controle la Jaguar.</font>
+<p><b><u><font color="#3366FF">Carte d'extension</font></u></b>
+<p><font color="#FF6600">Cette carte fera partie du kit dans le futur.
+Elle sera de type ISA et donc destin&eacute; au Milan ou au PC.&nbsp;</font>
+<br><font color="#FF6600">Un portage sous Linux, Windows et Milan sera
+donc obligatoire pour profiter de celle-ci. Actuellement</font>
+<br><font color="#FF6600">elle en &eacute;tude.</font><font color="#FF6600"></font>
+<p><font color="#FF6600">Pour plus d'informations, consultez la <a href="jaghard.html">page
+d&eacute;di&eacute;e</a> &agrave; cette carte d'extension.</font>
+<p><b><u><font color="#3366FF">Configuration&nbsp; n&eacute;cessaire</font></u></b>
+<ul>
+<li>
+<font color="#FF6600">Atari&nbsp; et compatibles (Si il le sont pour le
+port imprimantes)</font></li>
+
+<li>
+<font color="#FF6600">1 Mo de RAM au minimum libre, l'application consommant
+anviron 500 &agrave; 700 Ko.</font></li>
+
+<li>
+<font color="#FF6600">Disque dur IDE ou SCSI fortement conseill&eacute;&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Syst&egrave;me d'exploitation <b>MagiC 5 </b>minimum
+ou<b>TOS 1.02 </b>et plus.</font></li>
+</ul>
+
+<p><br><b><u><font color="#3366FF">T&eacute;l&eacute;chargement</font></u></b>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER=0 COLS=3 WIDTH="100%" BGCOLOR="#66FFFF" NOSAVE >
+<tr ALIGN=CENTER>
+<td><font color="#FF6600"><a href="zip/distribution.zip">Distribution.zip</a></font></td>
+
+<td><font color="#000000">Version 1.00</font></td>
+
+<td><font color="#000000">25 May 2000</font></td>
+</tr>
+
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td><a href="zip/aads.zip">Aads.zip</a></td>
+
+<td NOSAVE>Version 1.2.63</td>
+
+<td>25 May 2000</td>
+</tr>
+</table>
+
+<p>Note: Aads est utile uniquement si vous souhaitez modifier et compiler
+JagStudio vous m&ecirc;me.
+<p><b><u><font color="#3333FF">Installation du Kit</font></u></b>
+<br>&nbsp;
+<p><font color="#FF6600">Consultez cette notice d'<a href="jaginstall.html">installation</a>
+en <b>Anglais et Fran&ccedil;ais</b> en ligne, agr&eacute;ment&eacute;e
+de photos. Les photos publi&eacute;es sont de</font>
+<br><font color="#FF6600">Mattias Domin ( <a href="mailto: Matthias.Domin@t-online.de">Matthias.Domin@t-online.de</a>),
+qu'il m'a autoris&eacute; &agrave; utiliser. Cette installation est la
+m&ecirc;me que pour le kit</font>
+<br><font color="#FF6600">BJL.</font>
+<center>
+<p><a href="jaginstall.html">NOTICE D'INSTALLATION</a></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<p><b><u><font color="#3333FF">Jaguar FAQ</font></u></b>
+<p><font color="#FF6600">Lisez cette <a href="FAQ_Jaguar.text">FAQ</a>
+en Anglais pour des questions a propos de la Jaguar.</font>
+<p><b><u><font color="#3333FF">Liens Jaguar</font></u></b>
+<p><font color="#FF6600">42 Bastian Schick</font> <a href="http://rgpc72.gp.fht-esslingen.de/students/elw5basc/">http://rgpc72.gp.fht-esslingen.de/students/elw5basc/</a>
+<br><font color="#FF6600">Documentation Jaguar </font><a href="http://www.geocities.com/SoHo/1460/dox.html">http://www.geocities.com/SoHo/1460/dox.html</a>
+<p><b><u><font color="#3333FF">Contactez-nous</font></u></b>
+<br>&nbsp;
+<p><font color="#FF6600">Pour tout renseignements suppl&eacute;mentaires
+n'h&eacute;sitez pas &agrave; nous contacter &agrave;
+<a href="mailto: atari@linux.utc.fr">atari@linux.utc.fr</a></font>
+<p><font color="#FF6600">Vous pouvez &eacute;galement nous joindre respectivement
+&agrave;:&nbsp;</font>
+<ul>
+<li>
+<font color="#FF6600">Questions d'ordre logiciels, Laurent &agrave; l'adresse
+<a href="mailto: l.favard@france2.fr">laurent.favard@libertysurf.fr</a>&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Questions mat&eacute;rielles, S&eacute;bastien &agrave;
+l'adresse
+<a href="mailto: favard@spic03.utc.fr">favard@sipc03.utc.fr</a>
+.</font></li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+</body>
+</html>

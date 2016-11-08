@@ -1,0 +1,37 @@
+
+				----------------------------------
+				News features of AADS Version 1.26
+				----------------------------------
+						Atari 1991-1998
+				
+				Last release:	15/07/1998
+				
+				
+	Year 1998: News calls
+	=====================
+
+	* 15/07/98 (PcStGuid)
+	---------------------
+	
+	A new call had been added to allow to use directly the BubbleGEM program.
+	This call is:
+	
+		int STG_Bubble(char *String, int MouseX, int MouseY)
+		
+	Where:	String is a pointer to the text to display.
+			MouseX and MouseY the mouse (x,y) position where to display
+			the bubble. 
+			If these parameters are set to -1, AADS will display it at the
+			current mouse position.
+			
+	Bubble GEM is copyright from:	Thomas Much, Karlsruhe
+	Bubble GEM ISN'T a part of AADS, and stay an entire application from
+	its author.
+
+	* 16/07/98
+	----------
+	
+	FileSelector has been changed to support the longs files names.
+
+		
+	

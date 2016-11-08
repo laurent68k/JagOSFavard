@@ -1,0 +1,2276 @@
+
+		Atari Application Developpment Service
+		--------------------------------------
+			
+				A.A.D.S.
+				--------
+			  Pour l'Atari Falcon30
+
+		 Copyright (c) FRANCE, FunShip 1994-1995
+			  Tous droits r‚serv‚s
+			  --------------------
+
+
+				Sommaire
+				--------
+
+
+ Introduction … A.A.D.S.
+ -----------------------
+	
+		1/      Pr‚sentation                                            Page 5
+		2/      Machines cibles                                         Page 6
+		3/      Structuration d'AADS                                    Page 6
+		4/      Les limites de la librairie                             Page 7
+
+ Chapitre I     Librairie PcXApp        
+ -------------------------------
+		
+		1.1/    G‚n‚ralit‚s                                             Page 8
+		1.2/    Structure de donn‚es                                    Page 8
+		1.3/    Variables globales                                      Page 11
+		1.4/    Constantes d'erreurs                                    Page 11
+		1.5 /   Primitives utilisateurs                                 Page 11
+
+ Chapitre II    Librairie PcXWind
+ --------------------------------
+
+		2.1/    G‚n‚ralit‚s                                             Page 25
+		2.2/    Structures de donn‚es                                   Page 25
+		2.3/    Variables globales                                      Page 26
+		2.4/    Primitives utilisateurs                                 Page 27
+		
+ Chapitre III   Librairie PcXMenu
+ --------------------------------
+	
+		3.1/    G‚n‚ralit‚s                                             Page 46
+		3.2/    Structures de donn‚es                                   Page 46
+		3.3/    Constantes de listes                                    Page 47 
+		3.4/    Variables globales                                      Page 47
+		3.5/    Primitives utilisateurs                                 Page 47
+ 
+ Chapitre IV    Librairie PcXForm
+ --------------------------------
+ 
+		4.1/    G‚n‚ralit‚s                                            Page 61
+		4.2/    Structures de donn‚es                                   Page 61
+		4.3/    Constantes de listes et autres                          Page 62
+		4.4/    Variables globales                                      Page 63
+		4.5/    Primitives utilisateurs                                 Page 63
+ 
+ 
+ Chapitre V     Librairie PcCookie
+ ---------------------------------
+	
+		5.1/    G‚n‚ralit‚s                                             Page 84
+		5.2/    Les constantes                                          Page 84
+		5.3/    Structures de donn‚es                                   Page 86
+		5.4/    Primitives utilisateurs                                 Page 86
+ 
+ Classement alphab‚tique des primitives 
+ -------------------------------------- 
+ 
+		Application, Ev‚nements et Timer Event                          Page 96
+		Formulaires, Pop-ups Menus et Desktop                           Page 96
+		Menu principal et Sous-Menus hi‚rarchiques                      Page 97
+		Fenˆtres                                                        Page 97
+		Cookie Jar                                                      Page 98
+ 
+ 
+	
+ 
+				INTRODUCTION
+				------------
+ 
+ 
+ I/ Pr‚sentation d'AADS
+ ----------------------
+ 
+	AADS est une librairie ‚crite en langage C, permettant aux applications d'utiliser plus 
+ facilement les possibilit‚s du GEM. En effet, une fois l'‚criture d'un programme en lui-mˆme 
+ termin‚, l'aspect interfa‡e graphique reste entiŠrement … construire. En g‚n‚ral, il s'agit de
+ choses globalement r‚p‚titives, comme la gestion d'un formulaire, d'un menu ou d'une fenˆtre. 
+	
+	C'est pourquoi AADS est un outils d'aide, pour r‚aliser cette programmation le plus
+ rapidement et simplement possible. A l'origine con‡u pour un usage priv‚ dans mes programmes,
+ je livre ici la version 1.0 pour que chacun puisse ‚ventuellement en tirer profit.
+ 
+	Ces services ne s'arrŠtent d'ailleurs par l…, puisque la gestion du Cookie Jar est offerte,
+ ainsi que l'adaptation automatique … la langue active de l'ordinateur.
+ 
+ 
+	1.1/ Principe
+	-------------
+ 
+	L'id‚e est de regrouper les traitements g‚n‚raux, ‚crits une fois pour toutes. 
+ Par exemple, les fenˆtres sont complŠtements g‚r‚es, il n'y a plus qu'… indiquer au systŠme
+ quelques traitements … effectuer pour de r‚elles actions, et non lorsque la fenˆtre est d‚pla‡‚e,
+ agrandie, pass‚e en arriŠre plan, rafraichie (Redraws), etc...
+ 
+	La fenˆtre une fois ouverte par W_Open(), est directement op‚rationnelle sans aucun
+ code d'attente de messages et de gestion du moindre ‚v‚nements.
+ 
+	Pour les Menus, seul l'asso‡iation de traitements aux options est … faire, les raccourcies
+ claviers et autres ‚vŠnements disparaissent totalement de la programmation, car g‚r‚s.
+ 
+	Pour un formulaire, on indiquera aussi uniquement les traitements. Le formulaire sera 
+ alors, entiŠrement pris en charge tel, ses d‚pla‡ements, son iconification, ses redraws, ...
+ Il en va de mˆme pour un bureau, o_ les icones seront pris en charge int‚gralement.
+ 
+	Enfin, si la langue de l'Atari est l'Allemand, un fichier ressource Allemand sera 
+ automatiquement recherch‚ en priorit‚.
+ 
+ 
+	1.2/ Exemples
+	-------------
+	
+	Les programmes de d‚monstrations AadsDemo.Prg et Fun30.Prg, avec leurs sources 
+ complet en langage C, illustrent toutes ces caract‚ristiques.
+ 
+ 
+ II/ Machines cibles
+ -------------------
+ 
+ 
+	La librairie est d‚velopp‚e sp‚cialement pour l'ATARI Falcon030 ou Compatibles, 
+ c'est … dire, qu'elle est globalement compil‚e en code 68030, et  n‚cessite un AES3.4 
+ minimum, pour ˆtre pleinement exploit‚e.
+ 
+	En effet, Sauf PcXapp et PcCookie, toutes les parties de AADS sont en code 68030.
+ PcXApp pour permettre le test de la machine qui peut ˆtre un simple ST et PcCookie car elle 
+ est destin‚e ‚galement … ce type de machine.
+ 
+	La librairie doit fonctionner sur TT, avec les restrictions de l'AES3.3 par rapport
+ au 3.4., puisqu'il possŠde un 68030 ‚galement.
+ 
+	Elle supporte le TOS, MultiTOS ainsi que jusqu'… l'AES 4.1 (Avec iconification, 
+ op‚ration sur fenˆtres non actives,etc...).
+ 
+	
+ 
+ III/ Structurations
+ -------------------
+ 
+	Actuellement, AADSv1.0 est constitu‚es de cinq librairies ‚crites ind‚pendement, 
+ mais li‚es … cause de leur fonctionnalit‚s, qui sont:
+ 
+ 
+		- PcXApp:       Primitives session d'application
+				Code 68000, Totalement ind‚pendant
+ 
+		- PcXWind:      Primitives de gestion de fenˆtres
+				Code 68030
+ 
+		- PcXMenu:      Primitives de gestion des Menus et Menus-hi‚rarchiques
+				Code 68030
+ 
+		- PcXForm:      Primitives de gestion des formulaires, pop-ups et d'un bureau
+				Code 68030
+ 
+		- PcCookie:     Primitives d'accŠs au Cookie Jar
+				Code 68000, Totalement ind‚pendant.
+ 
+ 
+ IV/ Les limites de la librairie
+ ------------------------------- 
+ 
+	AADS n'a pas pour but de dispenser le programmeur d'appeler les fonctions du GEM,
+ car il peut y avoir beaucoup de cas, o— les possibilit‚es offertes ne permettent pas au 
+ programmeur d'atteindre ses objectifs. 
+ 
+	Bon nombre de cas peuvent se pr‚senter, mais qui n'ont pas for‡‚ment … ˆtre
+ int‚g‚r‚s dans AADS ou simplement parfaitement trait‚ par le GEM. Par exemple, 
+ un traitement trŠs " exotique " sur un objet, ou simplement obtenir la handle de la fenˆtre active !
+ 
+	C'est pourquoi, aucune restrictions n'est impos‚e, et le programmeur reste au contraire
+ libre d'utiliser directement le GEM, … chaque fois que AADS est incapable de r‚soudre un 
+ problŠme particulier.
+ 
+ 
+ 
+	
+	
+				Chapitre I
+				----------
+			     Librairie PcXApp
+			     ----------------
+ 
+ 
+ 
+ 
+	Cette librairie se charge d'ouvrir un programme en tant qu'application au sens GEM. 
+ Elle soutient particuliŠrement la gestion automatique de la langue, des fichiers ressources et 
+ de fourniture d'informations sur la machine. Cette librairie est compil‚e en code 68000.
+ 
+ Sa pr‚sence est signal‚e au pr‚-processeur par la macro __APPLICATION__
+ 
+ 1.1/ G‚n‚ralit‚s
+ ----------------
+
+	La librairie permet de g‚rer simplement la langue active, en choisissant 
+ automatiquement le fichier ressource d‚sign‚ pour. Elle offre la possibilit‚ d'installer une 
+ proc‚dure appel‚e … chaque ‚v‚nement Timer GEM, ainsi que le support d'informations
+ sur l'environnement logiciel et mat‚riel de la machine.
+ 
+	
+ 1.2/ Structures de donn‚es publiques
+ ------------------------------------
+
+ Cette structure correspond strictement … la d‚finition de l'entˆte systŠme du TOS. 
+ 
+	typedef struct  {
+				int     inutile;                        A partir du TOS 1.0
+				int     version;
+				long    reseth;
+				long    os_beg;
+				long    os_end;
+				long    os_rsvl;
+				long    os_magic;
+				long    os_date;
+				int     os_conf;
+				int     os_dosdate;    
+				long    p_root;                         A partir du TOS 1.2
+				long    pkbshift;
+				long    p_run;
+				long    p_rsv2;                         A partir du TOS 1.4
+			} Type_SysEntete;
+	 
+ 
+ La structure suivante, retourne des informations sur le systŠme AES.
+ 
+	typedef struct  {
+				int             ap_version;
+				int             ap_count;
+				int             ap_id;
+				long            ap_private;
+				long            ap_ptree;
+				long            ap_1res;
+				long            ap_2res;
+				long            ap_3res;
+				long            ap_4res;
+			} Type_Aes_Info;
+ 
+ Cette structure retourne les informations sur la VDI et la station graphique actuelle.
+ 
+	typedef struct  {
+				int             LargeurStation;
+				int             HauteurStation;
+				int             Coordonnee;
+				int             LargeurPoint;
+				int             HauteurPoint;
+				int             NombreHauteurCar;
+				int             NombreTypeLigne;
+				int             NombreLargeurLigne;
+				int             NombreTypeMarqueur;
+				int             NombreTailleMarqueur;
+				int             JeuxCaracteres;
+				int             NombreMotifs;
+				int             NombreHachures;
+				int             NombreCouleurs;
+				int             NombreGdp;
+				int             Fonct1;
+				int             Fonct2;
+				int             Fonct3;
+				int             Fonct4;
+				int             Fonct5;
+				int             Fonct6;
+				int             Fonct7;
+				int             Fonct8;
+				int             Fonct9;
+				int             Fonct10;
+				int             Attribut1;
+				int             Attribut2;
+				int             Attribut3;
+				int             Attribut4;
+				int             Attribut5;
+				int             Attribut6;
+				int             Attribut7;
+				int             Attribut8;
+				int             Attribut9;
+				int             Attribut10;
+				int             AffichageCouleur;
+				int             RotationTexte;
+				int             Remplissage;
+				int             CellArray;
+				int             NombrePalette;
+				int             ControlCurseur;
+				int             NbPeriphEntree;
+				int             ToucheParticuliere;
+				int             EntreeAlpha;
+				int             TypeStation;
+				int             LargeurCarMin;
+				int             HauteurCarMin;
+				int             LargeurCarMax;
+				int             HauteurCarMax;
+				int             LargeurLigneMin;
+				int             Unknow1;
+				int             HauteurLigneMax;
+				int             Unknow2;
+				int             LargeurMarqueurMin;
+				int             HauteurMarqueurMin;
+				int             LargeurMarqueurMax;
+				int             HauteurMarqueurMax;
+			} Type_Vdi_Info;
+ 
+ La structure suivante, est un ensemble d'informations sur la machine, au niveau mat‚riel et 
+ version de certainnes composantes logicielles.
+ 
+	typedef struct  {
+				Calcul‚ … partir du Cookies Jar
+				int             Processor;              Processor type
+				long            Machine;                Machine type
+				int             Switch;                 Mother board switch
+				long            Fdc;                    Floppy Disk Controler
+				int             Keyboard;               Keyboard type
+				int             Language;               Current Language
+				long            Shifter;                Video circuit
+				int             Sound;                  Sound System
+				int             Fpu;                    Flotting Point Unit
+				int             Separator;              Date separator
+				int             Date;                   Date format
+				int             Time;                   Time format
+				Versions extraites … partir d'appel systŠme l‚gaux
+				int             TosVersion;
+				int             GemdosVersion;
+				int             AesVersion; 
+				Calcul‚ … partir du Cookie Jar,  " MiNT "
+				int             MultiTosVersion;
+			} Type_Mch_Info;
+ 
+ 
+ 1.3/ Variables globales publiques:
+ ----------------------------------               
+ 
+ Les variables qui suivent donnent accŠs aux informations utiles pour l'exploitation normale.
+ 
+	Type_Aes_Info   *AesInfo;                               Pointeur sur une structureAes Info
+	Type_Vdi_Info   VdiInfo;                                Structure Vdi Informations
+	Type_Mch_Info   MchInfo;                                Structure Machine Informations
+	int                     VdiHandle;                      Handle VDI de la Virtual Workstation
+	int                     AesHandle;                      Handle Aes de l'application
+ 
+ Les variables suivantes, sont qualifi‚es de strat‚giques, car elles touchent la gestion
+ ‚vŠnementielle. L'utilisateur ne devrait pas en g‚n‚ral s'en servir.
+ 
+	
+	int             A_Event,                                Indique le(s) type(s) d'‚vŠnement(s)
+			A_Message[8],                           Tampon de message GEM
+			A_Key,                                  Code Scan et ASCII d'une touche
+			A_Clic,                                 Nombre de clics souris
+			A_MouseX,                               Position X de la souris
+			A_MouseY;                               Position Y de la souris
+ 
+ 1.4/ Les codes d'erreurs
+ ------------------------
+
+	Les codes d'erreurs ci-dessous, sont ceux ‚ventuellement renvoy‚ au Shell, lorsqu'une 
+ erreur critique est survenue.
+ 
+	#define ERROR_CODE_AES          -1
+	#define ERROR_CODE_VDI          -2
+	#define ERROR_CODE_APP          -3
+ 
+ 1.5/ Les primitives utilisateurs
+ --------------------------------
+	
+	Les pages suivantes d‚crivent en d‚tails chacune des proc‚dures de la librairie.        
+ 
+ Primitives de gestion d'application
+ 
+
+ Syntaxe:                       int     A_Open(char *ressource_file);
+	
+ 
+ Description:
+ 
+ 
+	Cette fonction d‚clare le programme en tant qu'application GEM et ouvre une station 
+ graphique virtuelle … l'‚cran. Les variables AesHandle et VdiHandle sont alors initialis‚es 
+ ainsi que AesInfo, VdiInfo et MchInfo.
+ 
+	Si il y a ‚chec sur ouverture VDI ou d‚claration … l'AES, l'ex‚cution du programme est 
+ annul‚, et un code d'erreur ERROR_CODE_VDI ou ERROR_CODE_AES est renvoy‚.
+ Au cas ou une autre erreur critique interne survient, le code ERROR_CODE_APP est retourn‚.
+ 
+	La deuxiŠme op‚ration, est la gestion optionnelle d'un fichier ressource, quand
+ ressource_file est diff‚rent de Null.
+	Dans ce cas ressource_file pointe sur un nom de fichier, A_Open tentera de le charger.
+ Si elle r‚ussit, elle retournera True, sinon elle tentera de charger le fichier version Anglais, puis 
+ Fran‡ais et enfin Allemand, puis retournera True si r‚ussit. Sinon, si aucun fichier ne peut ˆtre 
+ charg‚, elle retournera False.
+	
+ Le nom d'un fichier ressource doit imp‚rativement respecter cette convention d'‚criture:
+ 
+	Nom_Fichier = [nom]7[pays]1
+ 
+	O—:     - nom est une suite de 7 caractŠres obligatoire
+ 
+		- pays est un caractŠre tel que:        F       France, Suisse Fran‡aise
+							D       Deutschland, Suisse Allemande
+							G       Great Britain, USA
+							I       Italie
+							S       Espagne
+ 
+ Primitives de gestion d'application
+ 
+ Syntaxe:                       void    A_Close(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure permet de terminer un programme en tant qu'application GEM. 
+ Elle ne provoque pas de retour au systŠme d'exploitation, mais libŠre le ressource de la m‚moire, 
+ ferme la station graphique virtuelle VDI et libŠre le handle d'application AES.
+ 
+	Si une erreur survient, l'erreur ERROR_CODE_APP est retourn‚e au Shell et le programme 
+ est abandonn‚ sans restrictions par un violent Pterm(Code).    
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void    A_HeaderSystem(Type_SysEntete *type);
+	
+ 
+ Description:
+ 
+ 
+	Cette fonction permet d'acc‚der aux informations contenues dans l'enˆte systŠme du 
+ TOS. Elle attend en paramŠtre un pointeur sur une structure de type Type_SysEntete, 
+ d‚finie dans PcXApp.h, et qui doit ˆtre allou‚e avant l'appel.
+	
+	A la sortie, la structure contient les informations copi‚es de l'entˆte systŠme TOS.
+ 
+ 
+ Tools proc‚dure
+ 
+ Syntaxe:       int     A_FileSelector( char *pathname, char *nom_fichier, char *suffix,                                           char *prefix, char *label);
+ Description:
+ 
+	Cette proc‚dure permet d'activer un s‚lecteur de fichier normal ou ‚tendu. Le
+ choix est automatiquement fait suivant la version du TOS.
+ 
+ 
+ ParamŠtres:    pathname:       Nom, extension et chemin d'accŠs du fichier choisi.
+ 
+		nom_fichier:    Nom avec extension du fichier choisi
+ 
+		suffix:         Extension des fichiers … choisir, exemple: *.doc.
+				Cette extension peut ˆtre modifi‚e par l'utilisateur dans le 
+				s‚lecteur, pour en choisir un nouveau.
+ 
+		prefix:         Chemin d'accŠs initial ou chaine vide si sans importance
+ 
+		label:          Titre du s‚lecteur de fichiers. Si le Tos est un 1.0 ou 1.2,
+				le titre est ignor‚.
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     A_GFontHeigh(void);
+ 
+ 
+ Description:
+ 
+ 
+	Retourne la hauteur en pixels de la police d'‚criture actuelle sur la sation graphique 
+ virtuelle courante, 
+ ouverte par A_Open().
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     A_GFontWidth(void);
+ 
+ 
+ Description:
+ 
+ 
+	Retourne la largeur en pixels de la police d'‚criture actuelle sur la sation graphique virtuelle 
+ courante, ouverte par A_Open().
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     A_GCellHeigh(void);
+ 
+ 
+ Decription:
+ 
+ 
+	Retourne la hauteur en pixels de la cellule de la police de caractŠres sur la sation graphique virtuelle 
+ courante, ouverte par A_Open()..
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     A_GCellWidth(void);
+ 
+ 
+ Decription:
+ 
+ 
+	Retourne la largeur en pixels de la cellule de la police de caractŠres sur la sation graphique 
+ virtuelle courante, ouverte par A_Open()..
+ 
+ Gestion des ‚vŠnements
+ 
+ Syntaxe:                       void    A_WaitEvent(void);
+ 
+ 
+ Description:
+ 
+	
+	Cette proc‚dure est la proc‚dure strat‚gique du m‚canisme ‚vŠnementiel. C'est elle qui
+ re‡oit les diff‚rents ‚vŠnements et assigne les variables globales strat‚giques d'‚vŠnements.
+ Elle permet aux proc‚dures X_Event() de fonctionner.
+	De plus, elle sa charge automatiquement de l'appel d'une routine utilisateur … chaque
+ ‚vŠnement Timer re‡u.
+	
+	Un appel … A_WaitEvent() provoque la mise en sommeil de l'application, jusqu'… la
+ r‚ception d'un ‚vŠnement la con‡ernant.
+ 
+ Les ‚vŠnements soutenus sont ceux du Timer, du Clavier, de la Souris, des Fenˆtres et des 
+ Menus d‚roulants. Les ‚vŠnements Timer sont originellement inutilis‚s, car la routine
+ Timer est suspendue et surtout inexistante pas d‚faut. (Cf: Primitives Timer)
+ 
+	Dans un programme, la proc‚dure sera g‚n‚ralement utilis‚e telle que:
+ 
+			Exit = False
+			While(!Exit)
+			{
+				A_WaitEvent();          
+				M_Event();
+				W_Event();
+				F_Event();
+			}       
+ 
+ Variables globales assign‚es:          
+ 
+	A_WaitEvent() positionne les donn‚es suivantes:
+ 
+	A_Event                         Masque de bits indiquant les ‚vŠnements en cours
+	A_Message[8]                            Tampon de message GEM standard de 8 Mots
+	A_Key                                   Code Scan dans MSB et ASCII dans LSB d'une touche
+	A_Clic                                  Nombre de clics souris
+	A_MouseX                                Position X de la souris lors d'un ‚vŠnement souris
+	A_MouseY                                Position Y de la souris lors d'un ‚vŠnement souris
+ 
+ Gestion du Timer
+ 
+ Syntaxe:                       void    A_CycleTimer(int TimeHi,int TimeLo);
+ 
+ 
+ Description:
+ 
+ 
+	Initialise le temps de cycle du Timer. La valeur est exprim‚e en ms avec deux entiers
+ pour respectivement le Mot Haut et Bas. Un cycle nul ne peut pas ˆtre d‚finie et provoque
+ un choix par d‚faut d'un temps  de 1 Seconde (TimeHi = 0 & TimeLo = 1000).
+ 
+	La valeur de temps par d‚faut, si aucun appel … A_CycleTimer n'est effectu‚, est 
+ ‚galement de 1 Seconde (AprŠs appel … A_Open() ).
+ 
+ 
+ 
+ Gestion du Timer
+ 
+ Syntaxe:                       void    A_SetCodeTimer(void (*UserTimer)(void));
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure installe la routine utilisateur appel‚e … chaque ‚vŠnement Timer. Elle
+ attend en paramŠtre l'adresse d'une proc‚dure n'ayant aucun paramŠtres formels. 
+ 
+	AprŠs appel … cette primitive, l'ex‚cution de la routine utilisateur est toujours
+ suspendue, il faudra encore appeler A_OnTimer() pour valider les ‚vŠnements Timer.
+ 
+ Gestion du Timer
+ 
+ Syntaxe:                       void    A_OnTimer(void);
+ 
+ 
+ Description:
+ 
+	Cette proc‚dure autorise l'ex‚cution de la proc‚dure … chaque ‚vŠnement Timer. Initialement,
+ l'ex‚cution est interdite et aucune proc‚dure par d‚faut n'est install‚e. Avant tout appel … A_OnTimer(), 
+ il est imp‚ratif d'installer la proc‚dure utilisateur.
+ Gestion du Timer
+ 
+ Syntaxe:                       void    A_OffTimer(void);
+ 
+ 
+ Description:
+ 
+ 
+	A l'inverse de A_OnTimer, cette proc‚dure suspend tout futur appel … la routine utilisateur Timer. 
+ Cette primitive n'interdit pas en r‚alit‚ les ‚vŠnements Timer, mais pla‡e un bool‚en qui indique d'ignorer
+ la prise en compte des ‚vŠnements.La suspension a un effet 
+ imm‚diat.      
+ 
+	AprŠs cet appel, on peut modifier, changer la routine utilisateur, ou bien reprendre 
+ l'ex‚cution avec un nouvel … A_OnTimer().
+ 
+
+				Chapitre II
+				-----------
+			     Librairie PcXWind
+			     -----------------
+ 
+	
+ 
+	La librairie PcXWind se charge de la gestion du Multi-fenˆtrage. Elle supporte les ‚vŠnements 
+ Iconification, ainsi que l'utilisation de fenˆtres en arriŠre plan de l'AES 4.1. Cette librairie est 
+ compil‚e en code 68030 et ne peut donc ˆtre utilis‚e qu'avec un TT ou un Falcon30.
+ 
+ Sa pr‚sence est signal‚e par la macro __LIBXWIND__
+ 
+ 2.1/ G‚n‚ralit‚s
+ ----------------
+
+	La gestion d'une fenˆtre est automatique. Plus besoin de traiter soi-mˆme les ‚v‚nements, la 
+ liste des rectangles pour les redraws,etc...D‚sormais, seul l'affectation de quelques paramŠtres lors 
+ de l'ouverture est n‚ssecaire pour qu'une fenˆtre soit d‚j… op‚rationnelle.
+ 
+	En g‚n‚ral, on d‚finie l'affichage, et les clics ascenseurs. Le reste ‚tant automatique.
+ Par contre, la fermeture d'une fenˆtre bien que d‚j… pr‚vue, peut ˆtre d‚tourn‚e sur une proc‚dure 
+ personnelle. Enfin, on pourra toujours r‚cup‚rer les autres ‚v‚nements pour ‚ventuellement pr‚voir un 
+ traitements lorsqu'elle d‚pla‡‚e, iconifi‚e,etc...Mais cela ne change pas son fonctionnement.
+ 
+	La librairie soutient les nouveaux ‚v‚nements AES4.1, mais sans la ToolBar.
+ 
+ 
+ 
+ 2.2/ Structure de donn‚es
+ -------------------------
+
+	Cette structure est utilis‚e pour cr‚er et ouvrir une nouvelle fenˆtre. Elle contient les 
+ paramŠtres tel que la position, la taille, les organes de commandes souhait‚s, le titre et la ligne
+ d'information.
+	Une fonction de la librairie permet d'allouer directement un objet de ce type avec une
+ initialisation au pr‚alable de d‚faut. 
+ 
+	typedef struct  {        /* Donn‚es pour la fenˆtre */
+				 char titre[W_TITLE_MAX];               Le titre
+				 char info[W_INFO_MAX];                 L'information
+				 int x;                                 Position initiale
+				 int y;
+				 int w;                                 Taille initiale
+				 int h;
+				 int attributs;                         Attributs
+				 /* Proc‚dures utilisateurs ‚vŠnementielles */
+				 void (*op_close)(int);                 Fermeture
+				 void (*op_redraw)(int);                Re-Dessin
+				 void (*op_full)(int);                  Plein ‚cran
+				 void (*op_sized)(int);                 Modification de taille
+				 void (*op_uppage)(int);                Page haut
+				 void (*op_downpage)(int);              Page bas
+				 void (*op_upline)(int);                Ligne haut
+				 void (*op_downline)(int);              Ligne bas
+				 void (*op_rightpage)(int);             Page droite
+				 void (*op_leftpage)(int);              Page gauche
+				 void (*op_rightcolum)(int);            Colonne droite
+				 void (*op_leftcolum)(int);             Colonne gauche
+				 void (*op_vslider)(int,int);           Ascenseur Vertical
+				 void (*op_hslider)(int,int);           Ascenseur Horizontal
+				 void (*op_iconify)(int);               Iconification
+				 void (*op_uniconify)(int);             Annuler Iconifi‚
+				 void (*op_topped)(int);                Premier plan
+				 void (*op_moved)(int);                 D‚pla‡ement
+			} Type_Parameter_Window;
+ 
+	Dans cette structure, les proc‚dures utilisateurs, re‡oivent syst‚matiquement en paramŠtre un int 
+ qui est le Handle de la fenˆtre, et pour Vslider() et Hslider, un deuxiŠme int qui est la position 
+ relative en " Pour Mille " du Slider.
+ 
+ 
+ Exemple:       void MyClose(int handle)                void MySlider(int handle, int position)
+ --------       {                                       {
+			...                                     ...
+		}                                       }
+ 
+ 
+ Constantes:                    W_TITLE_MAX             255
+ -----------                    W_INFO_MAX              255
+ 
+ 
+ 2.3/  Variables globales publiques
+ ----------------------------------
+ 
+ 
+	TrŠs peut de variables offertes … l'utilisateur, sinon quelques unes de service.
+ 
+	- int   tabulation
+ 
+		D‚finie la longueur d'une tabulation en nombre de caractŠres. Cette variable est
+		utilis‚e pour les sorties textes dans une fenˆtre.              
+ 
+	- int   DesktopMenu
+		
+		Indique la hauteur du Menu d‚roulant en nombre de ligne graphique. Ceci peut            
+		ˆtre utile si l'on veut remplir l '‚cran sans effa‡er le Menu du GEM.
+ 
+ 
+ 
+ 
+	- int   DesktopW et DesktopH
+ 
+		Indique la Largeur et Hauteur du bureau. Le bureau est la zone utilisable de 
+		l'‚cran sans l'espace r‚serv‚ au Menu.
+ 
+	- int   Red_x,Red_y,Red_w,Red_h
+ 
+		Indique la position et la taille de la zone graphique victime d'un ‚v‚nement 
+		Redraw. Ceci peut ˆtre utilise de connaitre la r‚gion affect‚e, car le Redraw
+		effectue un clipping de cette zone uniquement pour les sorties VDI, et non
+		pour l'AES.
+ 
+ 
+ 2.4/ Les primitives utilisateurs
+ --------------------------------
+
+ Gestion des Fenˆtres 
+ 
+ Syntaxe:                       int     W_Init(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure est primordiale et doit ˆtre appel‚e avant tout autre appel … la 
+ librairie, car elle initialise le m‚canisme de gestion de fenˆtres. Elle retourne True si l'initialisation
+ est correcte sinon False.
+ 
+ 
+ Gestion des Fenˆtres 
+ 
+ Syntaxe:                       int     W_Exit(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction termine l'utilisation de la sous-librairie en lib‚rant toutes les structures de donn‚es. 
+ Elle retourne True si la terminaison est correcte sinon False.
+
+ Gestion des Fenˆtres 
+ 
+ Syntaxe:                       Type_Parameter_Window *W_GetParameter(void);
+ 
+ Description:
+ 
+ 
+	Retourne un pointeur sur un objet de type Type_Parameter_Window, servant … la
+ cr‚ation d'une nouvelle fenˆtre.
+ 
+	Le programme doit alors fixer l'attribut, x, y, w, h et les paramŠtres proc‚dures
+ utilisateurs, d'aprŠs les organes qu'il a choisi (Les autres sont laiss‚s, car inutilis‚s).
+ .
+ 
+ typedef struct {
+			 Donn‚es classiques pour une fenˆtre
+			 char titre[W_TITLE_MAX];               Le titre de la fenˆtre
+			 char info[W_INFO_MAX];                 L'information de la fenˆtre
+			 int x;                                 Position initiale
+			 int y;                                         Position initiale
+			 int w;                                 Taille initiale
+			 int h;                                 Taille initiale
+			 int attributs;                         Organes de commandes 
+		 
+			 Proc‚dures utilisateurs ‚v‚nementielles
+			 void (*op_close)(int);                 Lors de la fermeture de la fenˆtre
+			 void (*op_redraw)(int);                Pour afficher le contenu et redraw.
+			 void (*op_full)(int);                  Lors d'un plein ‚cran
+			 void (*op_sized)(int);                 Lors d'une modification de taille
+			 void (*op_uppage)(int);                Clic Page haut
+			 void (*op_downpage)(int);              Clic Page bas
+			 void (*op_upline)(int);                Clic Ligne haut
+			 void (*op_downline)(int);              Clic Ligne bas
+			 void (*op_rightpage)(int);             Clic Page droite
+			 void (*op_leftpage)(int);              Clic Page gauche
+			 void (*op_rightcolum)(int);            Clic Colonne droite
+			 void (*op_leftcolum)(int);             Clic Colonne gauche
+			 void (*op_vslider)(int,int);           Ascenseur Vertical d‚pla‡‚
+			 void (*op_hslider)(int,int);           Ascenseur Horizontal d‚pla‡‚
+			 void (*op_iconify)(int);               Demande d'iconification
+			 void (*op_uniconify)(int);             Annuler Iconifi‚
+			 void (*op_topped)(int);                Demande de passer en premier plan
+			 void (*op_moved)(int);                 Lors d'un d‚pla‡ement
+		} Type_Parameter_Window;
+ 
+ 
+ 
+ 
+ 
+ 
+ Gestion des ‚vŠnements fenˆtres
+ 
+ Syntaxe:                       void    W_Event(void);
+ 
+ 
+ Description:
+ 
+ 
+	Il s'agit ici de la proc‚dure strat‚gique de gestion des ‚vŠnements des fenˆtres. C'est elle 
+ qui lors de son appel, examine les variables globales ‚vŠnementielles positionn‚es par PcXApp, pour 
+ permettre les r‚actions des fenˆtres aux actions de l'utilisateurs.
+ 
+	Cette proc‚dure utilise pr‚cis‚ment les variables A_Event et A_Message. En g‚n‚ral,
+ cette proc‚dure sera plac‚e dans la mˆme boucle que celle o— se trouve A_Event().
+ 
+ 
+ Remarque:      Elle ne modifie pas les variables utilis‚es, A_Event et A_Message.
+ 
+ 
+ Gestion des Fenˆtres
+ 
+ Syntaxe:                       int     W_Open(Type_Parameter_Window *parameter);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction cr‚e et ouvre une fenˆtre … l'‚cran. La fonction retourne le Handle 
+ GEM de la fenˆtre si l'ouverture a r‚ussie sinon la valeur -1.
+ Le handle sera toujour un valeur sup‚rieure ou ‚gale … 1, la valeur 0 d‚signant le handle de la 
+ fenˆtre du bureau. (Constante DESKTOP)
+ 
+	La fonction attend en paramŠtre un pointeur sur un objet Type_Parameter_Window,
+ pr‚c‚dement allou‚ par W_GetParameter() et correctement initialis‚.
+ 
+ 
+ 
+ Gestion des Fenˆtres 
+ 
+ Syntaxe:                       int     W_Close(int handle);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction ferme et d‚truit une fenˆtre. La fermeture provoque sa disparition …
+ l'‚cran et sa destruction entraine la suppression de sa pr‚sence dans les structures de donn‚es,
+ et la lib‚ration du Handle GEM qu'elle occupait.
+ 
+	La fonction attend en paramŠtre, le handle de la fenˆtre … d‚truire. Elle retourne True
+ si r‚ussit, False en cas d'‚chec.
+ 
+ Gestion des Fenˆtres 
+ 
+ Syntaxe:                       void    W_Redraw(int handle);
+ 
+ 
+ Description:
+ 
+ 
+	Permet d'envoyer … n"tre propre application un message Redraw destin‚ … la fenˆtre 
+ Handle. Ceci peut ˆtre utile pour for‡er une fenˆtre … redessiner son contenu, lorqu'on sait 
+ qu'il faut la rafraichir, par exemple.
+ 
+	L'‚vŠnement g‚n‚r‚ a le mˆme effet que si c'‚tait le systŠme qui l'avait envoy‚.
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void    W_OnClip(int pxyarray[]);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure active un clipping de la r‚gion graphique d‚finie par le tableau
+ pxyarray[]. Le tableau correspond … pxyarray[0,1,2,3] = <x1,y1,x2,y2>.
+ 
+	Le clipping d‚finie est valable pour des sorties graphiques VDI, ce qui signifie que
+ l'AES n'en est pas affect‚; un appel … l'AES pour un dessin d'objets ne sera pas clipp‚.
+ 
+ 
+ Remarque:      La VDI travaille avec des couples de coordonn‚es (x1,y1) , (x2,y2)
+		pour d‚finir une r‚gion, contrairement … l'AES qui utilise la m‚thode
+		(x,y,width,height) pour d‚finir une mˆme r‚gion.
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void    W_OffClip(int pxyarray[]);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure d‚sactive le clipping de la r‚gion graphique d‚finie par le tableau
+ pxyarray[]. Le tableau correspond … pxyarray[0,1,2,3] = <x1,y1,x2,y2>.
+ 
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     W_GLine(int handle);
+ 
+ 
+ Decription:
+ 
+ 
+	Retourne la ligne graphique courante utilis‚e pour la prochainne sortie texte dans la
+ fenˆtre identifi‚e par handle.
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     W_GColums(int handle);
+ 
+ 
+ Decription:
+ 
+ 
+	Retourne la colonne graphique courante utilis‚e pour la prochainne sortie texte dans la
+ fenˆtre identifi‚e par handle.
+ 
+ Tools proc‚dures 
+ 
+ Syntaxe:                       int     W_GMaxLine(int handle);
+ 
+ 
+ Decription:
+ 
+ 
+	Retourne le nombre maximum de ligne texte disponible actuellement dans la 
+ fenˆtre identifi‚e par handle. Ce nombre varie suivant la taille courante de la fenˆtre.
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     W_GMaxColum(int handle);
+ 
+ 
+ Decription:
+ 
+ 
+	Retourne le nombre maximum de colonne texte disponible actuellement dans la 
+ fenˆtre identifi‚e par handle. Ce nombre varie suivant la taille courante de la fenˆtre./*
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void    W_SLine(int handle,int ligne);
+ 
+ 
+ Decription:
+ 
+ 
+	Place le curseur virtuel texte … la ligne ligne dans la fenˆtre handle. Cette ligne
+ doit ˆtre comprise entre [1,GetMaxLine()].
+ 
+ 
+ Tools proc‚dures 
+ 
+ Syntaxe:                       void    W_SColum(int handle,int colonne);
+ 
+ 
+ Decription:
+ 
+ 
+	Place le curseur virtuel texte … la colonne Colonne dans la fenˆtre handle. Cette ligne
+ doit ˆtre comprise entre [1,GetMaxColum()].
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void    W_HomeCursor(int handle);
+ 
+ 
+ Decription:
+ 
+ 
+	Place dans le coin sup‚rieur gauche de la fenˆtre handle le curseur virtuel texte.
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     W_ClrScr(int handle);
+ 
+ 
+ Decription:
+ 
+ 
+	Efface le contenu de la fenˆtre handle. Retourne True si aucun problŠme, sinon False.
+ La fonction ne ramŠne pas le curseur dans le coin sup‚rieur gauche mais uniquement effa‡e le
+ contenu.
+ 
+	Cette fonction peut ˆtre utilis‚e tant sur une fenˆtre en premier plan, que sur une fenˆtre 
+ inactive partiellement visible.
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       int     W_Printf(int handle,char *string);
+ 
+ 
+ Decription:
+ 
+ 
+	Ecrit dans la fenˆtre identifi‚e handle, la chaine texte string. Cette chaine peut contenir
+ le caractŠre " \t " du langage C pour sp‚cifier une tabulation.
+ 
+	La proc‚dure effectue automatiquement un Cr/Lf sans sp‚cificateur. Cette fonction peut ˆtre 
+ utilis‚e tant sur une fenˆtre en premier plan, que sur une fenˆtre inactive (AES 4.1).
+	La sortie texte sera toujour pla‡‚e dans la fenˆtre vis‚e.
+ 
+ 
+				Chapitre III
+				------------
+
+			     Libraririe PcXMenu
+			     ------------------
+
+ 
+ 
+	
+ 
+	Cette librairie est charg‚e de g‚rer les Menus d‚roulants et les Menus hi‚rarchiques 
+ attach‚s. Cette derniŠre caract‚ristique est offerte sous r‚serve d'avoir un AES 3.4.
+ PcXMenu est compil‚ en code 68030 et ne peut donc ˆtre utilis‚ que sur TT ou Falcon030.
+ 
+ Sa pr‚sence est signal‚e par la macro __PCXMENU__
+ 
+ 3.1/ G‚n‚ralit‚s
+ ----------------
+ 
+	Le fonctionnement d'un Menu et des Sous-Menus hi‚rarchiques repose maintenant
+ simplement sur la description d'asso‡iations Proc‚dures-Options. Aucune programmation n'est
+ n‚cessaire, le Menu une fois ouvert sera exploitable. Des raccourcies claviers peuvent ˆtre 
+ ins‚r‚s directement avec l'‚diteur de ressource dans le texte d'une option, et leur 
+ fonctionnement sera alors imm‚diat. Simplement en ‚crivant ^A pour CTRL-A, par exemple.
+ 
+	Les Sous-Menus hi‚rarchiques peuvent avoir ‚galement un raccourcie clavier, g‚r‚ au 
+ mˆme niveau que le Menu racine. Un CheckMark peut ˆtre automatiquement positionn‚ sur l'entr‚e 
+ active, par AADS si on le veut. Le scrolling est inh‚rant.
+ 
+ 
+ 3.2/ Structures de donn‚es
+ -------------------------- 
+ 
+ Cette structure permet d'attacher … une entr‚e du Menu Principal une proc‚dure de traitement. 
+ Elle sera utilis‚e comme atome de base d'une liste de cr‚ation.
+ 
+	typedef struct  {
+			  int   Entry;                  Entr‚e du Menu
+			  int   State;                  Etat initial de l'entr‚e (Disbaled,...)
+			  void (*Procedure)(void);      Proc‚dure associ‚e
+			} Type_Parameter_Menu;
+	
+ La structure qui suit, permet d'attacher un Sous_Menu … un Menu principal.
+	
+	typedef struct  {
+			  int   SubMenu;                Arbre d'objets Sous-Menu
+			  int   ParentEntry;            Entr‚e o— il sera attach‚
+			  int   StartEntry;             Entr‚e de Sous-Menu initial choisi
+			  int   ScrollEntry;            Entr‚e du Sous-Menu de d‚part du Scroll
+			  int   UseChecked;             Si utilise un check-mark automatique
+			} Type_Parameter_SubAttach;
+ 
+		
+ Enfin, cette structure permet d'asso‡ier un traitement … une entr‚e d'un Sous-Menu. Elle sera 
+ utilis‚e comme atome de base d'une liste de cr‚ation
+ 
+	typedef struct  {
+			  int   SubMenu;                Sous-Menu con‡ern‚
+			  int   Entry;                  Entr‚e du Sous-Menu
+			  void (*Procedure)(void);      Proc‚dure asso‡i‚e
+			} Type_Parameter_SubEvent;
+ 
+ 3.3/ Constantes de Listes
+ -------------------------
+ 
+	Ces constantes dont destin‚es … fa‡iliter au programmeur la marque de fin d'une liste. 
+ Au lieu d'‚crire les valeurs nulles ad‚quates, pour marquer la fin, on pla‡era une de ces constantes 
+ en fin de liste.
+ 
+	#define MENU_END                {0,0,NULL}              Main Menu's list end
+	#define SUBATTACH_END           {0,0,0,0,0}             SubMenu's list end
+	#define SUBEVENT_END            {0,0,NULL}              SubMenuEvent's list end
+ 
+ La constante suivnate est utilis‚e pour signifier de ne pas changer l'‚tat d'une entr‚e de Menu.
+ 
+	#define INITIAL                 0                       No change entry's state
+ 
+ 3.4/ Les variables globables
+ ---------------------------- 
+ 
+	Lorsqu'une entr‚e de Menu ou de Sous-Menu est s‚lectionn‚e, les variables suivantes donne 
+ les informations suivantes.
+  
+	OBJECT          *M_Address;                             Adresse de de l'arbre d'objets menu
+	int             M_Name;                                 Indice de l'arbre d'objets
+	int             M_Entry;                                Indice de l'entr‚e de menu s‚lectionn‚e
+ 
+ 3.5/  Les primitives utilisateurs
+ --------------------------------- 
+	
+ 
+ Gestion de Menus
+ 
+ Syntaxe:                       int     M_Init(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction cr‚e et initialise les structures de donn‚es interne … PcXMenu. Elle doit
+ ˆtre appel‚e avant tout autre appel  d'une primitives de la librairie. La fonction retourne True
+ si l'initialisation c'est bien pass‚e, sinon False.
+ 
+	
+ Gestion de Menus
+ 
+ Syntaxe:                       int     M_Exit(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction termine l'utilisation de la sous-librairie en lib‚rant toutes les structures de donn‚es. 
+ Elle retourne True si la terminaison est correcte sinon False.
+ 
+ Gestion du Menu Principal (Root)
+ 
+ Syntaxe:                       int     M_Open(int Tree,Type_Parameter_Menu *Liste);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction ouvre un Menu d‚roulant dans la barre de menu du GEM.Elle attend
+ en paramŠtre Tree qui l'entier identifiant le Menu et une liste Liste qui associe les traitements 
+ … appeler lorsqu'une entr‚e de Menu est s‚lectionn‚e.
+ 
+	La liste pr‚sente la forme suivante:
+ 
+			<Nom_Entr‚e><Etat_Initial><Proc‚dure>
+ 
+	O—:     Nom_Entr‚e      Est l'entier identifiant l'entr‚e de Menu
+		Etat_Initial    Qui indique si l'entr‚e est d‚sactiv‚e, avec un CheckMark,...
+		Proc‚dure       Est le traitement qui  sera appel‚ lors de la s‚lection
+ 
+ Exemple:
+ 
+ 
+	Type_Parameter_Menu Liste[] =   {
+							{ Nouveau,Initial,code1},
+							{ Ouvrir,Disabled,code2},
+							...
+							MENU_END
+					};
+
+ 
+ 
+ 
+ 
+ Gestion du Menu Principal (Root)
+ 
+ Syntaxe:                       int     M_Close(int Tree);
+ 
+ 
+ Description:
+ 
+	
+	Ferme un Menu d‚roulant racine ainsi que les sous-menus et vide toutes les structures de donn‚es 
+ internes. AprŠs, il est possible de faire un nouvel appel … M_Open(). La fonction attend en paramŠtre le 
+ nom Tree du Menu … fermer.
+ 
+	La fonction retourne True si tout est correct sinon False.
+ Gestion des Sous-Menus hi‚rarchiques
+ 
+ Syntaxe:               int     M_SubAttach(int Tree,Type_Parameter_SubAttach *Liste);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction permet d'attacher autant de Sous-Menus hi‚rarchiques d‚sir‚s … un
+ Menu pŠre nomm‚ Tree. Le Menu pŠre sera le Menu d‚roulant Racine, tandis que Liste 
+ contiendra tout les Sous-Menus … rattacher.
+ 
+	La fonction retourne False si un problŠme est survenue ou bien True.
+ 
+ Exemple:
+ 
+ 
+	Type_Parameter_SubAttach 
+	Liste = {       {Popup1, Nouveau,OptionStart,OptionScroll,True },
+			{Popup2,Ouvrir,OptionStart,OptionScroll,False },
+			....
+			SUBATTACH_END
+		};
+ 
+ Le premier argument est le nom du Popup-Menu, ensuite le nom de l'entr‚e du Menu racine
+ o— l'attacher, le nom de l'option initiale active du Popup, Le nom de l'option o— commen‡era
+ le scrolling du menu si n‚cessaire et un indicateur si le Popup utilisera ou non un CheckMark
+ automatique.
+ 
+ 
+ Gestion des Sous-Menus hi‚rarchiques
+ 
+ Syntaxe:       int     M_SubEvent(int RootTree,Type_Parameter_SubEvent *Liste);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction permet d'installer les traitements … appeler lorsqu'une entr‚e de Sous-Menu est 
+ choisie. Elle attend en paramŠtre le nom du Menu Racine, puis une liste de tout les traitements … asso‡ier
+ aux entr‚es de tout les Popups Menus.
+ 
+ Exemple:
+ 
+	
+	Type_Parameter_SubEvent
+	Liste[]={       {Popup1,Option1,Code1},
+			....
+			{Popup2,Option2,Code2},
+			...
+			SUBEVENT_END
+		};      
+ Gestion des ‚vŠnements Menus et Sous-Menus hi‚rarchiques 
+ 
+ Syntaxe:                       void    M_Event(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure est charg‚e de g‚rer les ‚vŠnements g‚n‚r‚s par un s‚lection de Menu
+ ou de Sous-Menu. C'est elle qui s'occupe de d‚terminer les traitements … appeler suivant
+ les op‚rations de l'utilisateur par l'interm‚diaire de la souris ou du clavier.
+ 
+	En g‚n‚ral, cette primitive sera ins‚r‚e dans la boucle de gestion d'‚vŠnement o—
+ se trouve A_Event().
+ 
+	Cette proc‚dure utilise les messages standards GEM se rapportant au Menu, ainsi que les ‚v‚nements
+ claviers pour les raccourcies. Dans le cas du clavier si une combinaison est reconnue, l'‚v‚nement sera 
+ trait‚ puis d‚truit. Aucun autre ne pourra alors interpr‚ter ensuite ce mˆme ‚vŠnement.
+ 
+	Cette situation con‡erne cette proc‚dure et F_Event(). L'ordre d'‚criture de ces
+ proc‚dures dans la boucle d'‚vŠnements, d‚terminera celle prioritaire pour les interpr‚ter.
+ 
+	Surtout que, dŠs qu'un formulaire est ouvert et actif, F_Event() consomme les ‚vŠnements clavier 
+ sans restrictions, mˆme si il n'y a pas de champs ‚ditables.
+
+ Tools Proc‚dures
+ 
+ Syntaxe:                       int     M_Checked(int Tree,int Entry);
+ 
+ 
+ Description:
+ 
+ 
+	Place un Check Mark sur l'entr‚e Entry du Menu Tree. La fonction retourne True si elle s'est 
+ correctement ex‚cut‚e sinon False.
+ 
+ Tools Proc‚dures
+ 
+ Syntaxe:                       int     M_UnChecked(int Tree,int Entry);
+ 
+ 
+ Description:
+ 
+ 
+	EnlŠve un Check Mark sur l'entr‚e Entry du Menu Tree. La fonction retourne True si elle s'est
+ correctement ex‚cut‚e sinon False.
+
+ Tools Proc‚dures
+ 
+ Syntaxe:                       int     M_Enable(int Tree,int Entry);
+ 
+ 
+ Description:
+ 
+ 
+	Autorise la s‚lection d'une entr‚e Entry du Menu Tree en supprimant l'‚criture fant“me (Ecriture gris‚e).
+ La fonction retourne True si elle s'est correctement ex‚cut‚e sinon False.
+ 
+ Tools Proc‚dures
+ 
+ Syntaxe:                       int     M_Disable(int Tree,int Entry);
+ 
+ 
+ Description:
+ 
+ 
+	Interdit la s‚lection d'une entr‚e Entry du Menu Tree en la rendant fant“me (Ecriture gris‚e).
+ La fonction retourne True si elle s'est correctement ex‚cut‚e sinon False.
+ Tools Proc‚dures
+ 
+ Syntaxe:                       int     M_Change(int Tree,int Entry,char *string);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction permet de modifier le texte d'une entr‚e Entry de Menu Tree par le
+ texte point‚ par String. Le texte doit avoir obligatoirement une longueur inf‚rieure ou ‚gale
+ … celui d'origine de l'entr‚e de Menu. 
+	La fonction retourne True si elle s'est correctement ex‚cut‚e sinon False.
+ 
+ Tools Proc‚dures 
+ 
+ Syntaxe:                       void M_SetSubMenu(int size); 
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure permet de fixer la taille d'un sous-menu hi‚rarchique en nombre d'entr‚es 
+ affich‚es … l'‚cran. Par d‚faut l'AES3.4 la fixe … 16, mais on pourra la modifier avec cette primitive.
+ Les entr‚es au-del… qui ne sont pas affich‚e seront scroll‚es automatiquement.
+ 
+ 
+				Chapitre IV
+				-----------
+			     Librairie PcXForm
+			     -----------------
+ 
+ 
+	
+ 
+	Cette librairie soutient la gestion des Formulaires en fenˆtres ou en mode GEM
+ standard, des Menus Pop-ups attach‚s … des boutons et d'un bureau propre … l'application avec
+ la gestion automatique de ses icones (Mouvements et clics).
+	Les Menus pop-ups sont support‚s sous r‚serve d'avoir un AES 3.4, de plus PcXForm
+ est compil‚ en code 68030 et ne peut donc ˆtre utilis‚ que sur TT ou Falcon030.
+ 
+ Sa pr‚sence est signal‚e par la macro __XFORM__
+ 
+ 
+ 4.1/ G‚n‚ralit‚s
+ ---------------- 
+ 
+	Le fonctionnement d'un formulaire, qu'il soit en fenˆtre ou classique GEM,icone de 
+ bureau ou pop-up menu repose sur l'asso‡iation d'un traitement … un ‚vŠnement de l'objet. 
+ Un bouton sera asso‡i‚ … une proc‚dure lors d'un clic, un icone lors d'un clic ou mouvement 
+ vers un autre icone et une entr‚e de pop-up lors de son choix.
+ 
+	Aucune programmation suppl‚mentaire propre au problŠme graphique de l'interfa‡e 
+ n'est n‚cessaire.
+ 
+	Malgr‚ cela, la librairie offrira au programmeur des primitives de services, pour par
+ exemple pla‡er un bouton dans un ‚tat, afin qu'il puisse agir sur l'interfa‡e graphique.
+ 
+	Les Pop-ups Menus, peuvent utiliser automatiquement un CheckMark et le scrolling
+ est inh‚rant. En revanche, les raccourcies claviers sont inexistants pour les Pop-ups comme
+ pour les formulaires.
+ 
+	Les formulaires sont iconifiables, on peut naturellement en ouvrir plusieurs mais
+ jamais le mˆme en plusieurs exemplaires.
+ 
+ 4.2/ Les structures de donn‚es
+ ------------------------------ 
+ 
+ Cette structure permet de d‚finir les listes lors de la cr‚ation des formulaires. Elle d‚finie les
+ associations entre un objet du formulaire est les traitements … effectuer lorsque l'objet est
+ cliqu‚ ou double cliqu‚.
+ 
+ typedef struct {
+		  int   Object;                         Entier identifiant l'objet 
+		  void (*ProcClic)(void);               Proc‚dure lorsqu'il est cliqu‚ 
+		  void (*ProcDbClic)(void);             Proc‚dure lorsqu'il est Double-cliqu‚ 
+		}Type_Form_List;
+ 
+ 
+ La structure qui suit permet d'asso‡ier … chaque icone du bureau les traitements … appeler..
+ 
+ typedef struct {
+		  int   Object;                         Entier identifiant l'objet 
+		  int   x;                              Position initiale sur le bureau 
+		  int   y;
+		  char  *Titre;                         Texte de l'icone, ex: " Disque C "
+		  void (*ProcClic)(void);               Proc‚dure quand est cliqu‚ 
+		  void (*ProcDbClic)(void);             Proc‚dure quand est Double-cliqu‚ 
+							Proc‚dure quand icone vers icone Object
+		  void (*Move2Icon)(int movment,int Object);    
+							Proc‚dure quand icone vers fenˆtre handle
+		  void (*Move2Wind)(int movment,int Handle);    
+		}Type_Bureau_List;
+ 
+ La structure suivante permet d'attacher des pop-ups menus … des boutons de formulaires. 
+ 
+ typedef struct {
+		  int   Popup;                  Entier identifiant le pop-up menu
+		  int   Button;         Entier identifiant le bouton o— l'attacher
+		  int   StartEntry;             Entr‚e de pop-up menu s‚lectionn‚e
+		  int   ScrollEntry;            Entr‚e de pop-up menu o— commen‡e le scroll
+		  int   UseChecked;             Indique si un checkMark automatique doit ˆtre utilis‚
+		} Type_Parameter_PopAttach;
+ 
+ Cette derniŠre structure d‚finie les traitements … asso‡ier … chaque entr‚e de menu, lorsqu 'elle
+ est s‚lectionn‚e, pour tel pop-up menu. Elle contient de ce fait tous les traitements de tous les
+ pop-ups menus.
+		
+ typedef struct {
+		  int   PopMenu;                Entier identifiant le pop-up menu
+		  int   Entry;                  Entier identifiant l'entr‚e de menu
+		  void (*Procedure)(void);      Proc‚dure associ‚e
+		} Type_Parameter_PopEvent;
+ 
+ 
+ 4.3/ Les constantes de listes et autres
+ --------------------------------------- 
+ 
+ Les constantes qui suivent doivent ˆtre pla‡‚es en fin de d‚claration de liste pour en marquer
+ correctement la fin.
+ 
+	#define FORM_END        {0,NULL,NULL}                           Fin de liste cr‚ation formulaire
+	#define BUREAU_END      {0,0,0,NULL,NULL,NULL,NULL,NULL}        Fin de liste Bureau
+	#define POPATTACH_END   {0,0,0,0,0}                             Fin de liste cr‚ation pop-up
+	#define POPEVENT_END    {0,0,NULL}                              Fin de liste ‚venŠments pop-ups
+ 
+ Indique lors de la cr‚ation d'un formulaire, qu'il ne contient pas de champ texte ‚ditable.
+ 
+	#define NOTEXT          0               
+ 
+ Indique lors de la cr‚ation d'un formulaire, qu'il sera en fenˆtre ou classique.
+ 
+	#define F_WIND          1                       
+	#define F_CLASSIC       0                       
+ 
+ Cette constante indique que le formulaire est en mode classic, au retour de F_Open().
+ 
+	#define NOWINDOW        -1                      
+ 
+ Handle de la fenˆtre du bureau.
+ 
+	#define DESKTOP         0
+		
+  
+ Type de mouvement survenue … un icone. Ces informations sont transmises en paramŠtres formels, aux 
+ proc‚dures de mouvement d'icones.
+ 
+	#define MOVE2WIND
+	#define MOVE2ICON
+ 
+ 4.4/ Les variables globales
+ ---------------------------
+ 
+ 
+	Ces trois variables fournissent au programme, l'entier identifiant l'objet activ‚, l'entier 
+	identifiant l'arbre d'objets contenant cet objet ainsi que l'adresse de l'arbre d'objets.
+ 
+	int             F_NameObject;           Objet activ‚
+	int             F_Name;                 Arbre d'objets le contenant
+	OBJECT  *F_Address;                     Adresse de l'arbre d'objets
+ 
+	Ces deux variables fournissent respectivement l'adresse de l'arbre d'objet faisant office de 
+	bureau (NULL si pas de bureau), et l'entier identifiant un icone ayant subie un ‚vŠnement quelconque.
+ 
+	OBJECT  *DesktopAddress;                Adresse de l'arbre d'objets desktop
+	int             I_Name;                 Icone source de l'‚vŠnement
+ 
+	Ces deux variables fournissent un entier identifiant le pop-up menu activ‚ et l'entr‚e de ce
+ pop-up s‚lectionn‚e.
+ 
+	int             F_PopupName;            Nom du menu pop-up
+	int             F_PopupEntry;           Entr‚e de pop-up menu choisie
+ 
+ 
+ 4.5/ Les primitives utilisateurs
+ 
+ Gestion des formulaires 
+ 
+ Syntaxe:                       int F_Init(void);
+ 
+ 
+ Description:
+ 
+ 
+	 Cette fonction initialise le gestionnaire de formulaire, elle doit ˆtre appel‚e avant tout
+ autres appels aux primitives de PcXForm. 
+	F_Init retourne True si l'initialisation est correct sinon False.
+ 
+ Gestion des formulaires 
+ 
+ Syntaxe:                       int F_Exit(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction termine l'utilisation de la sous-librairie en lib‚rant toutes les structures de donn‚es. 
+ Elle retourne True si la terminaison est correcte sinon False.
+
+ Gestion des formulaires 
+ 
+ Syntaxe:               int F_Open(     int TreeName,char *Title, int Mode,
+					int FirstEdit,Type_Form_List *List);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction permet d'ouvrir … l'‚cran un formulaire et d'activer son fonctionnement,
+ en mode Classic GEM ou en fenˆtre. Elle attend en paramŠtre les informations suivantes:
+ 
+	- TreeName      Qui identifie l'arbre d'objets … ouvrir,
+ 
+	- Title         Qui un pointeur sur une chaine qui sera copi‚e dans le titre de la
+			fenˆtre du formulaire
+ 
+	- Mode  Qui prend la valeur F_CLASSIC ou F_WIND pour ouvrir le formulaire
+			en mode normal GEM ou en fenˆtre.
+ 
+	- FirstEdit     Qui est l'entier identifiant le premier champ ‚ditable o— positionner
+			le curseur texte ou NOTEXT si il n'y en a pas.
+ 
+	- List          Qui pointe sur un tableau asso‡iant les ‚l‚ments graphiques du 
+			formulaire aux traitements.
+ 
+ La fonction retourne le Handle GEM de la fenˆtre si l'ouverture en fenˆtre a r‚ussie, NOWINDOW si 
+ l'ouverture en Classic … r‚ussie ou aprŠs un ‚chec en ouverture fenˆtre mais r‚ussie en Classic, ou bien 
+ False pour un ‚chec total.
+ 
+ Exemple:
+ 
+	Le premier paramŠtre est le nom de l'objet, le second l'adresse de la proc‚dure appel‚e lors 
+ d'un clic et le dernier lors d'un double clic.
+ 
+ void Quitter();        void Information();     void ...
+ 
+ Type_Form_List
+ Formulaire[]=  {       {QUITTER        ,Quitter        ,NULL},
+			{ABOUTME        ,Information    ,NULL},
+			{BDSP           ,Dsp            ,NULL},
+			{BPLAY          ,Play           ,NULL},
+			{BSTOP          ,Stop           ,NULL},
+			{CURSORLI       ,CursorVolume   ,NULL},
+			{CURSORRI       ,CursorVolume   ,NULL},
+			{CURSORLO       ,CursorVolume   ,NULL},
+			{CURSORRO       ,CursorVolume   ,NULL},
+			{LEFT           ,CutChannel     ,NULL},
+			{RIGHT          ,CutChannel     ,NULL},
+			FORM_END
+		};
+ 
+		Handle = F_Open(FORM1,"Fun Falcon 030",F_WIND,NOTEXT,Formulaire);
+ Gestion des formulaires 
+ 
+ Syntaxe:                       int F_Close(int TreeName);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction permet de fermer un formulaire quelque soit son mode d'ouverture. 
+ Elle attend en paramŠtre l'entier identifiant l'arbre d'objets du formulaire et retourne True
+ si la fermeture … r‚ussie sinon False. Un formulaire ferm‚ est physiquement ‚limin‚ des structures de donn‚es.
+ 
+	Si F_Close est appel‚e sur un formulaire d‚j… ferm‚, par exemple, elle retournera 
+ False.
+ 
+ 
+ Exemple:
+ 
+ 
+	F_Close(FORM1);
+	if(!F_Close(FORM2))
+		form_alert(1,  "[1][ Formulaire d‚j… ferm‚][ok] ");
+ 
+ Gestion des formulaires 
+ 
+ Syntaxe:                       void F_Event(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure est charg‚e de g‚rer les ‚vŠnements g‚n‚r‚s par une op‚ration
+ effectu‚e dans un formulaire, un pop-up menu ou sur le bureau et ses icones.
+	Elle s'occupe de d‚terminer les traitements … appeler suivant les op‚rations de 
+ l'utilisateur par l'interm‚diaire de la souris, ou de g‚rer le clavier pour les champs ‚ditables.
+ 
+	En g‚n‚ral, cette primitive sera ins‚r‚e dans la boucle de gestion d'‚vŠnement o—
+ se trouve A_Event().
+ 
+	Un remarque importante est dŠs lors qu'un formulaire est ouvert et actif, F_Event() 
+ consomme les ‚vŠnements clavier sans restrictions, mˆme sans champs ‚ditables. De ce
+ fait, une primitive ‚vŠnementielle qui la suivra sera en situation de famine, car plus aucun
+ ‚vŠnements claviers lui sera transmis tant qu'un formulaire sera ouvert et actif. C'est pourquoi
+ l'ordre d'‚criture dans la boucle de F_Event n'est pas totalement laiss‚ au hasard.
+ Gestion des Pop-ups menus
+ 
+ Syntaxe:               int F_PopAttach(int Formular,Type_Parameter_PopAttach *List);
+ 
+ 
+ Description:
+ 
+	Cette fonction permet d'attacher plusieurs Pop-ups menus aux diff‚rents boutons de 
+ d‚clenchement d'un formulaire. La fonction retourne True si l'attachement a r‚ussie sinon False.
+ 
+	F_PopAttach attend en paramŠtre les informations suivantes:
+ 
+	- Formular      Qui est l'entier identifiant le formulaire d'accueil.
+	
+	- List          Qui d‚signe une liste de description des pop-ups et boutons … asso‡ier.
+ 
+ 
+ Exemple:
+ 
+ 
+	Cet exemple illustre, par exemple, l'attachement d'un pop-up appel‚ POPUP3, sur le 
+ bouton  FM4B1 du formulaire FORM4. L'entr‚e initiale du pop-up choisie est PP3OBJ5, le
+ scrolling du menu commen‡era en PP3OBJ5 et celui-ci utilisera automatiquement un CheckMark pour noter 
+ l'entr‚e active.
+ 
+ 
+ Type_Parameter_PopAttach
+ ListPopAttach[]=       {       {POPUP3,FM4B1,PP3OBJ2,PP3OBJ5,TRUE},
+			{POPUP4,FM4B2,PP4OBJ6,PP4OBJ5,TRUE},
+			 POPATTACH_END
+		};
+ 
+ F_PopAttach(FORM4,ListPopAttach); 
+ 
+ Gestion des Pop-ups menus 
+ 
+ Syntaxe:                       int F_PopEvent(Type_Parameter_PopEvent *List);
+ 
+ 
+ Description:
+ 
+ 
+	Cette primitive installe les traitements asso‡i‚s … toutes les entr‚es de Pop-ups menus de 
+ l'application. La fonction attend en paramŠtre List qui pointe sur un tableau asso‡iant une entr‚e … un 
+ traitement. Elle retourne True si l'installation est correcte sinon False.
+ 
+ Exemple:
+ 
+	Dans cet exemple on associe l'unique traitement popup() … chaque entr‚e PPxOBJy du pop-up POPUP3 et POPUP4.
+ 
+ void popup(void);                                                      /* Prototype de la proc‚dure */
+ 
+ Type_Parameter_PopEvent                        
+ ListPopEvent[]={       {POPUP3,PP3OBJ1 ,popup},                        /* Premier pop-up menu */
+			{POPUP3,PP3OBJ2 ,popup},
+			{POPUP3,PP3OBJ3 ,popup},
+			{POPUP3,PP3OBJ4 ,popup},
+			{POPUP3,PP3OBJ5 ,popup},
+			{POPUP3,PP3OBJ6 ,popup},
+			{POPUP3,PP3OBJ7 ,popup},
+ 
+			{POPUP4,PP4OBJ1 ,popup},                        /* DeuxiŠme pop-up menu */
+			{POPUP4,PP4OBJ2 ,popup},
+			{POPUP4,PP4OBJ3 ,popup},
+			{POPUP4,PP4OBJ4 ,popup},
+			{POPUP4,PP4OBJ5 ,popup},
+			{POPUP4,PP4OBJ6 ,popup},
+			{POPUP4,PP4OBJ7 ,popup},
+ 
+			POPEVENT_END                    
+		};  
+ 
+ F_PopEvent(ListPopEvent);
+ Gestion des Pop-ups menus
+ 
+ Syntaxe:                       void F_SetPopup(int size); 
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure permet de fixer la taille d'un menu pop-up en nombre d'entr‚es affich‚es … l'‚cran. 
+ Par d‚faut l'AES3.4 la fixe … 16, mais on pourra la modifier avec cette primitive. Les entr‚es au-del… 
+ qui ne sont pas affich‚e seront scroll‚es automatiquement.
+
+ Gestion d'un bureau d'application
+ 
+ Syntaxe:                       int  D_Open(int TreeDesk,Type_Bureau_List *List);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction installe un nouveau bureau pour l'application en cours, … partir de l'arbre d'objets 
+ TreeDesk et en initialisant tout ses icones avec List qui pointe sur une liste de type Type_Bureau_List.
+ 
+	Elle retourne True si l'ouverture est correcte sinon False.
+ 
+ 
+ Exemple:
+ 
+ 
+	L'exemple suivant installe pour chaque objets (Icones) du bureau les traitements possibles d'aprŠs 
+ les actions autoris‚es Clic, Double-Clic, d‚pla‡ement icone vers icone et d‚pla‡ement icone vers fenˆtre. 
+ Une position (x,y) originale et un titre est de plus fix‚.
+ 
+	Les proc‚dures associ‚es aux mouvements re‡oivent obligatoirement en paramŠtre
+ typemove qui indique le mouvement MOVE2ICON ou MOVE2WIND et target qui contient
+ soit un handle, soit un indice d'objet (Icone).
+ 
+ void clicicon(void);
+ void dbicon(void);
+ void toicone(int typemove,int target);
+ void towind(int typemove,int target);
+ 
+ Type_Bureau_List
+ Bureau[]=      {       {DRAPEAU        ,0,0    ,NULL,NULL,NULL,NULL,NULL},
+			{IFLOPPY        ,25,50  ,"Disque C\0",clicicon,dbicon, toicone, towind },
+			{ICLIPBRD       ,25,100 ,"ClipBoard",clicicon,dbicon, toicone, towind },
+			{IATARI         ,25,150 ,"Ordinateur",clicicon,dbicon, toicone, towind },
+			{IECRAN         ,25,200 ,"Graphique",clicicon,dbicon, toicone, towind },
+			{IMUSIC         ,25,250 ,"Son",clicicon,dbicon, toicone,v},
+			{ITELEPHONE     ,25,300 ,"Communiquer",clicicon,dbicon, toicone , towind },
+			{ITRASH         ,25,350 ,"Poubelle\0",clicicon,dbicon, toicone, towind },
+ 
+			BUREAU_END
+		};
+ 
+ D_Open(BUREAU,Bureau);
+ /*
+	A partir de ce moment, le bureau est op‚rationnel...
+ */
+ ...
+ D_Close();
+ 
+ Gestion d'un bureau d'application 
+ 
+ Syntaxe:                       void D_Close(void);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure ferme le bureau de l'application avec ses icones et restitue le bureau du GEM.
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void F_Select(int TreeName,int Object);
+ 
+ 
+ Description:
+ 
+ 
+	Place dans un ‚tat s‚lectionn‚ un objet graphique Object du formulaire TreeName. En
+ fait l'ob_state est modifi‚ avec le bit SELECTED … un, puis l'objet est redessin‚.
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void F_UnSelect(int TreeName,int Object);
+ 
+ 
+ Description:
+ 
+ 
+	Place dans un ‚tat non s‚lectionn‚ un objet graphique Object du formulaire TreeName.L'ob_state
+ est modifi‚ avec le bit SELECTED … z‚ro, puis l'objet est redessin‚.
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void F_WriteText(int TreeName,int Object,char *string);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure permet d'‚crire dans un champ ‚ditable Object du formulaire TreeName,
+ la chaine texte point‚e par String. La chaine est copi‚e dans les structures de l'objet. Le champ
+ ‚ditable est redessin‚ pour permettre l'affichage de cette modification.
+ 
+ 
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:                       void F_ReadText(int TreeName,int Object,char *string);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure permet de lire dans un champ ‚ditable Object du formulaire TreeName, la
+ chaine texte qui sera recopi‚e dans la chaine  point‚e par String. 
+
+ Tools proc‚dures
+ 
+ Syntaxe:                       int F_LObject(int Tree,int Object);
+ 
+ 
+ Description:
+ 
+ 
+	Retourne la largeur en pixels d'un objet Object du formulaire Tree.
+ Tools proc‚dures
+ 
+ Syntaxe:                       int F_HObject(int Tree,int Object);
+ 
+ 
+ Description:
+ 
+ 
+	Retourne la hauteur en pixels d'un objet Object du formulaire Tree.
+ Tools proc‚dures
+ 
+ Syntaxe:                       void F_RedrawObject(OBJECT *Arbre,int Objet);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure permet de redessiner localement un objet graphique sans affecter les
+ autres. Le redessin … lieu sur un niveau de descendance de l'objet d‚sign‚ par Objet de l'arbre 
+ d'objets point‚ par Arbre.
+	
+	Ici contrairement … beaucoup d'autres primitives, on attend bien l'adresse de l'arbre 
+ d'objets et non son entier identifiant. En g‚n‚ral, on devrait pas avoir besoin de cett proc‚dure
+ dans un cas de programmation normal.
+ 
+ 
+ Exemple:
+ 
+	
+	Dans cet exemple, au lieu d'utiliser F_Select, on positionne le bit de ob_state et on redessine
+ l'objet.
+ 
+ rsrc_gaddr(FORM1,R_TREE,&Arbre);
+ ...
+ Arbre[BOUTON5].ob_state | = SELECTED;
+ F_RedrawObject(Arbre,BOUTON5);
+ Tools proc‚dures
+ 
+ Syntaxe:                       int F_EstIconifie(int Handle);
+ 
+ 
+ Description:
+ 
+ 
+	Cette fonction indique si une fenˆtre porteuse d'un formulaire est actuellement iconifi‚.
+ Elle attend en paramŠtre, le handle retourn‚e par F_Open() d'un fenˆtre, et retourne True si
+ iconifi‚e sinon False.
+ 
+ Tools proc‚dures
+ 
+ Syntaxe:       void F_FreeDraw(int Handle,void (*UserDraw)(int x,int y,int w, int h);
+ 
+ 
+ Description:
+ 
+ 
+	Cette proc‚dure permet de faire ex‚cuter une proc‚dure utilisateur de dessin sous le contr“le
+ de la liste des rectangles sur une fenˆtre formulaire. F_FreeDraw attend en paramŠtre le handle Handle
+ de la fenˆtre formulaire retourn‚ par F_Open et une proc‚dure de dessin.
+ 
+ La proc‚dure UserDraw re‡evra en paramŠtre la zone d‚limitant le clipping AES
+ actuel auquel on ne devra pas " sortir ". Le clipping ne con‡erne pas les sorties graphiques VDI. Dans 
+ ce dernier cas, on devra activer nous mˆme ce clipping dans UserDraw, pour r‚aliser ce type de sortie, 
+ si n‚cessaire.
+ 
+	Un exemple d'utilisation de F_FreeDraw est celui du cas o— l'on redessine r‚guliŠrement un ensemble 
+ d'objets d'un formulaire sous ‚vŠnement Timer. Lors d'un ‚vŠnement, le formulaire peut ˆtre partiellement 
+ cach‚ par d'autres fenˆtres, qui empˆchent un redessin " brutal " des ces objets, sans risquer d'endommager
+ le contenu des autres fenˆtres.
+ 
+ 
+ Exemple:
+ 
+ 
+	Cet exmple illustre l'appel de MyDraw par F_FreeDraw.
+ 
+ void MyDraw(int x_clip,int y_clip,int w_clip,int h_clip)
+ {
+   int register Indice;
+   
+   Indice = NB_POINT;
+   while(Indice)
+   {
+     if((long)Tampon[0] < gain[Indice])
+       ArbreDisplay[OutLeftLevel[Indice]].ob_state &=~SELECTED;
+     else
+       ArbreDisplay[OutLeftLevel[Indice]].ob_state |=SELECTED;
+ }
+   objc_draw(ArbreDisplay,VUMETERL,2,x_clip,y_clip,w_clip,h_clip);
+ }
+ ...
+ F_FreeDraw(Handle,MyDraw);
+ Tools proc‚dures
+ 
+ Syntaxe:        int F_UserEvent(int TreeName,Type_UserEvent *UserEvent);
+ 
+ 
+ Description:
+ 
+ 
+	Cette primitive permet d'installer des traitements particuli‚s pour un formulaire en fenˆtre 
+ lors de l'arriv‚e d'‚v‚nements habituellement automatiquement g‚r‚s.
+ 
+	En effet, lorsqu'un formulaire est soumis … un message Redraw par exemple, celui-ci est automatiquement
+ redessin‚ sans l'aide du programme utilisateur. Pourtant, il se peut qu'une r‚gion graphique de ce formulaire
+ soit un dessin ind‚pendant cr‚e par l'utilisateur. Dans ce cas le dessin ne sera pas rafraichie, car n'est pas
+ un objet AES du formulaire.
+ 
+	F_UserRedraw permettra donc de r‚cup‚rer un ‚v‚nement survenue … une fenˆtre et d'ex‚cuter un traitement
+ personnel, sans pour autant ‚liminer l'action de cet ‚v‚nement sur le formulaire. La proc‚dure utilisateur 
+ sera appel‚e aprŠs le traitement interne de AADS.
+ 
+ Les ‚v‚nements que l'on peut r‚cup‚rer sont:
+ 
+			Moved, Redraw, Iconify et Uniconify.
+ 
+ La fonction attend en paramŠtre l'entier TreeName identifiant le formulaire et une structure contenant les 
+proc‚dures utilisateurs … appeler. Un NULL indique qu'il n'y a pas de proc‚dures … appeler. Les fonctions
+re‡oivent le handle de la fenˆtre porteuse.
+ 
+ Exemple:
+ 
+ /* D‚finie dans PcXForm .h */
+ typedef struct {
+			void (*moved)(int handle);
+			void (*redraw)(int handle);
+			void (*iconify)(int handle);
+			void (*uniconify)(int handle);
+		} Type_UserEvent;
+ 
+ /* Prototype d'un fonction Redraw utilisateur suppl‚mentaire- */
+ void MyRedraw(int Handle);
+ ...
+ {
+	Type_UserEvent User;
+ 
+	User.iconify = NULL;
+	User.moved = NULL;
+	User.uniconify = NULL;
+	User.redraw = MyRedraw;
+	F_UserEvent(MAINFORM,&User);
+ }
+ 
+
+				Chapitre V
+				---------- 
+			    Librairie PcCookie
+			    ------------------
+ 
+ 
+	Cette librairie offre au programmeur un ensemble de primitives d'accŠs au Cookie Jar
+ du systŠme. A l'origine, totalement ind‚pendante de AADS, elle a ‚t‚ int‚gr‚e … celle-ci pour
+ lui permettre de d‚terminer le type de systŠme, la langue, etc...
+	PcCookie reste toujours ind‚pendante et compil‚e en code 68000, pour continuer … 
+ ˆtre ex‚cutable sur ATARI ST. On peut ansi linker AADS avec un programme pour utiliser la 
+ sous-librairie Cookie uniquement.
+ 
+ La librairie signale sa pr‚sence avec la macro  __COOKIE__
+ 
+ 
+ 5.1/ G‚n‚ralit‚s
+ ---------------- 
+	
+	On peut avec cette librairie, acc‚der au Cookie Jar du systŠme ou en cr‚er un nouveau. L'int‚ret
+ initial est pour les machines ST la possibilit‚ d'en cr‚er un complŠtement et pour les TOS sup‚rieur
+ au 1.6, obtenir toutes informations utiles.
+ 
+	D‚velopp‚e initialement sur 1040ST, elle est donc parfaitement adapt‚e pour ce type.
+ 
+ 5.2/ Les constantes
+ ------------------- 
+ 
+	Ces constantes permettent de tester la valeur du champ information d'un Cookie. Elles
+ sont ‚galement utilis‚es pour tester la valeur des champs d'informations de la structure MchInfo
+ de la librairie PcXApp, qui ont ‚t‚ extraites du Cookie Jar.
+ 
+ 
+ #define        M68000          0x0000                  Type de processeurs
+ #define        M68010          0x000A
+ #define        M68020          0x0014
+ #define        M68030          0x001E
+ #define        M68040          0x0028
+ #define        M68060          0x003C
+ 
+ #define        ST              0x00000L                Type de machines
+ #define        STE             0x10000L
+ #define        MSTE            0x10010L
+ #define        TT              0x20000L
+ #define        FALCON30        0x30000L
+ 
+ 
+ #define        KEYB_USA        0x0                     Type de clavier
+ #define        KEYB_D          0x1
+ #define        KEYB_F          0x2
+ #define        KEYB_GB         0x3
+ #define        KEYB_SP         0x4
+ #define        KEYB_I          0x5
+ #define        KEYB_CHD        0x7
+ #define        KEYB_CHF        0x8
+ 
+ #define        LG_USA          0x0                     Langue active
+ #define        LG_D            0x1
+ #define        LG_F            0x2
+ #define        LG_GB           0x3
+ #define        LG_SP           0x4
+ #define        LG_I            0x5
+ #define        LG_CHD          0x7
+ #define        LG_CHF          0x8
+ 
+ #define        SHIFTER_ST      0x00000L                Type de circuit Vid‚o
+ #define        SHIFTER_STE     0x10000L
+ #define        SHIFTER_TT      0x20000L
+ #define        VIDEL_FALCON    0x30000L
+ 
+ #define        MATRICE         0x08                    Configuration du systŠme sonore
+ #define        DSP             0x04
+ #define        CODEC           0x02
+ #define        PSG             0x01
+ 
+ #define        NO_FPU          0                       Type de Copro. Math‚matiques
+ #define        SFP004          1
+ #define        C68881_2        2
+ #define        C68881_2_SFP    3
+ #define        C68881          4
+ #define        C68881_SFP      5
+ #define        C68882          6
+ #define        C68882_SFP      7
+ #define        C68040          8
+ #define        C68040_SFP      9
+ 
+ #define        DATE_MJA        0                       Format date utilis‚
+ #define        DATE_JMA        1
+ #define        DATE_AMJ        2
+ #define        DATE_AJM        3
+ 
+ #define        TIME_12         0                       Format horaire 12 ou 24 Heures
+ #define        TIME_24         1
+ 
+ 
+ 
+ 5.3/ Structures de donn‚es
+ --------------------------  
+ 
+	Cette structure d‚finie un type cookie, l'objet ‚l‚mentaire du Cookie Jar. On peut 
+ ensuite cr‚er un tableau de cookies, ce qui correspond … un Cookie Jar.
+ 
+ 
+ typedef struct {
+		 char identification[4];        Identification du cookie
+		 union {
+			 long mot_long;         Champ information
+			 int  mot[2];
+			 char octet[4];
+		       } information;
+		} Type_Cookie;
+			
+    
+ 5.4/ Primitives utilisateurs
+ ---------------------------- 
+ 
+ Syntaxe:                       Type_Cookie *J_GetAdr(void);
+ 
+ 
+ Description:
+ 
+ 
+	Retourne l'adresse de d‚part du Cookie Jar systŠme. Si le Cookie Jar existe, l'adresse
+ correspond … l'adresse du premier cookie, sinon retourne la valeur Null.
+ 
+	L'organisation d'un Cookie Jar en m‚moire, est simplement un tableau, comprenant une suite de
+ cookies, termin‚ par un cookie nul.
+	
+ 
+ Syntaxe:                       int J_Exist(void);
+ 
+ 
+ Description:
+ 
+ 
+	Indique si il existe un Cookie Jar dans le TOS de la machine. Tous les TOS sup‚rieurs 
+ au TOS 1.6 doivent normallement avoir un Cookie Jar. La fonction retourne True si il existeou bien False.
+ 
+	
+ 
+ 
+ Syntaxe:                       int J_Read(Type_Cookie *liste);
+ 
+ 
+ Description:
+ 
+ 
+	Recopie dans la liste de cookies vide pass‚e en paramŠtre, tout le Cookie Jar du 
+ systŠme y compris le cookie nul. Si le Cookie Jar n'existe pas aucune op‚ration n'est effectu‚e.
+ Liste pointe sur le premier Cookie du tableau, qui devra avoir une longueur suffisante pour 
+ pouvoir y recopier tous les cookies du systŠme.
+ 
+	La fonction retourne True si l'op‚ration s'est bien d‚roul‚e, sinon False.
+ 
+ 
+ 
+ Syntaxe:                       int J_Install(int nombre_slots);
+ 
+ 
+ Description:
+ 
+ 
+	Installe un nouveau cookie jar de nombre_slots slots. Si il existait d‚j… un cookie jar, 
+ la fonction recopie automatiquement tous les cookies pr‚sents dans l'ancien Cookie Jar.
+ 
+	 Si il n'y a plus assez de m‚moire la fonction est abandonn‚e. Pour les TOS ant‚rieur au 1.6,
+ la fonction installe ‚galement une routine reset d'effa‡ement de la variable systŠme long 0x5A0.
+ 
+	La fonction attend en entr‚e nombre_slots pour indiquer la taille du futur Cookie Jar,
+ puis retourne True si l'op‚ration s'est bien d‚roul‚e sinon False.
+ 
+ 
+ Syntaxe:                       int J_Number(void);
+ 
+ 
+ Description:
+ 
+ 
+	Retourne le nombre de cookies effectivement pr‚sent dans le Cookie Jar du systŠme 
+ sans compter le cookie nul. Si il n'existe pas de Cookie Jar la fonction est abandonn‚e et
+ retourne 0.
+	
+ 
+ 
+ Syntaxe:                       long J_Size(void);
+ 
+ 
+ Description:
+ 
+ 
+	Retourne la taille du Cookie Jar systŠme en nombre de slots incluant le slot du cookie 
+ Nul. Si il n'existe pas de Cookie Jar la fonction est abandonn‚e et retourne 0L.
+	
+ 
+ Syntaxe:               int J_Search(char identification[4],Type_Cookie *cookie);
+ 
+ 
+ Description:
+ 
+ 
+	Recherche dans le Cookie Jar du systŠme, le cookie dont l'identification correspond … 
+ l'identification pass‚e en paramŠtre. Si succŠs, retourne dans le cookie pass‚ en paramŠtre la
+ copie du cookie trouv‚ en m‚moire ainsi que True,  sinon False.
+ 
+	La fonction ne retourne pas l'adresse du cookie dans le Cookie Jar systŠme.
+ 
+ Syntaxe:                       int J_Insert(Type_Cookie *new_cookie);
+ 
+ 
+ Description:
+ 
+ 
+	InsŠre dans le Cookie Jar systŠme, le nouveau cookie pass‚ en parametre. Le cookie 
+ en paramŠtre est recopi‚ dans le cookie jar systŠme.
+	Si le cookie existe ou, si le Cookie Jar est plein ou n'existe pas, la fonction est abandonn‚e.
+Elle retournera True si l'insertion est r‚ussie sinon False.
+ Syntaxe:                       int J_Delete(char identification[4]);
+ 
+ 
+ Description:
+ 
+ 
+	Supprime un cookie pr‚sent dans le Cookie Jar systŠme, si le Cookie Jar existe et que 
+ le cookie est effectivement trouv‚. La fonction attend en entr‚e l'identification du cookie et 
+ retourne True si la suppression a r‚ussie sinon False.
+ 
+ 
+			Classement alphab‚tique des primitives
+			-------------------------------------- 
+ 
+ 
+ 
+ PcXApp: Application, Ev‚nements et Timer Event
+ ----------------------------------------------
+ 
+	A_Close()                                                               P 13
+	A_CycleTimer()                                                          P 21
+	A_FileSelector()                                                        P 15
+	A_GFontHeigh()                                                          P 16 
+	A_GFontWidth()                                                          P 17
+	A_GCellHeigh()                                                          P 18
+	A_GCellWidth()                                                          P 19
+	A_HeaderSystem()                                                        P 14
+	A_OffTimer()                                                            P 24
+	A_OnTimer()                                                             P 23
+	A_Open()                                                                P 12
+	A_SetCodeTimer()                                                        P 22
+	A_WaitEvent()                                                           P 20
+ 
+ PcXForm: Formulaires, Pop-ups Menus et Desktop
+ ----------------------------------------------
+ 
+	F_Close()                                                               P 67
+	D_Close()                                                               P 73
+	F_EstIconifie()                                                         P 81
+	F_Event()                                                               P 68
+	F_Exit()                                                                P 65
+	F_FreeDraw()                                                            P 82
+	F_HObject()                                                             P 79
+	F_Init()                                                                P 64
+	F_LObject()                                                             P 78
+	F_Open()                                                                P 66
+	D_Open()                                                                P 72
+	F_PopAttach()                                                           P 69
+	F_PopEvent()                                                            P 70
+	F_ReadText()                                                            P 77
+	F_RedrawObject()                                                        P 80
+	F_SetPopup()                                                            P 71
+	F_Select()                                                              P 74
+	F_UnSelect()                                                            P 75
+	F_UserEvent()                                                           P 84
+	F_WriteText()                                                           P 76
+	
+ 
+ 
+ 
+ 
+ PcXMenu: Menu Principal et Sous-Menus hi‚rarchiques
+ --------------------------------------------------- 
+ 
+	M_Change()                                                              P 59
+	M_Checked()                                                             P 55
+	M_Close()                                                               P 51
+	M_Disable()                                                             P 58
+	M_Enable()                                                              P 57
+	M_Event()                                                               P 54
+	M_Exit()                                                                P 49
+	M_Init()                                                                P 48
+	M_Open()                                                                P 50
+	M_SetSubMenu()                                                          P 60
+	M_SubAttach()                                                           P 52
+	M_SubEvent()                                                            P 53
+	M_UnChecked()                                                           P 56
+ 
+ 
+ PcXWind: Fenˆtres
+ -----------------
+ 
+	W_Close()                                                               P 33
+	W_ClrScr()                                                              P 44
+	W_Event()                                                               P 31
+	W_Exit()                                                                P 29
+	W_GetParameter()                                                        P 30
+	W_HomeCursor()                                                          P 43
+	W_Init()                                                                P 28
+	W_OffClip()                                                             P 36
+	W_OnClip()                                                              P 35
+	W_Open()                                                                P 32
+	W_Printf()                                                              P 45
+	W_Redraw()                                                              P 34
+	W_GLine()                                                               P 37
+	W_GColums()                                                             P 38
+	W_GMaxLine()                                                            P 39
+	W_GMaxColum()                                                           P 40
+	W_SLine()                                                               P 41
+	W_SColum()                                                              P 42
+ 
+ 
+ PcCookie: Cookie Jar 
+ --------------------
+ 
+	J_Delete()                                                              P 95
+	J_Exist()                                                               P 88
+	J_GetAdr()                                                              P 87
+	J_Insert()                                                              P 94
+	J_Install()                                                             P 90
+	J_Number()                                                              P 91
+	J_Read  ()                                                              P 89
+	J_Search()                                                              P 93
+	J_Size()                                                                P 92
+	
+ 
+ 
+		Atari Application Developpment Service 
+		 Documentation D‚veloppeur - A.A.D.S. 
+
+		    Copyright (c) FRANCE 1994-95
+ 

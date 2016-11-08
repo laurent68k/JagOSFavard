@@ -1,0 +1,125 @@
+
+
+                             - N A T I V E    DEMO -
+
+                            Copyright 1997 by Duranik
+
+
+    This Demo does not contain Sounds, LevelBosses, and
+    the Native extra weapon system due the low amount of
+    available work RAM.
+    Remember: It is not possible to reload data with the current
+              version of the Jag-Server software therefore we have
+              to store all the compressed Native data in memory.      
+              We have to divide the memory into 1 MB work ram and
+              1 MB compressed data.
+              It was simply not possible to include more data
+              like all the Sounds and the 2 LevelBosses. Sorry.
+ 
+  
+  * General
+
+    Native is a horizontal 2D shoot em'up.
+    Press the A, B, or C Button to get started.
+                                           
+
+  * Controls
+
+    Use the JagPad to move your spaceship.
+    The weapons are controlled with the B and C Buttons of
+    the Pad. With the B-Button you are able to shot.
+    It is only a shot with low energy. But be careful some
+    enemies need more than one low energy shot to blast.
+    Therefore use the C-Button to fire a shot with more energy.
+    You can see the amount of energy for your Power shot
+    on the left bottom of your screen.
+                        
+
+
+  * Extra weapons ( not included in the demo !)
+
+    Native does contain two combined extraweapon systems.
+    Some of the destroyed enemies lose a coin or a star.
+    Collect the money to buy extra weapons in the shop
+    in the middle of each level. You can buy for
+    example a satellite, lives, energy etc...
+    The star is something different. It contains a
+    letter like for example a "O" or "X".
+    Every letter picked up will transform your ship completely.
+    There exists five different classes of ships.
+    If you pick up the same letter again you will power up the
+    shot power of your ship. (Again 5 different power classes for
+    each ship).
+    It is the same system used in the best ST shoot'em ups
+    Wings of Death and Lethal Xcess.
+    Remember: The extra weapon system is not included in the demo.
+              You can collect the money the stars can't be
+              collected in the demo.
+
+
+  * Some technical details
+
+    - 60 fps (50 Hz Pal is not supported in the demo)
+    - 16 Bit CrY Mode
+    - up to 4 layers of parallax scrolling
+    - Transparency and lightning effects
+    - up to 120 Sprites (OP-Objects) on Screen
+    - Scaling effects (OP)
+    - real time data decrunch (DSP)
+    - Game engine is running completely on the GPU
+    - Rotation effects  (not included in demo - not enough work ram)
+
+    If you want to know something special about the used techniques
+    write us a E-Mail.
+
+
+  * Credits
+
+    Roland Graf      - coding
+
+    Johannes Graf    - all Graphics
+                     - Level design
+                     
+    Gordon Gibson    - ice decrunch routine
+
+
+
+ Write your Error-Reports, Suggestions, Comments or anything else to:
+
+                          duranik@aol.com
+
+
+  * Publishing
+
+    We don't have a publisher for Native till now. If we don't
+    find a solution in the next 4 weeks we will stop any work
+    on this game.
+    As you can see on the demo size it is not possible to make
+    a 16 MBit (2 MByte) cartridge out of this game.
+    The complete level with the 2 Bosses and FX Samples will take
+    about 1.6 MByte (and still does not contain any Music).
+    We are using a good compression algorithm but 2D graphics does need
+    a lot of memory.
+    The only solution is a CD version but we don't have a CD-devkit...
+
+
+             
+  Native demo is freeware. You can copy it as long as no profit is
+  made. 
+       
+  If you want to put this demo on your homepage or do anything else with
+  it please ask us.
+
+  It is not allowed to put this demo on any kind of CD-Rom without
+  our written permission.
+                                  
+
+ ***************************************************************************
+
+      Attention : You use this program at your own risk
+                  We are in no event be liable for consequential or
+                  incidental damages resulting from this product
+
+ ***************************************************************************
+           
+  Release date:  24.10.1997

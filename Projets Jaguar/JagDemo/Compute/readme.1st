@@ -1,0 +1,13 @@
+Compute.Prg
+============
+
+This simple demo show how to load, run and use inside a GEM 
+program, a small Jaguar 68000 program. This one just perform
+a addition or substraction of two value given in parameters.
+
+
+Project:	Jaguar Kit
+
+FAVARD Laurent-30/09/1998
+contact me at:	l.favard@france2.fr
+

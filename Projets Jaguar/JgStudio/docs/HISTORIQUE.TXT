@@ -1,0 +1,48 @@
+JagStudio
+---------
+
+Historique:
+-----------
+
+* 03 Novembre 1998
+------------------
+
+- Support du message VA_START.
+- S‚maphores sur les fonctions de la boite a outils JToolBox.
+
+* 20 Janvier 1999
+-----------------
+
+- G‚n‚ration de 4 fichiers codes sources assembleur.
+- Support du lancement d'applications en parallŠle sous MagiC 
+  uniquement ( shel_write() )
+- Ajout du protocole AV_STARTPRG (Lancement d'une application associ‚e 
+  … un type de fichier).
+- N‚cessite la version 1.2.63 de AADS
+
+* 21 Janvier 1999
+-----------------
+
+- Nouvelle fenetre Debug pour afficher le contenu des variables
+  de l'application. (Aide au developpement)
+  
+* V 1.9.94, 9 Mai 2000
+---------------------
+
+- Gestion des erreurs de la boite a outils.
+
+- Nouvelles fenetres pour afficher un message d'erreur, en particulier
+les erreurs remontees de la boite a outils, ainsi que d'une fenetre
+de surveillance, affichant si la Jaguar essaye de communiquer ou pas.
+
+- corrections de quelque bugs.
+
+----------------------------------------------------
+FAVARD Laurent
+
+WEB site:	http://perso.libertysurf.fr/lfavard
+WEB site:	http://wwwlinux.utc.fr/~atari/Atari.html
+e-mail:		laurent.favard@libertysurf.fr
+e-mail:		atari@linux.utc.fr
+----------------------------------------------------
+

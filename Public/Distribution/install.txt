@@ -1,0 +1,8 @@
+Please check the online installation at:
+
+You need to burn the JagOS.img file into an Eprom
+of 64Ko or 128Ko.
+
+
+http://perso.libertysurf.fr/jaguar_e.html
+http://wwwlinux.utc.fr/~atari/jaguar_e.html

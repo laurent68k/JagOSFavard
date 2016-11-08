@@ -1,0 +1,226 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Laurent FAVARD">
+   <meta name="GENERATOR" content="Mozilla/4.6 [fr] (WinNT; I) [Netscape]">
+   <title>JagStudio</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="99%" >
+<tr VALIGN=TOP>
+<td ALIGN=CENTER>
+<center><a href="http://www.mot.com/"><img SRC="logos/motorol2.gif" NOSAVE BORDER=0 height=75 width=242></a></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>&nbsp;</td>
+
+<td>
+<center><img SRC="images/news.gif" NOSAVE height=245 width=320>
+<br><font color="#3366FF"><font size=+1>Par FAVARD S&eacute;bastien</font></font>
+<p><font color="#FF6600"><font size=+1><b><u>Contact:</u></b> <a href="mailto: atari@linux.utc.fr">atari@linux.utc.fr</a>
+ou l'auteur &agrave;: <a href="mailto: l.favard@france2.fr">Sebastien.Favard@utc.fr</a></font></font>
+<p>
+<hr WIDTH="100%"></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p><b><u><font color="#3366FF">Evolutions des kits de d&eacute;veloppement</font></u></b>
+<p><font color="#FF6600">Le kit de developpement &eacute;tait initialement
+pr&eacute;vu pour tourner sur un simple ST dot&eacute; d'une liaison "port
+cartouche". Une <b>premi&egrave;re version du kit</b> a donc &eacute;t&eacute;
+d&eacute;velopp&eacute;e dans l'optique de l'int&eacute;grer directement
+au coeur de la Jaguar. Une sortie de type DB25 <i>(cf. port parall&egrave;le)
+</i>permettait
+d'&ecirc;tre reli&eacute;e (par un c&acirc;ble ou non) &agrave; une petite
+clef sp&eacute;cifique &agrave; la machine h&ocirc;te: pour le ST, cette
+clef est d'ailleurs fournis sur ces pages et a &eacute;t&eacute; pr&eacute;sent&eacute;e
+dans ST Mag. les caract&eacute;ristiques ressemblaient &agrave; celles
+du kit de d&eacute;veloppement de Roine mais prenant en compte quelques
+particularit&eacute;s hardware permettant de rendre beaucoup plus rapide
+la communication : astuce bit d0 du port cartouche, FIFO en entr&eacute;es
+et sorties etc...</font>
+<p><font color="#FF6600">Cependant apr&egrave;s la mort de ST Mag. et le
+d&eacute;clin des machines ST de l'&eacute;poque, nous nous sommes int&eacute;resser
+&agrave; porter nos efforts vers une autre solution plus ouverte, d'ou
+le d&eacute;veloppement du kit de seconde g&eacute;n&eacute;ration, utilisant
+le bus ISA. celui-ci est donc ouverts aux plateformes de type PC, Milan,
+RiscPC etc... Pour les utilisateurs de simple ST, un kit version "light"
+propos&eacute; par Bastian42 permet de prendre gout &agrave; la joie du
+d&eacute;veloppement sur la Jaguar.&nbsp;</font>
+<br>&nbsp;
+<p><b><u><font color="#3366FF">Fonctionnalit&eacute;s du kit</font></u></b>
+<p><font color="#FF6600">Tout d'abord, le kit permettra de <b>t&eacute;l&eacute;charger
+directement les BootStrap et OS</b> &agrave; partir de l'ordinateur, ce
+qui n'&eacute;tait pas possible auparavant puisque l'OS &eacute;tait directement
+mis en EPROM sur la carte. Ceci permettra donc &agrave; chacun de downloader
+de nouvelles versions tr&egrave;s facilement et ains ipouvoir faire &eacute;voluer
+sans cesse le d&eacute;veloppement sur Jag.</font>
+<p><font color="#FF6600">De m&ecirc;me le driver permettant de configurer
+la carte afin de supporter telle ou telle plateforme sera downloader &agrave;
+partir de l'ordinateur h&ocirc;te, donc tr&egrave;s facilement &eacute;voluable
+/ modifiable. Ceci m'a d'ailleurs permis en &agrave; peine 4 soir&eacute;es
+de valider 90% du kit !</font>
+<br>&nbsp;
+<p><font color="#FF6600">Le <b>syst&egrave;me de communication</b> a &eacute;t&eacute;
+revu afin de mieu prendre en compte les besoins logiciels de JagOS. Celui-ci
+supporte d&eacute;sormais l'envoie des trames de 64Ko avec une FIFO temporaire
+de 128Ko ! Celle-ci permet d'augmenter consid&eacute;rablement le d&eacute;bit
+de communication puisque ne bloque pas inutilement le consommateur.</font><font color="#FF6600"></font>
+<p><font color="#FF6600">Physiquement la carte ISA 8 bits sera constitu&eacute;e
+d'un connecteur DB25 m&acirc;le, similaire &agrave; celui du port parall&egrave;le
+des ordinateurs (m&acirc;le afin que l'utilisateur ne se trompe pas par
+m&eacute;garde entre les deux ports) et de trois circuits. La taille du
+circuit imprim&eacute;e sera la taille minimale possible pour supporter
+le connecteur 8 bits ISA et un conneteur DB25 (tr&egrave;s approximativement
+10cm*6cm !).</font><font color="#FF6600"></font>
+<p><font color="#FF6600">Dans un premier temps une tout petite modification
+interne &agrave; la jaguar sera n&eacute;cessaire, permettant de ressortir
+des signaux sur un connecteur DB25 femelle. <b>Il pourra cependant &ecirc;tre
+envisag&eacute; </b>si le besoin sans fait sentir aupr&egrave;s des utilisateurs,
+de d&eacute;velopper une cartouche connectable au kit ISA, n'obligeant
+personne &agrave; modifier sa Jaguar !&nbsp;</font>
+<br>&nbsp;
+<p><b><u><font color="#3366FF">Caract&eacute;ristiques du kit :</font></u></b>
+<ul>
+<li>
+<font color="#FF6600">Carte configurable par l'ordinateur grace &agrave;
+un driver ;</font></li>
+
+<li>
+<font color="#FF6600">BootStrap Jaguar (1 Ko maximun) t&eacute;l&eacute;chargeable
+par l'ordinateur <i>(ceci remplace le boot actuel de la Jag) </i>;</font></li>
+
+<li>
+<font color="#FF6600">OS t&eacute;l&eacute;chargeable &agrave; partir de
+l'ordinateur <i>(pas de limite)</i> ;</font></li>
+
+<li>
+<font color="#FF6600">Possibilit&eacute; &agrave; tout moment de forcer
+la Jaguar &agrave; &eacute;x&eacute;cuter un code t&eacute;l&eacute;chargeable,
+permettant ainsi de reprendre la main lors d'un plantage....</font></li>
+
+<li>
+<font color="#FF6600">Gestion d'une communication par envoie / r&eacute;ception
+de messages de trames de 64Ko avec une FIFO interne de128Ko ;</font></li>
+
+<li>
+<font color="#FF6600">Communication 8 bits ;&nbsp;</font></li>
+
+<li>
+<font color="#FF6600">Protection du moyen de communication par s&eacute;maphore
+mat&eacute;riel ;</font></li>
+
+<li>
+<font color="#FF6600">Interfa&ccedil;age convivial &agrave; l'aide de registres
+de configuration de la carte</font></li>
+
+<li>
+<font color="#FF6600">Mise en route de la Jaguar par l'ordinateur ;</font></li>
+
+<li>
+<font color="#FF6600">Choix de la fr&eacute;quence vid&eacute;o de la Jaguar
+par l'ordinateur.</font></li>
+</ul>
+
+<p><br><b><u><font color="#3366FF">D&eacute;veloppements en cours</font></u></b>
+<p><font color="#FF6600">Le kit de seconde g&eacute;n&eacute;ration est
+en cours de d&eacute;veloppement depuis 3 semaines environ. Suite &agrave;
+l'utilisation d'un circuit d&eacute;ffectueux en partie, deux semaines
+ont &eacute;t&eacute; p&eacute;nalis&eacute;es, car utilis&eacute;es pour
+trouver la source de panne. D&egrave;s lors, en une semaine, voici les
+diff&eacute;rents &eacute;l&eacute;ments d&eacute;velopp&eacute;s et qui<b>
+fonctionnenent parfaitement</b> :</font>
+<br><font color="#FF6600"></font>&nbsp;
+<ul>
+<li>
+<font color="#FF6600">La carte peut &ecirc;tre configur&eacute; &agrave;
+l'aide de drivers &agrave; partir de l'h&ocirc;te ;</font></li>
+
+<li>
+<font color="#FF6600">L'interface avec l'h&ocirc;te et la Jaguar (simul&eacute;
+pour l'instant par l'ordinateur) a &eacute;t&eacute; test&eacute; et valid&eacute;
+;</font></li>
+
+<li>
+<font color="#FF6600">Le moyen de communcation &agrave; l'aide d'une FIFO
+fonctionne parfaitement &agrave; partir des deux machines (dont la jag
+simul&eacute; par l'ordinateur) ;</font></li>
+
+<li>
+<font color="#FF6600">Mise en route &agrave; distance de la Jaguar.</font></li>
+</ul>
+<font color="#FF6600">D&eacute;sormais <b>il ne reste plus qu'&agrave;</b>
+terminer le d&eacute;veloppement d'un <b>BootStrap</b> de test afin devalider
+l'&eacute;x&eacute;cution d'un code transmis par l'ordinateur &agrave;
+la Jag. D&eacute;s lors, la communication et tout autre forme de chargement
+de BootStrap et OS sera valid&eacute;e. Il ne restera plus qu'&agrave;
+effectuer des tests afin de modifier la fr&eacute;quence vid&eacute;o et
+le prototype sera op&eacute;rationnel.</font>
+<br><font color="#FF6600">En fin de semaine, Laurent devrait avoir termin&eacute;
+un BootStrap de test me permettant de valider l'&eacute;x&eacute;cution
+de codes par la jaguar.</font><font color="#FF6600"></font>
+<center>
+<p><font color="#3366FF">&nbsp;</font></center>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

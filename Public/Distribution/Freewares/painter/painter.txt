@@ -1,0 +1,14 @@
+---------------------------------------------------------------------
+-  Painter - A Jaguar game for the Jaguar Server Development Kit.   -
+---------------------------------------------------------------------
+
+Painter Instructions ... just in case you need them!!!
+
+To play painter all you have to do is avoid the nasties and fill all
+the boxes including hidden ones (these show up at the start of the
+level for a second or two). You can move up, down, left and right
+and you can cut holes in the lines by pressing B. You are only
+allowed to cut 3 holes at any one time, and they repair themselves
+after a while.
+
+Thanks to Cynix for releasing this little game!

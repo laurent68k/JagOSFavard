@@ -1,0 +1,29 @@
+; ----------------------------------------------------------
+; 		   Create DemoII.Prg
+; ----------------------------------------------------------
+; 	FunShip - 1995,1996 - Falcon30, FRANCE
+;	This is the Falcon release
+; ----------------------------------------------------------
+
+DemoII.prg						; name of executable program
+
+.C [-B-S-M]							; Processor 68000
+.L [-v]
+
+=								; list of modules follows...
+
+PCSTART.O							; startup code
+
+;	List of modules
+
+DemoII.C (DemoDef.h,DemoII_F.h)	; Main Program
+
+;	some pure library
+
+PCSTDLIB.LIB							; standard library
+PCEXTLIB.LIB							; extended library
+PCTOSLIB.LIB							; TOS library
+
+;	The Gem library AADS
+
+STAads.lib					; 68000 release

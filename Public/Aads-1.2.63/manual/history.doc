@@ -1,0 +1,62 @@
+
+
+			===============
+			A.A.D.S History
+			===============
+			
+		AADS is a freeware library, source code
+		can be copied, used as long as you want
+		but cannot be sold in any way.
+		
+		
+		
+Introduction:
+-------------	
+			
+	The concept of Aads began somes years ago. At this moment it was only 
+somes basics functions that allows the programmer (myself !) to do more 
+easily common GEM action.
+
+
+	Well, at the end of the year 1994 (Just before going to Army), i began
+to think how write a more efficiant library who will be very helpfull. 
+At this time, i didn't want just another library to get some new graphics 
+objects, but really a new powerfull programming way to remove all low-level 
+GEM problems.
+
+
+Release list:
+-------------
+
+
+	Release 1.0:	The very first free release of Aads. 
+					Severals buggs was present and i didn't know a lot GEM.
+			
+					Main features:	
+
+						-	Main Menu & sub-menus(AES 3.4).
+						-	Windows.
+						-	Dialog box modeless and popup-menus(AES 3.4).
+						-	Desktop with icons (Black and white).
+						-	Window inconify processing simplest.
+						
+
+	Release 1.2:	Many of buggs was fixed and new features in addition.
+	
+					Additionnal features:	
+
+						-	Built-in menu window and dialog box.
+						-	Mouse shape enhanced.
+						-	Each window can get its own mouse shape.
+						-	Full window iconify processing.
+						-	Color icons fully understanding.				
+
+
+
+	Release 1.21:	Aads is now working under Pure-C v1.1 of 3 March 1993.
+
+
+	Release 1.22:	Aads begin to include the modal and modeless window concept.
+
+
+	

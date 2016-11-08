@@ -1,0 +1,42 @@
+History of JagOS Release:
+-------------------------
+
+* Version 0.0 - 1997
+--------------------
+
+Work on how to start the Jaguar, how to write a BOOTROM like...
+A lot of Work, and it was not easy at all to be able to have
+something run.
+Many BOOTROM like was wrote and tested...More and more complex.
+
+* Version 1.0 - 08 July 1998
+----------------------------
+
+Very first beta version of JagOS. A critical bug doesn't allows
+a good boot of the Jaguar. It seems initialization code isn't complete
+or ok.
+
+* Version 1.0 - 23 March 1999
+------------------------------
+
+After to have a look at all small boostrap made by myself, it
+seems that the boot problem is now solved...
+Now, only the ComLynx is became a BIG REAL problem.
+
+* Version 1.03 - 04 May 2000
+----------------------------
+
+Centronics communication was added and work nicely.
+New images in order to get a more "modern" release, 
+for this Great year 2000.
+The size of data block is 32Ko now and for JToolbox too
+naturally but all command frame are always limited to
+a datablock of 1024 bytes.
+
+
+
+FAVARD Laurent
+l.favard@france.fr
+atari@linux.utc.fr
+http://wwwlinux.utc.fr/~atari.html
+

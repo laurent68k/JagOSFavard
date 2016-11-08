@@ -1,0 +1,85 @@
+;	     _______________________________________
+;	     Atari Application Developpment Services
+;	     ---------------------------------------
+;
+;
+; ----------------------------------------------------------
+; 	FunShip - 23 November 1994 Falcon30, FRANCE
+;		- 11 September 1997
+;
+;		Make "TTAads.Lib"
+;
+;		Version 68030 pour TT and above
+; ----------------------------------------------------------
+;
+;	WARNINGS:
+;
+; Linker with -j option to
+; create new object's file and not build an executable file.
+; ----------------------------------------------------------
+
+..\Lib\TTAads.lib		; Name of output library file
+
+.C [-a-t-b-p-s-2]
+.L [-j-v]
+.S [-s-b-v]
+
+=				; modules list
+
+;	News Aes functions
+
+..\library\PCAes4_1.s
+..\library\PCAes4_1.c	(..\include\PCAes4_1.h,..\Library\PCAes4_1.s)
+
+; 	Module Application
+
+..\library\PCXapp.c	(..\include\PCXApp.h,..\Include\PCCookie.h)
+
+;	Module Window
+
+..\library\PCXwind.c	(..\Include\PCXApp.h,..\Include\PCXWind.h,..\Library\Window.h,..\Include\PCPile.h,..\Include\PCFile.h)
+..\library\PCXWMenu.c	(..\Include\PCXApp.h,..\Include\PCXWind.h,..\Library\Window.h,..\Include\PCFile.h)
+
+;	Module Menu
+
+..\Library\PCXMenu.c	(..\Include\PCXMenu.h,..\Include\PCFile.h)
+
+;	Module Formular (Make with three separate C modules)
+
+..\Library\PCXForm.c	(..\Include\PCXForm.h,..\Include\PCXApp.h,..\Include\PCXWind.h,..\Include\PCFile.h,..\Include\PCPile.h)
+..\Library\PCXDesk.c	(..\Include\PCXForm.h,..\Include\PCXApp.h,..\Include\PCXWind.h,..\Include\PCFile.h)
+..\Library\PCXPopup.c	(..\Include\PCXForm.h,..\Include\PCXApp.h,..\Include\PCFile.h)
+
+;	Module INF file
+
+..\library\PCinf.c	(..\include\PCinf.h)
+	
+;	Module Interface with ST-Guide
+
+..\library\Pcstguid.c	(..\include\Pcstguid.h,..\include\PCXApp.h)
+
+;	Module Cookie Jar
+
+..\library\PCCookie.s	
+..\library\PCCookie.c	(..\include\PCCookie.h,..\library\PCCookie.s)
+
+;	Module Stack
+
+..\library\PCPile.c	(..\include\PCPile.h)
+
+;	Module Queue
+
+..\library\PCFile.c	(..\include\PCFile.h)
+
+;	Module Mouse
+
+..\library\PCXMouse.c	(..\include\PCXMouse.h)
+
+;	Tools module
+
+..\library\PCTools.c	(..\library\Tools.h)
+
+;	Somes Pure Library
+
+pcgemlib.lib
+pctoslib.lib

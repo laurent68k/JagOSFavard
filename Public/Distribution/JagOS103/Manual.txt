@@ -1,0 +1,73 @@
+JagOS Version 1.02 - 04 May 2000
+================================
+
+Features
+========
+
+	- JagOS and JagStudio (with JToolbox) comunicate as bidirectional
+	way. It can accept memory transfer, load and execute programs, 
+	read/write serial EEPROM, manage the joypad 1 (or 2), and handle
+	68000 exceptions.
+
+	- Check if the computer send any command and process them
+	all time. But, when a program is running, control is given
+	to this one until it terminate themself.
+
+	- Object list built-in in the JagOS ROM to display a nice
+	"desktop". This one use currently 7 bitmap objects and 1
+	scaled object. 
+
+
+	- Use Bitmaps compressed (cci) to preserve a little of ROM space.
+	(Each bitmap on the JagOS desktop come from a CRY image compressed
+	as CCI.)
+
+	- Mouse pointer usable with the Joypad 1. Two bitmap Arrow and
+	Busy when JagOS is processing a command or running a program.
+
+	- Display a "Surfer" when a program is running.
+
+	- Joypad 2 reserved for computer/Jaguar communication. This 
+	can cause somes troubles, when a non JagOS designed program
+	is running and try to read the Joypad #2. In this case, JagStudio
+	can think that Jaguar is trying to initiate an exchange.
+
+	- Don't start the cartridge. You need to press a the Joypad#1 - B key
+	to start this one.
+
+	- Don't check if a JagCD unit is plug in. The bitmap show that there
+	are not JagCD unit, but in reallity, no check was performed.
+
+	- EEPROM Read/Write managment ok. JagOS can read and write the
+	entire contains of the serial Cartridge EEPROM.
+
+	- 21 JaOS system functions are available.
+
+
+Knows Buggs & Problems:
+=======================
+
+	- Bugs for memory send from Jaguar to computer.
+
+	- Video rate at 50 Hz doesn't work very well. You should use
+	JagOS at 60 Hz to get a more nicely desktop.
+
+Commands
+========
+
+Use the Joypad connected to the port 1. The second port should be connected
+to your computer with a cable.
+
+
+	- A button to START the cartridge or the JagCDROM.
+
+
+	- B button to RESET JagOS.
+
+
+	- C button to SEND a nice message through the Joypad2/Centronics.
+
+	
+FAVARD Laurent 1998/2000
+
+										

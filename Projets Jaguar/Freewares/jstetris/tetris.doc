@@ -1,0 +1,32 @@
+This games was done in 1995 by 42Bastian Schick (me) on the other
+unofficial dev. kit by Lars Baumstark and me.
+The MOD-player and the MOD was done by tIn.
+
+Some info on the game :
+
+First : How to start it ?
+
+Using the JSERVER you have to add your specific header and make sure
+that the load-address is on phrase-boundarie (better dphrase) above
+$2000 and below $6000.Start game from load-address.
+-----------------------------
+To make it simple for you all I prepared Bastians file for use with
+the Jaguar Server. / Roine.
+-----------------------------
+
+Second: How to play ;) ?
+
+Select level with keypad or with A/B/C.
+Rotate with A/B,drop with joy-pad down.
+No pause, leave game with "*"+"#".
+
+Third: TechInfo
+
+Game:
+The main routines are done totally in GPU code (8K), with some supporting
+routines in 68k : creating patterns, setting up CLUT, creating object-list.
+
+Player:
+The player is done in 68k, the Amiga-chips are emulated by the DSP.
+
+42Bastian

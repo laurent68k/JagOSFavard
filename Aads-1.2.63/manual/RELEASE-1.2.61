@@ -1,0 +1,27 @@
+
+				------------------------------------
+				News features of AADS Version 1.2.61
+				------------------------------------
+						Atari 1991-1998
+				
+				Last release:	07/12/1998
+				
+				
+07/12/98
+--------
+
+	Corrections de la gestion des popups en controlant le positionnement
+de maniŠres a ce que celui-ci ne sorte plus de l'‚cran.
+De plus, appel syst‚matiquement ma routine popup sauf si l'objet d‚clencheur
+est un G_BUTTON o— dans ce cas j'appele la routine Atari.
+
+
+08/12/98
+--------
+
+	AADS ne gŠre plus totalement le placement des fenetres iconifi‚es. 
+D‚sormais, c'est … la charge du systŠme d'explotation de pla‡er graphiquement
+les icones de fenetres sur le bureau. Le m‚cansime interne est ainsi grandement
+simplifi‚, ne se bornant plus qu'… m‚moriser l'emplacement initial et … g‚rer
+l'iconification gloable par CTRL + Clic sur le bouton d'iconification.
+

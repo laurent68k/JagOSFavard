@@ -1,0 +1,1 @@
+Command Line: loader -n -s 168 -b 0x00010000 slam.cof

@@ -1,0 +1,68 @@
+; ----------------------------------------------------------------------------------------------
+; 	Projet Application Jaquar Studio
+;	GENERATION POUR CIBLE Atari sous TOS/GEM Falcon AES 4.0x.
+; ----------------------------------------------------------------------------------------------
+; 	FAVARD Laurent alias FunShip (c) - 1996-99 FRANCE
+;	
+;	Updated:	19/01/1999 Atari Software and Hardware Corporation
+; ----------------------------------------------------------------------------------------------
+
+..\Tos\TJAGUAR.APP								; name of executable program
+
+.C [-B-S-M]										; Processor 68000
+.L [-v]
+
+=												; list of modules follows...
+
+PCSTART.O										; startup code
+
+;	List of modules to build it
+
+..\modules\Jaguar.c		(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\modules\MainMenu.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\modules\Tools.c		(..\modules\Tools.h)
+..\modules\Appopen.c	(..\modules\Appopen.h)
+..\modules\Codegen.c	(..\modules\Codegen.h)
+..\modules\Lunch.c		(..\tos.rsc\JAGUAR_F.h, ..\modules\Lunch.h)
+;..\modules\Threads.c	(..\tos.rsc\JAGUAR_F.h)
+
+..\fenetres\About.c		(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Memparam.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Options.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\ToolsBar.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Sender.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Console.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Bureau.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Transfer.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Eeprom.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Cpu680x0.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Inquire.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Fuji.c		(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\infofile.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\newform.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\genform.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\envr.c		(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\genfrmp.c	(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Debug.c		(..\modules\messages.h, ..\tos.rsc\JAGUAR_F.h)
+..\fenetres\Werr.c		(..\modules\messages.h, ..\magic.rsc\JAGUAR_F.h)
+..\fenetres\status.c	(..\modules\messages.h, ..\magic.rsc\JAGUAR_F.h)
+
+
+;..\JToolbox\JToolBox.c			(..\JToolbox\JToolBox.h)
+;..\JToolbox\JProtoLo.s			(..\JToolbox\JProtoLo.inc)
+;..\JToolbox\Fusion.s			(..\..\JagOS\include\Trame.inc, ..\..\JagOS\com\TramHigh.s)			; Union of many JagOS system files
+;..\JToolbox\Jpacker.c			(..\JToolbox\JToolBox.h)
+
+
+;	pure library
+
+PCSTDLIB.LIB									; standard library
+PCEXTLIB.LIB									; extended library
+PCTOSLIB.LIB									; TOS library
+
+;	The Gem library AADS
+
+STAads.lib						; 68000 release of AADS
+JToolBox.lib					; Jaguar programming library
+MT_AES.LIB
+

@@ -1,0 +1,506 @@
+##ACE-STGPAR 4 0348 
+@database "JagStudio"
+@author "FAVARD Laurent"
+@$VER: JAGUAR.HYP (@:"__DATE__")
+@subject "Documentation"
+@options "+z-s-j-d12"
+
+@node main "JagStudio"
+@symbol r JagStudio
+@{B}@{"JagStudio For ATARI Computers" ignore} @{0}
+@line 1 75 0 0 7
+
+	Foreword
+	Chapter 1:  System Requirement
+		Section 1.1 - Harwdare Requirement
+		Section 1.2 - Operating System
+		Section 1.3 - User interface
+	Chapter 2:  Menu
+		Section 2.1 - File
+		Section 2.2 - Jaguar
+		Section 2.3 - Tools
+		Section 2.4 - Options
+		Section 2.5 - Help
+	Chapter 3:  Popup Window
+		Section 3.1 - Exceptions 68000
+		Section 3.2 - Memory transfer
+	Chapter 4:  Console Window
+	Chapter 5:  Source code generator
+		Section 5.1 - New sources select
+		Section 5.2 - Source generator
+	Appendix A: 
+	Appendix B: Examples
+	Appendix C: CCI format
+	Appendix D: Frame informations
+	Contact
+
+@{B}Copyright FRANCE (c) 1996-1999 - FAVARD Laurent@{0}
+
+@endnode
+
+@node "Foreword"
+@{B}@{"Foreword to JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{U}What is it ?@{0}
+
+	JagStudio is the client application which has been designed to work
+with JagOS, with any Atari and compatible under MagiC 5. It will
+allows you to design and execute Jaguar programs. In addition, many usefull
+capabilities are presents to make your job more friendly.
+
+	@{U}Main Features@{0}
+
+	-	Source code generation.
+	-	Upload and execution Jaguar programs.
+	-	Download and Upload serial EEPROM datas.
+	-	Handle Jaguar 68000 exceptions in real time.
+	-	Check and handle JagOS requests like the memory transfer.
+	-	Enhanced GEM interface.
+	-	Use BubbleGEM and ST-Guide.
+	-	VA_START and AV_STARTPROG.
+
+	@{U}Copyright@{0}
+
+	This software is copyright by FAVARD laurent 1996-1999. 
+	Status: Currently no defined.
+	
+
+@endnode
+
+@node "Section 1.1"
+@{B}@{"Harwdare Requirement - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	JagStudio itself currently should work with all Atari computers range
+under MagiC OS 5.13 and greater only.
+
+	It work with TT-RAM and no minimal colours/resolution is required,
+instead we suggest you to have a video display with 640x400 and 2 colours 
+at least. In addition, it is friendly with the Afterburner.
+
+	1 Mb of free RAM is required and harddisk too.
+
+@endnode
+
+@node "Section 1.2"
+@{B}@{"Operating System - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	JagStudio work only with Magic5.13 currently and support the
+VA_START, AV_STARTPROG protocol. 
+
+	In addition, JagStudio use BubbleGEM from Thomas MUCH and ST-Guide 
+from Holger Weets, and understand the long filenames.
+			
+@endnode
+
+@node "Section 1.3"
+@{B}@{"User interface - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	JagStudio use a standard GEM interface like many others Atari
+applications. In addition, you'll find two ways as:
+
+	- Jagbar window which contains most important operations
+	- Popups menus onto the background and desktop's icons.
+
+@endnode
+
+@node "Chapter 2"
+@{B}@{"Menu - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	Menu bar availables:
+	
+	File..........Section 2.1
+	Jaguar........Section 2.2
+	Tools.........Section 2.3
+	Options.......Section 2.4
+	Help..........Section 2.5
+	 		
+@endnode
+
+@node "Section 2.1"
+@{B}@{"File menu - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	 New........................Section 2.1.1
+	 Open file..................Section 2.1.2
+	 Open executable............Section 2.1.3
+	 Informations...............Section 2.1.4
+	 Close......................Section 2.1.5
+	 Close all..................Section 2.1.5
+	 Quit
+
+@endnode
+
+@node "Section 2.2"
+@{B}@{"Jaguar menu - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	 Via Serial port............Section 2.2.1
+	 Via Cartridge port.........Section 2.2.1
+	 Load file only.............Section 2.2.2
+	 Load file and run..........Section 2.2.2
+	 Run a program..............Section 2.2.3
+	 Ping JagOS.................Section 2.2.4
+	 Get a memory block.........Section 2.2.5
+
+@endnode
+
+@node "Section 2.3"
+@{B}@{"Tools menu - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	 Serial EEPROM..............Section 2.3.1
+	 Convert CRY to CCI.........Section 2.3.2
+	 
+@endnode
+
+@node "Section 2.4"
+@{B}@{"Options menu - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	 Parameters.................Section 2.4.1
+	 Environment................Section 2.4.2
+	 Display JagBarre...........
+	 Display Console............
+	 Save configuration on exit.
+	 Save desktop...............
+	 Fuji friend................
+
+@endnode
+
+@node "Section 2.5"
+@{B}@{"Help menu - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	 Menu.........This present topic
+	 Help index...Contents of this help file
+	 JagOS........API for JagOS
+	 JToolbox.....API for GEM/TOS applications
+	 Global.......Enable or disable global bubbles
+	 On JagBar....Enable or disable jagBar's bubbles
+
+@endnode
+
+@node "Section 2.1.1"
+@{B}@{"New - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}New@{0} will open a window which permit you to select what
+kind of source file you want to generate. Clic on the icon you want
+and Ok button or double-clic it.
+	
+@endnode
+
+@node "Section 2.1.2"
+@{B}@{"Open - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}Open@{0} allow you to select a source file which will
+be the main source program that you'll could edit and assemble.
+	
+@endnode
+
+@node "Section 2.1.3"
+@{B}@{"Open executable- JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}Open executable@{0} allow you to select a jaguar program
+which will be uploaded into the Jaguar's memory.
+	
+@endnode
+
+@node "Section 2.1.4"
+@{B}@{"Informations - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}Informations@{0} will open a window which display somes usefull
+informations about the current selected Jaguar program file.
+
+	File:   Name 
+	        Lenght
+	        Header mark 
+	        Code operation (For Jagr and Jagl header, cf: Jaguar Server).
+	
+	Header: Target address
+	        Lenght
+	        Start address
+	        Offset.
+	
+@endnode
+
+@node "Section 2.1.5"
+@{B}@{"Close and close all - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}Close@{0} will close the current source or program file currently
+selected on the JagStudio's desktop.
+
+	@{B}Close all@{0} will close all selected file from your JagStudio's
+desktop.
+	
+@endnode
+
+@node "Section 2.2.1"
+@{B}@{"Serial port and Cartridge port - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	In normal operation, JagStudio communicate with the Jaguar through
+the special board.
+
+Thus, JagStudio is able to communicate with the Jaguar with the serial 
+port too, for example to use a Jaguar program simulator running on a 
+standard computer.
+
+@{I}Currently, only the JagOS's author use this option@{0} ;-)
+
+@endnode
+
+@node "Section 2.2.2"
+@{B}@{"Load file only or load file and run - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This window permit you to upload binaries datas, 68000 programs 
+and start it. Before to do the upload, you can edit the Target, 
+Offset and Start address parameters.
+
+	Target Address: Destination jaguar memory location.
+	Offset:         Number of bytes from the sources files to pass.
+	Start Address:  Begin of the 68000 code when the file is a program.
+	
+	The only difference between @{B}Load file only@{0} and 
+@{B}Load file and run@{0} is that JagStudio will send a comand frame to 
+execute the binairies datas after which has been upload.
+
+@endnode
+
+@node "Section 2.2.3"
+@{B}@{"Run a program - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This window will send a command frame to JagOS to start the program
+at the location specified in this one. 
+
+	Enter in this window the @{B}Start Address@{0} to run the program.
+
+
+@endnode
+
+@node "Section 2.2.4"
+@{B}@{"Ping JagOS - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	Ping JagOS will send a simple @{B}Inquire@{0} command to JagOS to get 
+the Hardaware and Software verion and date. This will check the correct 
+state of the Jaguar.
+
+	When JagOS respond to it, a window will be automaticaly open to display
+these informations.
+
+@endnode
+
+@node "Section 2.2.5"
+@{B}@{"Get a memory block - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	Get a memory block will perform a dump of a piece of jaguar memory
+at any start address of any lenght to your disk. Check that you have enough
+free space on your disk to do it before.
+
+	Enter in this window the @{B}Start Address@{0} and the @{B}Lenght@{0} you want.
+	
+@endnode
+
+@node "Section 2.3.1"
+@{B}@{"Serial EEPROM - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This window give to the user a simple way to download, edit and upload the
+datas inside the EEPROM embbeded into the standard Jaguar cartridge games.
+
+Currently, JagStudio and JagOS handle the standard 128 bytes Serial Eeprom.
+
+
+
+	@{B}Retrieve@{0} to get datas from the EEPROM.
+	@{B}Write@{0} to send datas into the EEPROM.
+	@{B}Read@{0} to read datas from a binary file.
+	@{B}Save@{0} to save datas into a binary file.
+	
+	Becarefull:	This window DOESN'T handle the @{B}Memory Track@{0} cartridge,
+used for the JaguarCD system.
+
+@endnode
+
+@node "Section 2.3.2"
+@{B}@{"Convert CRY to CCI - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This will convert a selected .CRY image into the .CCI format. The file
+generated is in 68000 assembly source language.
+
+	The CRY image used as input file are the files generated by @{B}TGA2CY.TTP@{0}
+	
+@endnode
+
+@node "Section 2.4.1"
+@{B}@{"Parameters - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This window allows you to customize your JagStudio's desktop, as
+Desktop background colours, template, fonts and the windows behavior.
+
+
+@endnode
+
+@node "Section 2.4.2"
+@{B}@{"Environment- JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This window allows you to set the path for a text editer and assembler.
+Double-clic onto one of two text field and browse until to reach an application.
+Only the applications's names are display.
+
+These preferences are saved into the jaguar.inf.
+
+@endnode
+
+@node "Chapter 4"
+@{B}@{"Console window - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This window is used to display messages comming from JagOS. 
+You can save them into a text file and re-load it more later.
+
+In addition, clipboard is available and a popup menu by right mouse clic.
+	
+@endnode
+
+@node "Section 5.1"
+@{B}@{"New sources select - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	Select in this window what's kind of source code you want
+to create. Four choice as available:
+
+	- Routine:       A sub-routine which is used inside a GEM program.
+	- With JagOS:    A program which run under JagOS and with or without host.
+	- Without JagOS: A program without host and JagOS at all.
+	- Source:        A simple text source.
+	
+	Select what's you whish to generate and clic the OK button or double-clic 
+directly onto the icon to open an another window to set source's elements.
+	
+@endnode
+
+@node "Section 5.2"
+@{B}@{"Source generator - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	This window is the one to generate each sources files types. following
+what's you had previously selected, somes or all fields will be filled.
+	
+	@{B}Description@{0}
+
+	Exec name:        The name used by the OUPUT directive for the .JAG
+	                  (Devpac directive to give an name to your program)
+	Title:            A title for your program
+	Business:         A small description of what your program do
+	Author:           Your name
+	Date:             Creation Date
+	Advanced button:  Open a new window to enter the size of blocks in bytes
+	                  send and receive by the Jaguar and the host.                       
+
+	@{B}Bitmaps@{0}
+
+	Icon:             Image 24*24 (CRY format) display at the top right corner
+	                  during program execution.
+
+	Cursor:           Image 24*24 (CRY format) display as Joypad cursor.
+
+	@{B}DbMsg@{0}
+
+	Begin:            Enter your small message which be send at the begin
+	                  of your program.
+	End:              Enter your small message which be send at the end
+	                  of your program.
+
+	@{B}Template@{0}
+
+	Load:             Load a previous template from the disk and fill as
+                      possible all fields. 
+	Save:             Save all fields from your window into a file to give
+	                  you a way to use them more later.
+
+	@{B}Actions@{0}
+	
+	Generate:         Start the source file generation. A file selector will be
+	                  open to enter the name of your source file.
+
+@endnode
+
+@node "Appendix A"
+@{B}@{" - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+
+@endnode
+
+@node "Appendix B"
+@{B}@{"Appendix B: Examples - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+
+	@{B}Examples@{0} contains somes examples programs to show
+how to use JagOS. The sources had be written for Devpac 3, at the hand, 
+from HiSoft and the .Jag are the executable files ready to use.
+
+	@{B}Generation@{0}
+
+@endnode
+
+@node "Appendix C"
+@{B}@{"Appendix C: CCI format - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+
+	CCI format, ie @{B}Cry Compressed Image@{0}, is the simple compressed 
+CRY images format understand by JagOS in standard. 
+JagStudio allows you to compress your CRY images to this format.
+
+See the @{B}Appendix C from JagOS@{0} help file for more informations about
+this format.
+
+
+@endnode
+
+@node "Appendix D"
+@{B}@{"Appendix D: Frame informations - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	JagStudio and JagOS use a strutured datas format between them to
+exchange any informations and commands.
+
+See the @{B}Appendix E from JagOS@{0} help file for more informations
+about this format.
+	
+
+@endnode
+
+@node "Contact"
+@{B}@{"Contact - JagStudio" ignore} @{0}
+@line 1 75 0 0 7
+
+	Laurent FAVARD: l.favard@france2.fr
+	And you can contact us too at:
+		
+		atari@linux.utc.fr
+
+	Our WEB site, for any informations:
+
+		http://wwwlinux.utc.fr/~atari/Atari.html
+
+@endnode

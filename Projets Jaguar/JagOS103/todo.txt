@@ -1,0 +1,33 @@
+Travail a effectuer...
+======================
+
+Le: 17 Mai 2000
+
+
+JagOS:	Alonger la taille des trames de donnees limitees actuellement
+		a 32767 Octets. Deux constantes definissent cette limitation.
+		Le changement du cote JagOS ENTRAINE OBLIGATOIREMENT un 
+		changement du cote JToolbox. Cette limite est due a Pure-C
+		qui m'ennuie avec ses warnings si on d‚finie 65536.
+
+
+JToolbox:	
+		Un bug semble poser probleme lorsqu'on transfere des donnees
+		de la Jaguar vers l'Atari. Ce bug concerne la fonction
+		systeme lorsqu'un programme Jaguar demande l'envoi de donn‚es
+		vers l'Atari.
+		
+
+JagStudio:	
+		RAS.
+
+
+===================================
+Favard laurent
+
+laurent.favard@libertysurf.fr
+atari@linux.utc.fr
+http://perso.libertysurf.fr/lfavard
+http://wwwlinux.utc.fr/~atari.html
+
+		

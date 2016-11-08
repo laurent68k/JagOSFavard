@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Laurent FAVARD">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en] (X11; I; Linux 2.0.35 i586) [Netscape]">
+   <TITLE>Actuallites</TITLE>
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+&nbsp;
+<CENTER><TABLE BORDER=0 COLS=1 WIDTH="100%" >
+<TR>
+<TD ALIGN=CENTER WIDTH="100%">
+<CENTER><B><U><FONT COLOR="#3366FF"><FONT SIZE=+3>Programmation Syst&egrave;me</FONT></FONT></U></B></CENTER>
+
+<P><B><FONT COLOR="#3366FF"><FONT SIZE=+1>&nbsp;&nbsp;&nbsp; </FONT><U><FONT SIZE=+2>Les
+ports "Joysticks" &eacute;tendus du STE et Falcon</FONT></U></FONT></B>
+<BR>&nbsp;
+<P><IMG SRC="articles/joystick/screen1.gif" NOSAVE HEIGHT=318 WIDTH=497 ALIGN=ABSCENTER>
+<P><FONT COLOR="#FF6600"><U>Auteur:</U> Laurent FAVARD</FONT>
+<P>&nbsp;</TD>
+</TR>
+</TABLE></CENTER>
+
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" >
+<TR VALIGN=TOP>
+<TD ALIGN=LEFT><B><U><FONT COLOR="#FF6600"><FONT SIZE=+2>I</FONT><FONT SIZE=-1>NTRODUCTION</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Le Falcon est equip&eacute;
+en standard de deux prises manettes dites &eacute;tendues, tout droit h&eacute;rit&eacute;es
+du STE. Elles ne furent pourtant jamais utilis&eacute;es, ou bien alors
+tr&egrave;s peu. Ces deux prises offrent pourtant bien des avantages car
+elles</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>sont chacune equip&eacute;es
+de deux entr&eacute;es analogiques X et Y et permettent de plus</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>de
+connecter des joysticks de type Jaguar.</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Dans cet article, nous allons
+voir ensemble comment utiliser d'une mani&egrave;re</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>simple,
+ces prises joystick &eacute;tendues, avec des exemples en C &agrave; l'appui.&nbsp;
+Certains de nos lecteurs pourront peut-etre d&eacute;couvrir des possibilit&eacute;s
+d'utilisation, voyant la un moyen simple d'utiliser une manette Jaguar,
+ou bien d'utiliser les</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>entr&eacute;es
+analogiques.</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>LES ENTREES ANALOGIQUES</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Chaque prise &eacute;tendue
+comporte deux entr&eacute;es X et Y analogiques, qui sans</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>entrer
+dans des d&eacute;tails d'&eacute;lectronique, acceptent en entr&eacute;e
+non pas des valeurs</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>"binaires",
+telle la pr&eacute;sence ou non d'une tension, mais acceptent une grandeur
+&eacute;lectrique
+continue.</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;L'&eacute;lectronique du STE
+et du Falcon mesure cette grandeur et nous en retourne directement un multiple,
+&agrave; la diff&eacute;rence d'un bit &agrave; 0 ou 1, comme pour les
+entr&eacute;es</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>d'un Joystick
+classique. Il ne reste alors plus qu'&agrave; lire les valeurs qui nous&nbsp;</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>interressent directement dans des registres.
+Ce principe de gestion de Joysticks</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>et
+le meme que nous retrouvons, par exemple, dans le monde PC. Il ne pr&eacute;sente&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>pourtant pas que des avantages,
+car &agrave; cause meme de la technique utilis&eacute;e dans les Falcon
+et les PC, on remarquera que les valeurs &eacute;chantillon&eacute;es ne
+sont pas tr&egrave;s pr&eacute;cises. A moins de faire quelque-chose au
+niveau &eacute;lectronique,</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>on
+notera que les valeurs ont tendance &agrave; osciller, bien qu'aucune action
+externes</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>ne soient efectu&eacute;e.
+Ph&eacute;nom&egrave;ne, que l'on ne retrouve pas, par exemple, sur les
+</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>prises classiques "Joysticks"
+standards du Falcon.</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Pour autant, cela ne pr&eacute;sente
+pas une grande gene, si on s'attache &agrave; filter</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>ces
+oscillations soit de mani&egrave;re logicielle soit de mani&egrave;res
+cabl&eacute;e.</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>Le montage de test analogique</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Afin d'illustrer notre exp&eacute;rimentation,
+nous allons r&eacute;aliser un montage&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>pour
+que chacun puisse se rendre compte par lui meme du fonctionnement.</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;La figure 1, montre un sch&eacute;ma
+de branchement de deux potentiom&egrave;tres sur les</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>entr&eacute;es
+X et Y, ainsi que du mat&eacute;riel n&eacute;cessaire &agrave; la r&eacute;alisation.
+Peut on faire</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>plus simple
+?</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<BR>
+<CENTER>
+<P>figure 1:
+<BR><IMG SRC="articles/joystick/figure1.gif" NOSAVE HEIGHT=500 WIDTH=400></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Le principe du montage est
+de permettre ensuite, vous l'aurez devin&eacute;, de faire</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>varier
+les valeurs X et Y, en faisant tourner les deux potentiom&egrave;tres.</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>La programmation des entr&eacute;es
+analogiques</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;La programmation des entr&eacute;es
+analogiques est ce qu'il y a de plus simple.</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>Pour
+connaitre &agrave; tout moment l'&eacute;tat des potentiom&egrave;tres,
+quatre adresses syst&egrave;mes,</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>pr&eacute;sent&eacute;es
+en figure 2, sont &agrave; disposition. Pour pouvoir y acc&eacute;der,
+vous devrer</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>en revanche
+faire un appel syst&egrave;me afin de passer en mode superviseur, sinon&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>vous vous retrouverez en pr&eacute;sence
+d'une exception 680x0. Une fois votre lecture&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>termin&eacute;e,
+ou votre programme achev&eacute;, n'oubliez pas non plus de repasser en
+mode&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>utilisateur.</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P>figure 2:
+<BR><IMG SRC="articles/joystick/figure2.gif" NOSAVE HEIGHT=108 WIDTH=277></CENTER>
+
+<BR>&nbsp;
+<P><BR>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Avec la d&eacute;claration suivante
+en langage C, nous disposons directement de variables</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>contenant
+les valeurs qui nous interressent:</FONT></FONT>
+<BR>&nbsp;
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+XDIR0&nbsp; *((unsigned char *)0x00FF9211L)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+YDIR0&nbsp; *((unsigned char *)0x00FF9213L)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+XDIR1&nbsp; *((unsigned char *)0x00FF9215L)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+YDIR1&nbsp; *((unsigned char *)0x00FF9217L)&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Ansi, pour connaitre l'&eacute;tat
+de la valeur 'Paddle X0', on &eacute;crira en C ou en</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>assembleur
+les lignes suivantes:</FONT></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">"C":&nbsp; ValueX0
+= XDIR0;&nbsp; /* Lecture de l'&eacute;tat de l'entr&eacute;e X0 */&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">"680x0": move.b&nbsp;
+XDIR0,d0</FONT></FONT>
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>Programme d'exemple analogique</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Le programme ci-dessous montre
+maintenant en langage C comment r&eacute;aliser&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>l'acc&egrave;s
+aux registres des entr&eacute;es analogiques, mais reste transposable en
+assembleur.
+D'abord nous mettons le 680x0 en mode Superviseur, puis nous </FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>effectuons
+les lectures des quatre adresses, enfin nous replacons le 680x0 en mode
+utilisateur.</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Pour effectuer un essai, brancher
+votre montage sur la prise &eacute;tendue 0 ou 1.</FONT></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">/*&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;programme
+simple de test de lecture analogique.&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;FAVARD
+laurent 1998, Pour ST-Mag.&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">*/&nbsp;</FONT></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#include &lt;stdio.h>&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#include &lt;tos.h>&nbsp;</FONT></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+XDIR0&nbsp; *((unsigned char *)0x00FF9211L)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+YDIR0&nbsp; *((unsigned char *)0x00FF9213L)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+XDIR1&nbsp; *((unsigned char *)0x00FF9215L)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+YDIR1&nbsp; *((unsigned char *)0x00FF9217L)&nbsp;</FONT></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">int main(void)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">{&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;
+Key = 'Z';&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;void&nbsp;&nbsp;&nbsp;
+*Usp;&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;printf("\033E\033pLecture
+des entr&eacute;es analogiques\033q\n");&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;printf(&nbsp;&nbsp;&nbsp;&nbsp;
+"\033p&nbsp; FAVARD laurent, ST-Mag 1998&nbsp; \033q\n");&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;printf("Appuyer
+sur ESC pour quitter\n");&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;Usp =
+(void *)Super(0L);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;/* Affiche
+jusqu'&agrave; ESC apput&eacute; */&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;while(Key
+!= 0x1B)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;{&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; /* Analog
+values */&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; printf("Joy
+0: X=$%X Y=$%X&nbsp; Joy 1: X=$%X Y=$%X\r", XDIR0, YDIR0, XDIR1, YDIR1
+);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; Key =
+(int)Crawio(0xFF);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;}&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;Super(
+Usp );&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;return(0);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">}&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Il ne vous reste plus qu'&agrave;
+r&eacute;aliser un programme plus complet afin d'utiliser</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>au
+mieux cet exemple.&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<BR>&nbsp;
+<P>&nbsp;</TD>
+
+<TD><FONT COLOR="#000000"><FONT SIZE=+1>&nbsp;</FONT></FONT><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>LES
+ENTREES NUMERIQUES</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Les entr&eacute;es num&eacute;riques
+ont un fonctionnement relativement diff&eacute;rent. En effet,</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>peu de connections sont disponibles
+sur les prises par rapport aux nombres de boutons&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>sur la manette Jaguar. Atari &agrave;
+utilis&eacute; une technique qui consiste &agrave; interroger une&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>manette pour connaitre l'&eacute;tat
+d'un sous-ensemble de boutons et non pas de tous &agrave;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>la fois. Pour connaitre l'&eacute;tat
+de tous les boutons, plusieurs acc&egrave;s sont n&eacute;cessaires,</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>afin
+d'interroger la manette tout enti&egrave;re. Mais avec Atari, c'est finalement
+tr&egrave;s&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>simple
+(Comme d'habitude ?), car l'interrogation se r&eacute;sume &agrave; une
+&eacute;criture puis une</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>lecture.</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>La programmation des entr&eacute;es
+Num&eacute;riques</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Ici aucun montage de test,
+il suffit de brancher une manette Jaguar sur une</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>des
+prises &eacute;tendues de votre Falcon ou STE. La programmation de ces
+manettes va</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>etre un peu
+plus compliqu&eacute;e que la m&eacute;thode pr&eacute;c&eacute;dente,
+mais comme vous le verrez,</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>cela
+reste raisonnable. En effet, pour lire des valeurs quelconques il faut
+proc&eacute;der comme suit:</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Tout d'abord, effectuez une
+&eacute;criture &agrave; l'adresse 0x00FF9202, o- l'on va y&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>inscrire un masque pour indiquer
+quel ensemble de boutons nous voulons lire et pour</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>quelle prise &eacute;tendue. Ensuite
+il ne reste plus qu'&agrave; faire une lecture pour obtenir</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>le r&eacute;sultat recherch&eacute;.&nbsp;</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Les figures 3 et 4, pr&eacute;sente
+quatre tableaux qui d&eacute;crivent l'ensemble des masques</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>n&eacute;cessaires &agrave; &eacute;crire,
+pour effectuer une lecture sur une manette. Un bouton appuy&eacute;,</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>c'est &agrave; dire actif, est
+lu &agrave; l'&eacute;tat BAS (0), alors qu'au repos nous le lirons &agrave;&nbsp;</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>l'&eacute;tat HAUT (1).</FONT></FONT>
+<BR>&nbsp;
+<P><BR>
+<CENTER>
+<P><FONT COLOR="#000000">figure 3:&nbsp;</FONT>
+<BR><IMG SRC="articles/joystick/figure3.gif" NOSAVE HEIGHT=323 WIDTH=277>
+<BR>&nbsp;
+<P><BR>
+<P><FONT COLOR="#000000">figure 4:</FONT>
+<BR><IMG SRC="articles/joystick/figure4.gif" NOSAVE HEIGHT=322 WIDTH=502></CENTER>
+
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>Exemple:</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Pour lire l'&eacute;tat des
+boutons UP/DOWN/LEFT/RIGHT de la manette 0, il faut tout</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>d'abord
+&eacute;crire en 0x00FF9202 la valeur de masque 0xFFFE, puis lire &agrave;
+l'adresse 0x00FF9202 un mot de 16 bits. Ce mot contiendra alors dans les
+bits 8 &agrave; 11 l'&eacute;tat</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>des
+boutons de direction du Joypad.</FONT></FONT>
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>Autre exemple:&nbsp;</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Pour lire l'&eacute;tat du
+bouton FIRE-0 et PAUSE de la manette 1, nous devons</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>tout
+d'abord &eacute;crire en 0x00FF9202 la valeur de masque 0xFFEF, puis lire
+en&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>0x00FF9200 le
+mot qui contiendra l'&eacute;tat de nos deux boutons sur les bits 2 et
+3.</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Comme pour les entr&eacute;es
+analogiques, il faudra veiller &agrave; effectuer ces acc&egrave;s en mode
+Superviseur.&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>Programme d'exemple num&eacute;riques</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Le programme suivant montre
+&agrave; son tour comment utiliser une manette Jaguar.</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1>Comme pour le pr&eacute;c&eacute;dent,
+nous mettons le 680x0 en mode Superviseur, nous effectuons</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>les
+lectures puis nous retournons en mode utilisateur.</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>Le
+programme ne traite uniquement que les directions des deux manettes, et
+ne les</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>affiche que sous
+forme h&eacute;xad&eacute;cimal. En revanche on affiche plutot un UN pour
+indiquer qu'un bouton est appuy&eacute;. Comme exercice, vous pouvez le
+modifier afin de traiter</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>l'ensemble
+des boutons.</FONT></FONT>
+<BR>&nbsp;
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">/*&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;programme
+simple de test de lecture de manettes Jaguar sur Falcon et STE.&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;FAVARD
+laurent 1998, Pour ST-Mag.&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">*/&nbsp;</FONT></FONT><FONT FACE="Courier New,Courier"></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#include &lt;stdio.h>&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#include &lt;tos.h>&nbsp;</FONT></FONT><FONT FACE="Courier New,Courier"></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+JOYLOW&nbsp; *((unsigned int *)0x00FF9200L)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">#define&nbsp;
+JOYHIGH&nbsp; *((unsigned int *)0x00FF9202L)&nbsp;</FONT></FONT><FONT FACE="Courier New,Courier"></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">int main(void)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">{&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;
+Key = 'Z';&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;void&nbsp;&nbsp;&nbsp;
+*Usp;&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;
+Direction0, Direction1;&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;printf("\033E\033pLecture
+des entr&eacute;es num&eacute;riques\033q\n");&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;printf(&nbsp;&nbsp;&nbsp;&nbsp;
+"\033p&nbsp; FAVARD laurent, ST-Mag 1998&nbsp; \033q\n");&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;printf("Brancher
+une manette Jaguar\n");&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;printf("Appuyer
+sur ESC pour quitter\n");&nbsp;</FONT></FONT><FONT FACE="Courier New,Courier"></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;/* Avant
+d'effectuer des lectures, passer en Superviseur */&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;Usp =
+(void *)Super(0L);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;/* Maintenant
+on affiche sans cesse la direction du joypad 0 et 1*/&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;while(Key
+!= 0x1B)&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;{&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; /* Direction
+Joypad 0 */&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; JOYHIGH&nbsp;
+= 0xFFFE;&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; Direction0
+= JOYHIGH;&nbsp;</FONT></FONT><FONT FACE="Courier New,Courier"></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; /* Direction
+Joypad 1 */&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; JOYHIGH&nbsp;
+= 0xFFEF;&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; Direction1
+= JOYHIGH;&nbsp;</FONT></FONT><FONT FACE="Courier New,Courier"></FONT>
+<P><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; Direction0
+= ~Direction0 &amp; 0x0F00;&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; Direction1
+= ~Direction1 &amp; 0xF000;&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; /* Affichage
+*/&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; printf("Direction0
+= 0x%X&nbsp; Direction1=0x%X\r", Direction0, Direction1);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp; Key =
+(int)Crawio(0xFF);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;}&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;/* retourner
+en mode Utilisateur */&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;Super(
+Usp );&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">&nbsp;return(0);&nbsp;</FONT></FONT>
+<BR><FONT FACE="Courier New,Courier"><FONT COLOR="#000000">}&nbsp;</FONT></FONT>
+<BR>&nbsp;
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>LE PROGRAMME JOYSTICK</FONT></FONT></U></B>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Vous retrouverez les listings des
+programmes</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>p&eacute;c&eacute;dents
+prets &agrave; l'emploi avec en plus, un exemple suppl&eacute;mentaire
+d&eacute;nom&eacute; <A HREF="/usr/laurent/Site.Atari/zip/joystick.zip">JOYSTICK</A>,
+sp&eacute;cialement &eacute;crit pour vous, avec son code source. Celui-ci
+est bien plus complet,</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>puisqu'il
+g&egrave;re, totalement cette fois, les manettes Jaguar. Il fonctionne
+sous</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>GEM, de pr&eacute;f&eacute;rence
+sur un &eacute;cran couleur RVB ou VGA, ainsi que sous Magic5.13 ou</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>TOS.
+Il n'acceptera de s'ex&eacute;cuter que sur Falcon et STE, puisque seul
+ces machines</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>supportent
+les prises &eacute;tendues (Sinon, c'est des bombes assur&eacute;es !).</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Pour la partie Analogique,
+ce programme effectuera un test des deux prises,</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>en
+d&eacute;pla?ant un point central vert, ainsi que deux rep&egrave;res en
+axes x et y, sur un</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>cadran
+d&eacute;di&eacute; &agrave; chaque prise. Les valeur lues sont directement
+affich&eacute;es dans des</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>champs
+textes en h&eacute;xad&eacute;cimal. Vous pouvez ainsi brancher, par exemple,
+deux&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>exemplaires
+de ce montage simultan&eacute;ment.</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Pour la partie num&eacute;rique,
+le programme reproduit deux manettes Jaguar, qui&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>refl&egrave;te
+chacune l'&eacute;tat des boutons de chaque Joypad. Vous pouvez donc &eacute;galement
+connecter deux manettes simultan&eacute;ment sur vos deux prises &eacute;tendues.</FONT></FONT>
+<P><B><U><FONT COLOR="#FF6600"><FONT SIZE=-1>Conclusion</FONT></FONT></U></B>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Maintenant que nous avons
+vu l'utilisation des entr&eacute;es analogiques et des</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>manettes
+Jaguar, nous pouvons envisager bon nombre d'applications comme, par exemple,
+brancher un capteur de temp&eacute;rature pour effectuer des mesures, utiliser</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>une
+manette Jaguar comme choix suppl&eacute;mentaire dans les jeux Falcon et
+STE...</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>Mais c'est &agrave;
+vous de voir !</FONT></FONT>
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>&nbsp;Je tiens pourtant &agrave;
+vous faire remarquer, qu'apr&egrave;s avoir parcouru l'ensemble</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>de
+ma documentation syst&egrave;me, je suis &eacute;tonn&eacute; qu'il n'existe
+pas d'appel syst&egrave;me</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>propres
+pour g&eacute;rer ces fonctionnalit&eacute;s...C'est pourquoi, nous avons
+&eacute;t&eacute; oblig&eacute;s</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>d'adresser
+directement les registres de la machine, ce qui est &agrave; proscrire
+a tout</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>prix, si on souhaite
+etre compatible (Nous vivons &agrave; l'heure de l'Had&egrave;s et Milan...).
+Mais dans notre cas, c'est diff&eacute;rent, &eacute;tant donn&eacute;e
+l'abscence d'appels</FONT></FONT>
+<FONT COLOR="#FF6600"><FONT SIZE=-1>officiels
+Atari.</FONT></FONT>
+<BR>&nbsp;
+<P><FONT COLOR="#FF6600"><FONT SIZE=-1>Pour toutes questions d'ordre logiciel,
+vous pouvez me contacter &agrave; mon&nbsp;</FONT></FONT> <FONT COLOR="#FF6600"><FONT SIZE=-1>adresse
+e-mail,</FONT></FONT>
+<BR><FONT COLOR="#FF6600"><FONT SIZE=-1><A HREF="mailto: l.favard@france2.fr">&nbsp;l.favard@france2.fr</A></FONT></FONT>
+<BR>&nbsp;</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

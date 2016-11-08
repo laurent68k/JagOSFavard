@@ -1,0 +1,25 @@
+Busy:
+
+;24 x 24
+
+;	---------------------------------------------------------
+;	Cry Compressed Image Busy.cry
+			DATA
+			EVEN
+
+BusyHeader:	dc.b	"_CCI"		; compression type
+		dc.w	$0010		; version number
+BusyBegin:
+		dc.w	56,$0000,1,$78FF,23,$0000,1,$FFFF,23,$0000,1,$FFFF,5,$0000,4,$BAFF,19,$0000,2,$BAFF,3,$FFFF
+		dc.w	1,$BAFF,13,$0000,1,$FFFF,2,$B080,1,$0000,2,$BAFF,1,$FFFF,2,$0000,2,$BAFF,8,$0000,1,$78FF
+		dc.w	2,$FFFF,1,$0000,2,$FFFF,2,$B080,3,$FFFF,1,$0000,1,$FFFF,2,$BAFF,13,$0000,3,$B080,2,$FFFF
+		dc.w	1,$B580,2,$FFFF,2,$BAFF,1,$0000,1,$78FF,12,$0000,2,$B080,1,$FFFF,1,$B080,1,$B580,1,$FFFF
+		dc.w	1,$B080,2,$BAFF,1,$0000,1,$78FF,14,$0000,2,$FFFF,1,$B580,1,$FFFF,3,$B080,16,$0000,2,$BAFF
+		dc.w	1,$B580,1,$FFFF,1,$B080,1,$FFFF,1,$B080,1,$FFFF,2,$B080,13,$0000,2,$BAFF,2,$FFFF,8,$B080
+		dc.w	11,$0000,2,$BAFF,1,$FFFF,1,$0000,1,$FFFF,1,$BAFF,1,$B080,1,$FFFF,2,$B080,3,$FFFF,11,$0000
+		dc.w	1,$BAFF,1,$FFFF,1,$0000,1,$FFFF,2,$BAFF,1,$0000,2,$B080,1,$FFFF,4,$B080,10,$0000,1,$BAFF
+		dc.w	1,$FFFF,1,$0000,2,$BAFF,2,$0000,2,$B080,1,$FFFF,2,$B080,2,$FFFF,10,$0000,1,$BAFF,1,$FFFF
+		dc.w	2,$BAFF,1,$0000,1,$78FF,2,$0000,1,$B080,1,$FFFF,1,$B080,1,$FFFF,2,$B080,11,$0000,2,$BAFF
+		dc.w	1,$0000,1,$78FF,5,$0000,1,$B080,1,$FFFF,1,$B080
+BusyEnd:	dc.w	150,$0000
+;	---------------------------------------------------------

@@ -1,0 +1,26 @@
+; ----------------------------------------------------------------------------------------------
+; 	Projet Application Jaquar Studio
+; ----------------------------------------------------------------------------------------------
+; 	FunShip (c) - 1996-97 Falcon30, FRANCE
+;		ATARI (c)
+; ----------------------------------------------------------------------------------------------
+
+..\TOStudio.tos
+
+.C [-B-S-M]										; Processor 68000
+.L [-v]
+
+=												; list of modules follows...
+
+PCSTART.O										; startup code
+
+;	List of modules to build it
+
+TOStudio.c	
+
+;	pure library
+
+PCSTDLIB.LIB									; standard library
+PCEXTLIB.LIB									; extended library
+PCTOSLIB.LIB									; TOS library
+JTOOLBOX.LIB

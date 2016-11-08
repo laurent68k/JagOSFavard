@@ -1,0 +1,14 @@
+Vendredi 5 Mai 2000
+
+- Utiliser Jaguar.inc au lieu de Jag.inc
+Jag.inc disparait.
+
+- Mettre a jour le fichier Osdef.inc
+
+- Fusionner trame.inc avec Osdef.inc
+
+- sysapi.inc deviendra JagOS.inc.
+
+
+
+

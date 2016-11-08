@@ -1,0 +1,29 @@
+; ----------------------------------------------------------------------------------------------
+; 	Cr‚ation d'un template d'application sous AADS => Create GEM_X.PRG 
+; ----------------------------------------------------------------------------------------------
+; 	FunShip (c) - 1994-96 Falcon30, FRANCE
+;
+; ----------------------------------------------------------------------------------------------
+
+GEM_X.PRG							; name of executable program
+
+.C [-B-S-M]							; Processor 68000
+.L [-v]
+
+=								; list of modules follows...
+
+PCSTART.O							; startup code
+
+;	List of modules to build it
+
+Gem_X.c		(Tools.h,Gem_X__F.h)				; Template 
+tools.c		(Tools.h)					; Procedures outils
+;	some pure library
+
+PCSTDLIB.LIB							; standard library
+PCEXTLIB.LIB							; extended library
+PCTOSLIB.LIB							; TOS library
+
+;	The Gem library AADS
+
+STAads.lib					; 68000 release

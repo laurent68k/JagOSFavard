@@ -1,0 +1,70 @@
+/*
+ * ----------------------------------------------------------------------------------------------
+ *					Interfacage avec ST-GUIDE
+ *
+ * 	Author  : 	FAVARD Laurent, FunShip (c)
+ *	File    : 	Exit.C
+ *	Date    : 	05 September 1997
+ *	Release : 	05 Septemnbre 1997
+ *	Version : 	1.0
+ *	Country : 	FRANCE
+ *			
+ *
+ *								- Copyright Atari FunShip (c) 1994-97 -
+ *							- Atari ST, STE, TT, Falcon, C-LAB, Medusa, Hades -
+ * ----------------------------------------------------------------------------------------------
+ */
+
+#include <stdio.h>
+#include <aes.h>
+#include <string.h>
+
+#include	"..\include\Pcxapp.h"
+#include "..\include\Pcstguid.h"
+
+#define		ERROR_STGUIDE		"[3][ ST-Guide not found as | an accessory installed | or process running ][ok]"
+
+/*
+ * ----------------------------------------------------------------------------------------------
+ */
+
+static TYPE_MESSAGE_START	G_MessageStart;
+
+/*
+ * ----------------------------------------------------------------------------------------------
+ */
+
+int STG_Open(char *HelpFile, char *Parameter)
+{
+	int		L_HandleSTGuide;
+	char		L_HelpFile[1024];
+
+
+	L_HandleSTGuide	=	appl_find(G_STGUIDE);							
+	if(L_HandleSTGuide != -1)
+	{
+		strcpy(L_HelpFile, HelpFile);
+
+		if( Parameter != NULL && strlen(Parameter) != 0)
+		{
+			strcat(L_HelpFile, " ");
+			strcat(L_HelpFile, Parameter);
+		}
+			
+		G_MessageStart.MessageNumber	= AV_START;
+		G_MessageStart.HandleSource	= AesHandle;
+		G_MessageStart.String			= L_HelpFile;
+								
+		G_MessageStart.NU0 = 0;
+		G_MessageStart.NU1 = 0;
+		G_MessageStart.NU2 = 0;
+		G_MessageStart.NU3 = 0;	
+
+		appl_write(L_HandleSTGuide, 16, (int *)&G_MessageStart);
+	}
+	else
+		form_alert(1, ERROR_STGUIDE);
+
+	return L_HandleSTGuide != -1;
+}
+

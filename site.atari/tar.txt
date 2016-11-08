@@ -1,0 +1,8 @@
+* création d'un tar
+tar cvf(z) * toto.tar	z => Compression
+
+* voir dans le tar
+tar tvf(z) toto.tar	z => compression
+
+* extraire du tar
+tar xvf(z) toto.tar	z => compression

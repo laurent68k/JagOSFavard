@@ -1,0 +1,51 @@
+;	------------------------------------------------------------------------------
+;	Revision 3.00 - Datas to initialize the video processor
+;
+;	Date:		09 May 1997
+;	Revision:	09 December 1997
+;
+;	Funship - Atari jaguar (c) France - 1997
+;
+;	------------------------------------------------------------------------------
+
+;	------------------------------------------------------------------------------
+
+NTSC_TABLE:					dc.w		$00B5
+							dc.w		$034C
+							dc.w		$06B1
+							dc.w		$007D
+							dc.w		$06CD
+							dc.w		$028B
+							dc.w		$00A6
+							dc.w		$00A6
+							dc.w		$06A0
+							dc.w		$020B
+							dc.w		$01F4
+							dc.w		$0018
+							dc.w		$0205
+							dc.w		$002E
+							dc.w		$01F0
+							dc.w		$01FF
+							dc.w		$0006
+							dc.w		$0310
+
+;	------------------------------------------------------------------------------
+PAL_TABLE:					dc.w		$00E2						; CLK2
+							dc.w		$0352						; HP
+							dc.w		$06AF						; HBB
+							dc.w		$009E						; HBE
+							dc.w		$06D5						; HS
+							dc.w		$0259						; HVS
+							dc.w		$00A6						; HDB1
+							dc.w		$00A6						; HDB2
+							dc.w		$06A0						; HDE
+							dc.w		$0271						; VP
+							dc.w		$0258						; VBB
+							dc.w		$0022						; VBE
+							dc.w		$026A						; VS
+							dc.w		$002E						; VDB
+							dc.w		$01AD						; VDE
+							dc.w		$0265						; VEB
+							dc.w		$0006						; VEE
+							dc.w		$0313						; HEQ
+

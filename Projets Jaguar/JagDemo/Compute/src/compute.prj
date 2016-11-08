@@ -1,0 +1,32 @@
+; ----------------------------------------------------------
+; 		   Create Compute.Prg
+; ----------------------------------------------------------
+; 	FunShip - 1998 Falcon30, FRANCE
+;
+; ----------------------------------------------------------
+
+..\Compute.prg									; name of executable program
+
+.C [-B-S-M]									; Processor 68000
+.L [-v]
+
+=											; list of modules follows...
+
+PCSTART.O									; startup code
+
+;	List of modules
+
+Compute.C (ComputeF.h)						; Main Program
+Code.c										; Jag calls 
+Jagcode.s									; Jaguar 68000 programs
+
+;	some pure library
+
+PCSTDLIB.LIB								; standard library
+PCEXTLIB.LIB								; extended library
+PCTOSLIB.LIB								; TOS library
+
+;	The Gem library AADS
+
+STAads.lib
+JToolBox.lib

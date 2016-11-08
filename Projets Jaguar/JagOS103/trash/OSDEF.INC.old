@@ -1,0 +1,13 @@
+;	This file contains somes defintions usefull for JagOS
+;	They have no relation with the Jaguar hardware
+
+;	Objects positions into the main list object
+
+OFF_TOOLSBAR			equ			0
+OFF_WINDOW				equ			2
+OFF_JAGOS				equ			4
+OFF_XTENSION			equ			8			;	link
+OFF_CDROM				equ			10			;	Extension
+OFF_JOYSTICK			equ			12			;	LYNX
+OFF_ICONPRG				equ			14			;	eyes
+OFF_MOUSE				equ			16			:	Mouse pointer

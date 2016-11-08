@@ -1,0 +1,836 @@
+##ACE-STGPAR 4 0348
+@database "JToolBox98"
+@author "FAVARD Laurent"
+@$VER: JTOOLBOX.HYP (@:"__DATE__")
+@subject "Documentation"
+@options "+z-s-j-d12"
+
+@node main "JToolBox98"
+@symbol r JToolBox98
+@{B}@{"JToolBox98 For ATARI Computers" ignore} @{0}
+@line 1 75 0 0 7
+
+	Foreword
+	Chapter 1:	Overview
+		Section 1.1 - Operating System and language
+		Section 1.2 -
+	Chapter 2:	Programming
+		Section 2.1 - High level functions
+		Section 2.2 - Low level functions
+		Section 2.3 - List of datas types
+	Appendix A: Errors codes
+    Appendix B: Frame codes
+	Licence and contact
+
+@{B}Copyright FRANCE (c) 1996-1998 - FAVARD Laurent@{0}
+
+@endnode
+
+############################
+#	   FOREWARD TOPIC      #
+############################
+
+@node "Foreword"
+@{B}@{"Foreword to JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	JToolBox98 is a C library which allows you to use the Jaguar,
+running under JagOS98, from your GEM application. This library give
+you a set of functions to send, receive datas, load and run Jaguar
+programs.
+
+	Because i havn't a lot of time, currently this toolbox cannot
+be used with many applications in a same time. Thus, you must always have
+only ONE program which use the Jaguar at the same time. No test is performed
+to check if many programs will use the Jaguar in the same time.
+
+
+This software and sources are copyright by FAVARD laurent
+but are free.
+
+@endnode
+
+@node "Section 1.1"
+@{B}@{"Operating System and language - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	JToolBox.lib is usable under TOS and others compatible OS.
+It works with Pure C v1.1. To use it with another C compiler,
+you can compile the sources as you want. The sources are free
+to be used as you want but changes are possibles.
+
+
+	Functions use the standard cdecl calls. So, function arguments
+are pushed onto the current stack only in reverse order. The calling
+application is responsible for resetting the stack pointer after the
+call.
+
+
+@endnode
+
+######################################
+#	   CHAPITRE 2 - PROGRAMMING      #
+######################################
+
+@node "Chapter 2"
+@{B}@{"Programming - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This topic show all current functions included into JToolBox.
+To use them, include "Jtoolbox.h" in your C program and add
+Jtoolbox.lib into your project (for PureC compiler).
+
+	The Section 2.1 list the High level functions that you could
+use in your applications. The Section 2.2 list the Low level functions
+mostly for informations purpose, because you should never use them.
+
+@endnode
+
+######################################
+#	      SECTION HIGH LEVEL         #
+######################################
+
+@node "Section 2.1"
+@{B}@{"High level functions - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This the List of Jtoolbox' high levels functions that you will
+    use in your own program.
+
+	DiskToJag()................Transfer disk to jaguar
+	GetEEPROM()................Get the Eeprom contain
+	HookJaguarMessage()........Install a hanlder of "message"
+	Inquire()..................Get Jaguar system informations
+	IsJAGR()...................Check if a file is JAGR program
+	IsJAGL()...................Check if a file is JAGL program
+	JagToDisk()................Tranfser Jaguar to disk
+	LoadAndGo()................Load and run a Jaguar executable
+	MemoryGet()................Get a part of Jaguar memory
+	MemorySend()...............Send datas to the Jaguar memory
+	MemGet()...................Get datas in response
+	MemSend()..................Send datas in response
+	PackCCI()..................Pack a source CRY image to CCI
+	RunPRG()...................Send a command to run a program
+	SetEEPROM()................Change the Eeprom contain
+
+@endnode
+
+######################################
+#	         DiskToJag               #
+######################################
+
+@node "DiskToJag"
+@{B}@{"DiskToJag() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int DiskToJag(	char *PathName,
+						unsigned long OffsetFromStart,
+						TJagMemDesc		*JagMemory,
+						void (*UserFonctionJauge)(	unsigned long CountToDo,
+                        							unsigned long CountPerfomed))@{0}
+
+
+				DiskToJag allows to upload a stream of datas from a file to
+			the Jaguar memory. This function is very usefull because it allocate
+			a buffer depending of the memory size that the computer have got.
+            So, it is possible to process a file of any size even you haven't
+            of memory
+			to load it complety.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}PathName@{0} is the full path and name of the file.
+					@{B}OffsetFromStart@{0} is the number of bytes to pass
+					from the begin of the file.
+					@{B}JagMemory@{0} is a Jaguar memory descriptor which must
+					contains the Target address where to store the stream.
+					@{B}UserFonctionJauge@{0} is a callback procedure called by
+					@{B}DiskToJag@{0}  to show the number of datas @{B}CountPerfomed@{0}
+					currently uploaded for the total number @{B}CountPerfomed@{0}
+					to process.
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if uploaded ok,  @{B}FALSE (0)@{0} otherwise.
+
+@{B}SEE ALSO@{0}	JagToDisk()
+
+@endnode
+
+######################################
+#	         JagToDisk               #
+######################################
+
+@node "JagToDisk"
+@{B}@{"JagToDisk() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int JagToDisk(char *chFileName, TJagMemDesc *JagMemory)@{0}
+
+
+				JagToDisk allows to download a stream of datas from the Jaguar
+			memory and to store it directly to a file. This function is very
+            usefull because it permit you to download any size from the jaguar
+            even if you haven't enough of RAM.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}chFileName@{0} is the full path and name of the file to create.
+					@{B}JagMemory@{0} is a Jaguar memory descriptor which hold
+                    the Jaguar address and the count.
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if uploaded ok,  @{B}FALSE (0)@{0} otherwise.
+
+@{B}SEE ALSO@{0}	DiskToJag()
+
+@endnode
+
+######################################
+#	         GetEEPROM               #
+######################################
+
+@node "GetEEPROM"
+@{B}@{"GetEEPROM() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int GetEEPROM( char *chEEPROM )@{0}
+
+
+				This function permit you to get the serail EEPROM contain, embedded on
+    standard Atari cartridge game.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}chEEPROM@{0} is a buffer which will get the datas to read.
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if download ok, @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	Currently, the embedded EEPROM can hold @{B}128 bytes@{0} of datas.
+		This function retrieve exactly the same number.
+
+@{B}SEE ALSO@{0}	SetEEPROM()
+
+@endnode
+
+######################################
+#	         SetEEPROM               #
+######################################
+
+@node "SetEEPROM"
+@{B}@{"SetEEPROM() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int SetEEPROM( char *chEEPROM )@{0}
+
+
+				This function permit you to set the serial EEPROM contain,
+    embedded on standard Atari cartridge.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}chEEPROM@{0} is a buffer which contains the datas to write.
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if download ok, @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	Currently, the embedded EEPROM can hold @{B}128@{0} bytes of datas.
+			This function retrieve exactly the same number.
+
+@{B}SEE ALSO@{0}	GetEEPROM()
+
+@endnode
+
+######################################
+#	      HookJaguarMessage          #
+######################################
+
+@node "HookJaguarMessage"
+@{B}@{"HookJaguarMessage() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}void HookJaguarMessage( void (*UserFonction)(	int FrameCode, long SPID, long TPID,
+    													int LenghtDatas, TRecipient *Recipient)	)@{0}
+
+
+				This procedure allows you to set a callback procedure which is called
+    each time of a message is send by the Jaguar. In this procedure, you can perform the
+    job you want depending of the request received.
+
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}UserFonction@{0} is a the callback procedure.
+
+					@{U}function arguments:@{0}
+
+                    @{B}FrameCode@{0} is the frame code just received.
+                    @{B}SPID@{0} is the Source Process ID Jaguar initiator
+                    @{B}TPID@{0} is the Target Process ID Host destinator
+                    @{B}LenghtDatas@{0} is the lenght of datas received.
+                    @{B}Recipient@{0} is a generic pointer to the datas.
+
+                    @{U}FrameCode who can be received:@{0}
+
+                    FRAME_USER1			Free command for user
+					FRAME_EXCEPTION		Exception 680x0 occured
+					FRAME_DBMSG			Free texte message
+					FRAME_MEMSEND		Jaguar want to send datas
+					FRAME_MEMGET		Jaguar want to get datas
+
+@{B}RETURN@{0}	None.
+
+@{B}COMMENT@{0}	You need to call HookJaguarMessage() frequently if you want to check if
+				the Jaguar sent something. You can place HookJaguarMessage() into a process
+                or into a GEM timer procedure.
+
+@{B}SEE ALSO@{0}	Frame codes, TRecipient
+
+@endnode
+
+######################################
+#	           Inquire               #
+######################################
+
+@node "Inquire"
+@{B}@{"Inquire() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int Inquire( TJagId *JagIdentification )@{0}
+
+
+				This function permit you to get the JagOS system informations.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}JagIdentification@{0} is a buffer which will get the informations.
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	Currently five informations are returned and coded as follow:
+
+					long	Mark..............._JAG
+                    int     _SystemVersion.....0x100
+                    int		_HardwareVersion...0x100
+                    long    _SystemDate........0x01101998
+                    long    _HardwareDate......0x01011998
+
+
+@{B}SEE ALSO@{0}	TJagId
+
+@endnode
+
+######################################
+#	           LoadAndGo             #
+######################################
+
+@node "LoadAndGo"
+@{B}@{"LoadAndGo() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int LoadAndGo(void *STAddress, TJagProgram *JagProgram)@{0}
+
+
+				This function allows you to load and run a program.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}STAddress@{0} is a buffer which hold the executable.
+					@{B}JagProgram@{0} is a descriptor which contains the load
+                    and run parameters as follow:
+
+            void 			*TargetAddress....Jag address to upload
+			void 			*StartAddress.....Jag address to start the program
+			unsigned long	Lenght............Size of program
+			char			Name[]............Name of program
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	The part of structure @{B}Name@{0} isn't used but is reserved.
+
+@{B}SEE ALSO@{0}	TJagProgram, RunPRG
+
+@endnode
+
+######################################
+#	           RunPRG                #
+######################################
+
+@node "RunPRG"
+@{B}@{"RunPRG() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int RunPRG(TJagProgram *JagProgram)@{0}
+
+
+				This function send a command to JagOS to run a program already
+    loaded.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}JagProgram@{0} is a descriptor which contains only
+				the start address of program.
+
+			void 			*StartAddress.....Jag address to start the program
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	None
+
+@{B}SEE ALSO@{0}	TJagProgram, LoadAndGo
+
+@endnode
+
+######################################
+#	          MemoryGet              #
+######################################
+
+@node "MemoryGet"
+@{B}@{"MemoryGet() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int MemoryGet(void *STAddress, TJagMemDesc *JagMemDescriptor)@{0}
+
+
+				This function send a command to JagOS to ask a download of
+    a part of memory to the host computer.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}STAddress@{0} is a buffer which will hold datas.
+				@{B}JagMemDescriptor@{0} is a descriptor which contains the
+                following informations to perform the download:
+
+			void 			*StartAddress.....Start address
+            unsigned long	Lenght............Count of bytes
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	None
+
+@{B}SEE ALSO@{0}	MemorySend
+
+@endnode
+
+######################################
+#	          MemorySend             #
+######################################
+
+@node "MemorySend"
+@{B}@{"MemorySend() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int MemorySend(void *STAddress, TJagMemDesc *JagMemDescriptor)@{0}
+
+
+				This function send a command to JagOS to ask a upload of
+    a part of memory from the host computer.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}STAddress@{0} is a buffer which contains datas.
+				@{B}JagMemDescriptor@{0} is a descriptor which contains the
+                following informations to perform the upload:
+
+			void 			*StartAddress.....Start address
+            unsigned long	Lenght............Count of bytes
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	None
+
+@{B}SEE ALSO@{0}	MemoryGet
+
+@endnode
+
+######################################
+#	          MemGet	             #
+######################################
+
+@node "MemGet"
+@{B}@{"MemGet() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int MemGet(int Accept, void *STBuffer, TJagMemDesc *JagMemDescriptor)@{0}
+
+
+				This function is used to answer to a Jaguar memory transfer request did
+    by a Jaguar program running. In this case, this Jaguar program want to do a transfer
+    as Jaguar to Host computer and you are free to accept or deny this one.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}Accept@{0} take TRUE (1) if you accept the transfer or FALSE (0) otherwise.
+				@{B}STAddress@{0} is a buffer that will get datas from the Jaguar.
+				@{B}JagMemDescriptor@{0} is a descriptor which contains the lenght of datas
+                that the host will retrieve.
+
+            unsigned long	JagMemDescriptor->Lenght............Count of bytes
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	This function is generally the response to a FRAME_SEND code sent by the Jaguar
+				and received by the callback procedure defined by HookJaguarMessage().
+
+@{B}SEE ALSO@{0}	MemSend(), HookJaguarMessage(), TJagMemDesc
+
+@endnode
+
+######################################
+#	          MemSend	             #
+######################################
+
+@node "MemSend"
+@{B}@{"MemSend() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int MemSend(int Accept, void *STBuffer, TJagMemDesc *JagMemDescriptor)@{0}
+
+
+				This function is used to answer to a Jaguar memory transfer
+    request did by a Jaguar program running. In this case, this Jaguar program
+    want to do a transfer as Host computer to Jaguar and you are free to accept
+    or deny this one.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}STAddress@{0} is a buffer which contains datas to send.
+				@{B}JagMemDescriptor@{0} is a descriptor which contains the
+                lenght of datas to send:
+
+            unsigned long	JagMemDescriptor->Lenght............Count of bytes
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	This function is generally the response to a FRAME_GET code sent
+			by the Jaguar and received by the callback procedure defined by
+            HookJaguarMessage().
+
+@{B}SEE ALSO@{0}	MemGet(), HookJaguarMessage(), TJagMemDesc
+
+@endnode
+
+######################################
+#	          IsJAGR	             #
+######################################
+
+@node "IsJAGR"
+@{B}@{"IsJAGR() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}signed int IsJAGR(char *PathName, TFileJag *FileJaguar);@{0}
+
+
+				This function is to used check and get informations from a
+    Jaguar file program for the @{B}JGAR Header@{0}. If this file have a
+    JAGR Header, the function will return TRUE (1) and FileJaguar will
+    contains the executable informations.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}PathName@{0} is the full path and name.
+				@{B}FileJaguar@{0} is a executable descriptor
+
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0}
+			otherwise.
+
+@{B}COMMENT@{0}	
+
+@{B}SEE ALSO@{0}	IsJAGL()
+
+@endnode
+
+######################################
+#	          IsJAGL	             #
+######################################
+
+@node "IsJAGL"
+@{B}@{"IsJAGL() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}signed int IsJAGL(char *PathName, TFileJag *FileJaguar);@{0}
+
+
+				This function is used to check and get informations from a Jaguar file
+    program for the @{B}JGAL Header@{0}. If this file have a JAGL Header, the function
+    will return TRUE (1) and FileJaguar will contains the executable informations.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}PathName@{0} is the full path and name.
+				@{B}FileJaguar@{0} is a executable descriptor
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}
+
+@{B}SEE ALSO@{0}	IsJAGR()
+
+@endnode
+
+######################################
+#	          PackCCI	             #
+######################################
+
+@node "PackCCI"
+@{B}@{"PackCCI() - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	@{B}int PackCCI(char *FileName, char *Destination)@{0}
+
+
+				This function create a new file assembly source picture from
+    a source assembly CRY file.
+
+@{B}AVAIBILITY@{0}	All JToolbox versions.
+
+@{B}PARAMETERS@{0}	@{B}FileName@{0} is the source file name
+				@{B}Destination@{0} is the destination file name
+
+@{B}RETURN@{0}	Return @{B}TRUE (1)@{0} if success @{B}FALSE (0)@{0} otherwise.
+
+@{B}COMMENT@{0}	CCI packed images are very used by JagOS in many system calls. This
+			function will help you to get your own pictures in this special format.  
+
+@{B}SEE ALSO@{0} JagOS documentations.
+
+@endnode
+
+######################################
+#	         LOW LEVEL         #
+######################################
+
+@node "Section 2.2"
+@{B}@{"Low level functions - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	List of low level functions. Generally, you should never use
+    them in your C program.
+
+	CheckJaguar()..............
+	ClearBuffer()..............
+	(!)GetBinaries()..............
+	(!)GetFrame().................
+	(!)GetPack()..................
+	(!)SendBinaries().............
+	(!)SendByte().................
+	(!)SendFrame()................
+	(!)SendPack().................
+	SetPort()..................
+	(!)GetByte()..................
+	GetPort()..................
+
+
+@endnode
+
+######################################
+#	      SECTION DATA TYPES         #
+######################################
+
+@node "Section 2.3"
+@{B}@{"List of datas types - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	TRecipient.................Generic type datas
+	TJagId.....................Jaguar Identification
+	TJagMemDesc................Jaguar Memory Descriptor
+	TJagProgram................Jaguar Program descriptor
+	TFileJag...................Jaguar file
+	TException.................Jaguar Exception 680x0
+
+@endnode
+
+@node "TRecipient"
+@{B}@{"List of datas types - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This is the generic type, for receive a command frame, which is
+a simple buffer who contains a complete command. This type
+is used by the callback procedure defined by HookJaguarMessage() to
+give the comand sent by the Jaguar.
+
+	When you get a variable of this type, you can assign another variable
+from another type, to get the good parameters if you are sure of the real
+datas behind TRecipient. Example:
+
+	TRecipient	*Recipient;
+	TJagId		*JagID;
+
+
+	JagID	=	Recipient;
+
+
+typedef	struct	{
+					char	Table[MAX_CMD_DATAFRAME];
+				} TRecipient;
+
+MAX_CMD_DATAFRAME = 1024
+
+@endnode
+
+@node "TJagId"
+@{B}@{"List of datas types - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This type is used by JagOS to transmit to you the systems informations.
+The function Inquire() return a variable from this type.
+
+typedef	struct	{
+					long	Mark;
+                    int     _SystemVersion;
+                    int		_HardwareVersion;
+                    long    _SystemDate;
+                    long    _HardwareDate;
+				} TJagId;
+
+@endnode
+
+@node "TJagMemDesc"
+@{B}@{"List of datas types - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This structure defined memory parameters to perform an upload or download.
+It describe the start address jaguar where you store or get datas and Lenght
+the count of datas to process.
+
+typedef	struct	{
+					void 			*StartAddress;
+                    unsigned long	Lenght;
+				} TJagMemDesc;
+
+@endnode
+
+@node "TJagProgram"
+@{B}@{"List of datas types - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This structure defined program memory parameters to upload a Jaguar
+program and to start it.
+
+typedef	struct	{
+					void 			*TargetAddress;
+					void 			*StartAddress;
+					unsigned long	Lenght;
+					char			Name[PROGRAM_NAME_LEN];
+				} TJagProgram;
+
+PROGRAM_NAME_LEN	=	20
+
+@endnode
+
+
+@node "TFileJag"
+@{B}@{"List of datas types - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+/*	Type for jaguar file program */
+typedef	struct	{
+					int					CodeOp;
+					long		 		Header;
+					void				*StartAdr;
+					long				Length;
+					void				*StartCode;
+					unsigned long		OffsetStart;
+					char				Name[PROGRAM_NAME_LEN];
+					int					Type;
+				} TFileJag;
+
+PROGRAM_NAME_LEN	=	20
+
+@endnode
+
+@node "TException"
+@{B}@{"List of datas types - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This structure return the informations about the 680x0 exception which
+is occured into the system.
+
+typedef	struct	{
+					unsigned long		usp;
+					unsigned long		ssp;
+					unsigned long		d0;
+					unsigned long		d1;
+					unsigned long		d2;
+					unsigned long	 	d3;
+					unsigned long		d4;
+					unsigned long		d5;
+					unsigned long		d6;
+					unsigned long		d7;
+					unsigned long		a0;
+					unsigned long		a1;
+					unsigned long		a2;
+					unsigned long		a3;
+					unsigned long		a4;
+					unsigned long		a5;
+					unsigned long		a6;
+					unsigned int		ExceptionNumber;
+					unsigned long		stack_pc;		/*	PC pushed into the stack */
+					unsigned int		stack_sr;		/*	PC pushed into the stack */
+					unsigned int		ri;				/*	Instr. Register (Bus error, addr. error) */
+					unsigned long		fault_pc;		/*	fault address responsable */
+					unsigned int		control;		/*	R/W, FC0-FC1, I/N state */
+				} TException;
+
+@endnode
+
+######################################
+#	   APPENDIX A - ERRORS CODES     #
+######################################
+
+@node "Appendix A"
+@{B}@{"Appendix A - Errors codes - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+#define		JTB_OK				 1
+#define		JTB_ERROR			 0
+#define		JTB_FRAME_MISMATCH	-1
+#define		JTB_STARTADR_ERR	-2
+#define		JTB_TARGETADR_ERR	-3
+#define		JTB_LENGHT_ERR		-4
+
+#define		ERR_NO_FRAME		-1L
+#define		ERR_CHKSUM			-2L
+
+#define		NO_HEADER 			-1
+#define		FILE_ERROR			-2
+
+@endnode
+
+######################################
+#	   APPENDIX A - FRAME CODES      #
+######################################
+
+@node "Appendix B"
+@{B}@{"Appendix B - Frame codes - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+#define		FRAME_NACK			'N'					/*	NACK frame */
+#define		FRAME_ACK			'A'					/*	ACK frame */
+#define		FRAME_DATA			'D'					/*	Datas frame */
+
+#define		FRAME_INQUIRE		0x0001		 		/*	ask the jaguar's identification */
+#define		FRAME_PRGSEND		0x0002		 		/*	send a program to the jaguar */
+#define		FRAME_MEMSEND		0x0003		 		/*	send a memory block to the jaguar */
+#define		FRAME_MEMGET		0x0004		 		/*	get a memory block from the jaguar */
+#define		FRAME_DBMSG			0x0005		 		/*	jaguar send a Ascii string to the host */
+#define		FRAME_PRGRUN		0x0006		 		/*	ask to execute a program */
+#define		FRAME_EEPROMGET		0x0007		 		/*	Ask to the jaguar to send its serial eeprom */
+#define		FRAME_EEPROMSET		0x0008		 		/*	Ask to the jaguar the write its serial eeprom */
+#define		FRAME_EXCEPTION		0x0009		 		/*	When an exception 680x0 occur */
+#define		FRAME_USER1			0x000A		 		/*	User1 frame code */
+
+@endnode
+
+######################################
+#	      LICENSE AND CONTACT        #
+######################################
+
+@node "Licence and contact"
+@{B}@{"Licence and contact - JToolBox98" ignore} @{0}
+@line 1 75 0 0 7
+
+	This product is free. You can use it and
+
+	you can contact me, at the following E-Mail address:
+
+		Laurent FAVARD at:		l.favard@france2.fr
+
+@endnode

@@ -1,0 +1,16 @@
+Speed.Prg
+============
+
+This demo show how to use the both memsend() and memget() functions
+from JToolbox, when you call these functions to communicate with
+JagOS.
+
+A speed rate is given for informations and are real datas that you
+can take as true and not only as theoric speed rate unusable...
+
+
+Project:	Jaguar Kit
+
+FAVARD Laurent-30/09/1998
+contact me at:	l.favard@france2.fr
+

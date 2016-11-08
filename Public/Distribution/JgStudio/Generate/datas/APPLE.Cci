@@ -1,0 +1,28 @@
+;IGNORE>	.globl	APPLE
+
+;IGNORE>	.data
+
+;IGNORE>	.phrase
+
+;IGNORE>APPLE:
+
+;IGNORE>;24 x 24
+
+;	---------------------------------------------------------
+;	Cry Compressed Image E:\Projet-Jaguar\Applications\JagStudio\Dev\Generate\datas\APPLE.cry
+;	JagStudio98 Copyright FAVARD Laurent
+			DATA
+			EVEN
+
+APPLEHeader:	dc.b	"_CCI"		; compression type
+		dc.w	$0010		; version number
+APPLEBegin:
+		dc.w	110,$0000,1,$F07F,22,$0000,1,$F07F,1,$7FF8,1,$F07F,20,$0000,1,$F07F,1,$7FF8,1,$F07F,18,$0000
+		dc.w	8,$F07F,15,$0000,1,$F07F,3,$F0FF,2,$F0BF,3,$F0FF,1,$F07F,13,$0000,1,$F07F,1,$F0BF,1,$D3FF
+		dc.w	1,$77EF,1,$D3FF,5,$F0FF,1,$F0DF,1,$F07F,12,$0000,1,$F07F,1,$F0FF,1,$D3FF,1,$B5FF,7,$F0FF
+		dc.w	1,$F07F,12,$0000,1,$F07F,8,$F0FF,1,$F0DF,1,$F0FF,1,$F07F,12,$0000,1,$F07F,8,$F0FF,2,$F0BF
+		dc.w	1,$F07F,12,$0000,1,$F07F,8,$F0FF,1,$F09F,1,$F0FF,1,$F07F,12,$0000,1,$F07F,1,$F0DF,6,$F0FF
+		dc.w	1,$F09F,1,$F0BF,1,$F0FF,1,$F07F,13,$0000,1,$F07F,5,$F0FF,2,$F0DF,1,$F0FF,1,$F07F,14,$0000
+		dc.w	2,$F07F,1,$F0FF,3,$F07F,1,$F09F,1,$F0FF,2,$F07F,15,$0000,3,$F07F,2,$0000,3,$F07F
+APPLEEnd:	dc.w	151,$0000
+;	---------------------------------------------------------
